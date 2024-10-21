@@ -90,10 +90,6 @@ El exorcista debe gestionar cuándo y dónde encender las luces, ya que no puede
 
 ## Niveles 
 
-
-
-
-
 ## Aspectos de negocio y distribución
 
 ### Público Objetivo
@@ -108,7 +104,11 @@ El juego estará diseñado para funcionar en el navegador a través de una red d
 ### Modelo de negocio 
 Poseerá un modelo de negocio mixto. Implementarán anuncios dentro del mismo, en algunos casos haciendo que el jugador obtenga beneficios al verlos, propio de un modelo de negocio “shareware”. Además, se utilizará el modelo de negocio “freemium”, ya que se ofrecerá contenido adicional para la personalización de los personajes y/o accesorios. Por último, se encontrará disponible la opción de donación para aquellos que decidan apoyar el desarrollo del videojuego, implementando así un modelo de negocio “donationware”.
 
+## Apartado Artístico
 
+### Estilo visual y referencias
+### Interfaz de usuario
+### Apartado Sonoro
 
 
 
