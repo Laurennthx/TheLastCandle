@@ -4,7 +4,7 @@
 - Javier Álvarez Pérez
 - Lucas García Marcos
 - Laura García Martín - l.garciamar.2021@alumnos.urjc.es - https://github.com/laurennthx 
-- Cristina González De Lope
+- Cristina González De Lope - c.gonzalezde.2022@alumnos.urjc.es - https://github.com/crisstinagl
 - André Miguel Pérez Sánchez
 
 ## Introducción
