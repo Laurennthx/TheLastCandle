@@ -2,7 +2,7 @@
 
 **Desarrolladores - Grupo 10:**
 - Javier Álvarez Pérez
-- Lucas García Marcos
+- Lucas García Marcos - l.garciamarc.2021@alumnos.urjc.es - https://github.com/Lololeifo
 - Laura García Martín - l.garciamar.2021@alumnos.urjc.es - https://github.com/laurennthx 
 - Cristina González De Lope - c.gonzalezde.2022@alumnos.urjc.es - https://github.com/crisstinagl
 - André Miguel Pérez Sánchez
