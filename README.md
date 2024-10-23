@@ -128,12 +128,58 @@ La iluminación será usada de manera estratégica, con momentos de luz artifici
 
 En resumen, el apartado visual se centrará en construir un mundo donde el miedo y la tensión se vivan a través de una estética cartoon-gótica, con influencias tanto del cine como de los videojuegos de terror que logran mezclar lo macabro con lo estilizado.
 
+* ***Referencias temáticas y atmosféricas:***
+
+ ***Imagen promocional de Halloween película dirigida por John Carpenter***
+ 
+ ![Halloween](https://github.com/user-attachments/assets/00062072-5603-422b-8ff3-0f3aca6f9bc7)
+
+ ***Imagen de El Exorcista película dirigida por William Friedkin***
+ 
+ ![Exorcista](https://github.com/user-attachments/assets/c5726137-b0f4-41f4-903c-45dfd21decf0)
+
+ ***Imagen promocional del videojuego Dead By Daylight de Behaviour Interactive***
+ 
+ ![Dbd](https://github.com/user-attachments/assets/f583a441-6926-4caa-8c76-f4e949b606d5)
+
+ ***Imagen promocional del videojuego Friday The 13th The Game de IIIFonic***
+ 
+ ![fridat13](https://github.com/user-attachments/assets/760da2e1-4784-49d7-93f1-9f938a18d5c1)
+
+
+* ***Referencias estéticas:***
+
+ ***Imagen del videojuego Don't Starve Together de Klei Entertainment***
+ 
+ ![DontStarve](https://github.com/user-attachments/assets/c802828f-3804-49ce-885e-8825de5efc68)
+ 
+ ***Imagen del videojuego Cult of the Lamb de Massive Monster***
+ 
+ ![Cult](https://github.com/user-attachments/assets/59c2175a-4339-4869-bb5e-aebaaaa68d65)
+
+ ***Imagen del videojuego Among Us de Innersloth***
+ 
+ ![AmongUS](https://github.com/user-attachments/assets/8c234ef8-11a9-4142-b19a-c8cddbd969d8)
+
+ ***Diferentes bocetos por el director de cine Tim Burton***
+ 
+ ![TimBurton](https://github.com/user-attachments/assets/cda203da-e6a5-4ad4-9dd4-c5226c44ed85)
+
+ ***Ilustración de Benjamin Lacombe para la edición de Edelvives del libro Cuentos Macabros por Edgar Allan Poe***
+ 
+ ![Benjamin](https://github.com/user-attachments/assets/74ecf249-8739-49bf-ab2c-7bcae7a18860)
+ 
+
+
 ### Interfaz de usuario
 Para implementar las interfaces de este juego de escape room multijugador, es clave que el diseño sea intuitivo, atmosférico y funcional, permitiendo a los jugadores centrarse en sus objetivos y sentir la tensión del entorno.
 
 #### Pantalla de Inicio / Menú principal
 Título del juego en el centro, con efectos de niebla y sombras para crear un ambiente inquietante.
 Opciones de Menú: "Jugar", "Opciones", "Créditos", "Salir". Al seleccionar "Jugar", se podrá elegir entre jugar como el exorcista o el demonio. Si ambos jugadores escogen el mismo rol, el juego les asignará los roles al azar. Tras ello se les mostrará un recordatorio de los controles de movimiento e interacción.
+
+![Diagrama](https://github.com/user-attachments/assets/7701ef31-6e9d-41d7-9e09-56d101229568)
+
 
 #### Interfaz Personajes
 Minimalista pero funcional: Permite tener acceso rápido a su inventario y visualidad la barra de salud o corazones.
