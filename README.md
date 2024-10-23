@@ -89,9 +89,11 @@ El exorcista debe gestionar cuándo y dónde encender las luces, ya que no puede
 
 ## Controles
 Mientras que ambos personajes pueden moverse libremente por el espacio, cada uno puede llevar a cabos sus propias acciones al pulsar el botón de interactuar. Ambos tienen acciones relacionadas, como encender o apagar las velas y los interruptores y otras acciones descritas en las mecánicas. Sin embargo, el demonio también puede atacar al exorcista si está lo suficientemente cerca, causándole daño y dándole un instante para huir si le queda más de un corazón.
+
 **Controles en modo local:**
 * Jugador 1: WASD para moverse por el espacio y el ESPACIO para el resto de interacciones.
-* Jugador 2: FLECHAS del teclado para moverse y el ENTER para el resto de interacciones. 
+* Jugador 2: FLECHAS del teclado para moverse y el ENTER para el resto de interacciones.
+
 **Controles en modo online:** ambos jugadores tendrán los mismos controles, siendo estos WASD para moverse y el ESPACIO para el resto de interacciones.
 
 ## Niveles y misiones
