@@ -51,13 +51,13 @@ Cuando el exorcista recoge el crucifijo, se retroalimenta al jugador en respuest
 
 ### Recoger velas escondidas por el mapa para completar el ritual (Exorcista) / Impedir que el exorcista acabe el ritual (Demonio)
 #### Objetivo
-El exorcista necesita recolectar velas repartidas por el mapa para completar el ritual y ganar la partida. El demonio puede contrarrestar este objetivo al apagar las velas o impedir que sean recolectadas, dinámica de contrarreloj.
+El exorcista necesita encontrar y encender las velas repartidas por el mapa y llevarlas a la sala del ritual, un lugar donde el demonio no puede entrar, para poder iniciarlo y así ganar la partida. El demonio puede contrarrestar este objetivo al apagar las velas o impedir que sean recolectadas, dinámica de contrarreloj.
 
 #### Implementación
 **Distribución de las velas**
 * Las velas están ocultas en diferentes habitaciones o puntos estratégicos del mapa, y algunas están bloqueadas por puzzles o trampas.
 * El número total de velas puede ser un requisito para el ritual (por ejemplo, el exorcista necesita encontrar 5 velas para iniciar el ritual).
-* Cada vez que el exorcista encuentra una vela, deberá encenderla (interacción que toma unos segundos) antes de recogerla, aumentando la tensión.
+* Cada vez que el exorcista encuentra una vela, deberá encenderla (interacción que toma unos segundos) antes de recogerla, aumentando la tensión. Luego, deberá llevar las velas encendidas una por una hasta la sala del ritual.
 
 **Mecánica de Tiempo Limitado**
 * Para añadir más presión, una vez que el exorcista encuentra la primera vela, se puede activar una cuenta regresiva (por ejemplo, 5 minutos) durante la cual debe recoger todas las velas antes de que se apaguen.
@@ -65,7 +65,7 @@ El exorcista necesita recolectar velas repartidas por el mapa para completar el 
 
 **Retroalimentación visual y auditiva**
 
-Cada vez que el exorcista recoge o enciende una vela, puede sonar una música de fondo más intensa o generar una pequeña animación de luz. Si el demonio apaga una vela, se puede producir un sonido siniestro. De nuevo, elegiremos el tipo de retroalimentación en base al tiempo y los recursos que dispongamos. 
+Cada vez que el exorcista recoge o enciende una vela, puede sonar una música de fondo más intensa o generar una pequeña animación de luz. Si el demonio apaga una vela, se puede producir un sonido siniestro. De nuevo, elegiremos el tipo de retroalimentación en base al tiempo y los recursos que dispongamos.
 
 ---
 
@@ -85,7 +85,7 @@ La mecánica de control de luz crea un contraste interesante entre los dos perso
 * Por el contrario, el demonio tiene mejor visión en la oscuridad, dándole una ventaja táctica cuando las luces están apagadas. 
 
 #### Estrategia de juego
-El exorcista debe gestionar cuándo y dónde encender las luces, ya que no puede controlar todas las áreas a la vez. El demonio puede apagar las luces estratégicamente en áreas donde sepa que el exorcista necesita trabajar en puzzles, aprovechando la oscuridad para emboscarlo.
+El exorcista debe gestionar cuándo y dónde encender las luces, ya que no puede controlar todas las áreas a la vez. El demonio puede apagar las luces estratégicamente en áreas donde sepa que el exorcista necesita trabajar en puzzles, aprovechando la oscuridad para emboscarlo. Como extra, se puede hacer que el fuego de las velas sea visible para ambos jugadores, independientemente del estado de la luz de las salas.
 
 ## Controles
 Mientras que ambos personajes pueden moverse libremente por el espacio, cada uno puede llevar a cabos sus propias acciones al pulsar el botón de interactuar. Ambos tienen acciones relacionadas, como encender o apagar las velas y los interruptores y otras acciones descritas en las mecánicas. Sin embargo, el demonio también puede atacar al exorcista si está lo suficientemente cerca, causándole daño y dándole un instante para huir si le queda más de un corazón.
