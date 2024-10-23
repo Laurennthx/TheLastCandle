@@ -88,7 +88,11 @@ La mecánica de control de luz crea un contraste interesante entre los dos perso
 El exorcista debe gestionar cuándo y dónde encender las luces, ya que no puede controlar todas las áreas a la vez. El demonio puede apagar las luces estratégicamente en áreas donde sepa que el exorcista necesita trabajar en puzzles, aprovechando la oscuridad para emboscarlo.
 
 ## Controles
-
+Mientras que ambos personajes pueden moverse libremente por el espacio, cada uno puede llevar a cabos sus propias acciones al pulsar el botón de interactuar. Ambos tienen acciones relacionadas, como encender o apagar las velas y los interruptores y otras acciones descritas en las mecánicas. Sin embargo, el demonio también puede atacar al exorcista si está lo suficientemente cerca, causándole daño y dándole un instante para huir si le queda más de un corazón.
+**Controles en modo local:**
+* Jugador 1: WASD para moverse por el espacio y el ESPACIO para el resto de interacciones.
+* Jugador 2: FLECHAS del teclado para moverse y el ENTER para el resto de interacciones. 
+**Controles en modo online:** ambos jugadores tendrán los mismos controles, siendo estos WASD para moverse y el ESPACIO para el resto de interacciones.
 
 ## Niveles y misiones
 En este juego, no existen niveles convencionales (como nivel 1, nivel 2, etc.). En lugar de progresar a través de múltiples fases, toda la acción tiene lugar en una casa encantada. El jugador deberá completar la partida en esta misma pantalla, que funciona a modo de "escape room." El objetivo es resolver los acertijos y evitar ser atrapado por el demonio, o bien morir en el proceso. No hay transición a otros niveles, sólo el éxito al escapar o el fracaso al ser eliminado.
