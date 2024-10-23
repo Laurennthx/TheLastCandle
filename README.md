@@ -196,8 +196,13 @@ Inventario rápido: Una fila horizontal en la parte inferior de la pantalla que 
 El diseño de la música y los efectos de sonido juegan un papel fundamental en los videojuegos de terror. No solo sirven como retroalimentación, sino que poseen un gran lugar a la hora de conseguir la atmósfera terrorífica y la inmersión del jugador. 
 Se buscará una música de ambiente que infunda misterio, así cómo momentos de silencio que aumenten la tensión del jugador. Contaremos con diversos efectos de sonido como chirridos, sonido del viento, interruptores (para las mecánicas de la luz), pisadas…
 
-#### Advertencia de cercanía del demonio:
+#### Advertencia de cercanía del demonio
 El exorcista podrá escuchar un sonido cuando el demonio esté cerca. Este sonido es de tipo “mono” para no revelarle desde donde se acerca el demonio y se hará más intenso según se acerca más hacia él. Esto aporta tensión al jugador y le dará la ventaja de poder esconderse al detectar que el demonio se acerca.
+Esta advertencia no siempre sonará a la misma intensidad. Si el demonio deja de moverse y se queda quieto durante varios segundos, el volumen de la advertencia se reducirá y hará creer al exorcista que se encuentra lejos del peligro aunque en realidad lo tenga al lado.
+
+#### Música y sonido del menú
+El menú contará con su propia música, pudiendo cada pantalla tener una melodía diferente. Además, el sistema emitirá un sonido cada vez que el jugador presione un botón del menú.
+
 #### Efectos principales
  Aquellos íntimamente relacionados con las mecánicas:
  * Vela encendiéndose.
