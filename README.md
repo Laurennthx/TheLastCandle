@@ -116,8 +116,44 @@ Se ha decidido que el juego cuente con un modelo de negocio mixto. Implementará
 ## Apartado Artístico
 
 ### Estilo visual y referencias
+El videojuego presentará un estilo 2D con perspectiva top-down, usada por videojuegos como Among Us, lo cual permitirá al jugador obtener una visión clara y estratégica del entorno. Esta perspectiva será clave para facilitar la correcta exploración, un elemento esencial para la experiencia de juego que proponemos, donde la tensión entre el asesino y el superviviente es constante.
+
+El objetivo visual es crear una ambientación lúgubre y tenebrosa, evocando sensaciones de inquietud y peligro. Para lograr esto, tanto los escenarios como los personajes adoptarán una estética creepy inspirada en el cine de terror clásico y slasher, con influencias directas de películas como Viernes 13, Halloween y Pesadilla en Elm Street. 
+
+Se empleará un estilo cartoon con toques góticos y gore, en línea con el estilo visual visto en videojuegos como Cult of the Lamb o Don't Starve Together, que mezclan lo macabro con lo caricaturesco. También se tomará inspiración del universo visual de Tim Burton y las ilustraciones de Benjamin Lacombe, caracterizadas por personajes de formas angulosas, ojos grandes y una estética visualmente atractiva pero perturbadora. 
+
+La paleta de colores será predominantemente fría, con énfasis en tonos oscuros, azules y grises que potenciarán la atmósfera nocturna e inquietante del juego. Las sombras jugarán un papel crucial en la creación de una sensación de desorientación y peligro constante, contribuyendo al sentimiento de estar siendo acechado.
+
+La iluminación será usada de manera estratégica, con momentos de luz artificial que generarán fuertes contrastes con el entorno. Estas zonas iluminadas resaltarán áreas “seguras” dentro de un escenario mayormente oscuro, acentuando la sensación de vulnerabilidad del jugador y creando un ambiente de tensión y misterio. 
+
+En resumen, el apartado visual se centrará en construir un mundo donde el miedo y la tensión se vivan a través de una estética cartoon-gótica, con influencias tanto del cine como de los videojuegos de terror que logran mezclar lo macabro con lo estilizado.
+
 ### Interfaz de usuario
+Para implementar las interfaces de este juego de escape room multijugador, es clave que el diseño sea intuitivo, atmosférico y funcional, permitiendo a los jugadores centrarse en sus objetivos y sentir la tensión del entorno.
+
+#### Pantalla de Inicio / Menú principal
+Título del juego en el centro, con efectos de niebla y sombras para crear un ambiente inquietante.
+Opciones de Menú: "Jugar", "Opciones", "Créditos", "Salir". Al seleccionar "Jugar", se podrá elegir entre jugar como el exorcista o el demonio. Si ambos jugadores escogen el mismo rol, el juego les asignará los roles al azar. Tras ello se les mostrará un recordatorio de los controles de movimiento e interacción.
+
+#### Interfaz Personajes
+Minimalista pero funcional: Permite tener acceso rápido a su inventario y visualidad la barra de salud o corazones.
+Barra de estrés/salud: En la esquina superior izquierda, una barra con el nivel de estrés, con efectos en la pantalla a medida que el estrés aumenta.
+Inventario rápido: Una fila horizontal en la parte inferior de la pantalla que muestra los objetos recogidos (velas, crucifijos). 
+
 ### Apartado Sonoro
+El diseño de la música y los efectos de sonido juegan un papel fundamental en los videojuegos de terror. No solo sirven como retroalimentación, sino que poseen un gran lugar a la hora de conseguir la atmósfera terrorífica y la inmersión del jugador. 
+Se buscará una música de ambiente que infunda misterio, así cómo momentos de silencio que aumenten la tensión del jugador. Contaremos con diversos efectos de sonido como chirridos, sonido del viento, interruptores (para las mecánicas de la luz), pisadas…
+
+#### Advertencia de cercanía del demonio:
+El exorcista podrá escuchar un sonido cuando el demonio esté cerca. Este sonido es de tipo “mono” para no revelarle desde donde se acerca el demonio y se hará más intenso según se acerca más hacia él. Esto aporta tensión al jugador y le dará la ventaja de poder esconderse al detectar que el demonio se acerca.
+#### Efectos principales
+ Aquellos íntimamente relacionados con las mecánicas:
+ * Vela encendiéndose.
+ * Interruptores.
+ * Coger objeto.
+ * Sonido que emite el crucifijo para que el jugador lo encuentre.
+ * Obtención del crucifijo.
+ * Ataque del demonio y daño recibido.
 
 
 
