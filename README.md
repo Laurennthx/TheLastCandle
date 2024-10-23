@@ -5,7 +5,7 @@
 - Lucas García Marcos - l.garciamarc.2021@alumnos.urjc.es - https://github.com/Lololeifo
 - Laura García Martín - l.garciamar.2021@alumnos.urjc.es - https://github.com/laurennthx 
 - Cristina González De Lope - c.gonzalezde.2022@alumnos.urjc.es - https://github.com/crisstinagl
-- André Miguel Pérez Sánchez
+- André Miguel Pérez Sánchez - am.perezs.2021@alumnos.urjc.es - https://github.com/andremip
 
 ## Introducción
 En este documento se detalla la concepción de nuestro proyecto de prácticas para la asignatura de juegos en red: ‘The Last Candle’. 
