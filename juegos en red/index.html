@@ -2,6 +2,8 @@
 <html>
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.86.0/phaser.min.js"></script> 
+    <script src="js/welcome.js"></script>
+    <script src="js/menu.js"></script>
     <script src="js/intro.js"></script>
     <script src="js/game.js"></script>
     <script src="js/endgame.js"></script>
@@ -11,8 +13,8 @@
         // Game configuration
         const config = {
             type: Phaser.AUTO,
-            width: 1800,
-            height: 900,
+            width: 1920,
+            height: 1080,
             parent: 'game-canvas',
             backgroundColor: '#ADD8E6',
             physics: {
@@ -22,12 +24,12 @@
                     gravity: { y: 10 }
                 }
             },
-            scene: [IntroGame, GameScene, EndGame]
+            scene: [WelcomeScene, MenuScene, IntroGame, GameScene, EndGame]
         };
 
         // Create the game instance
         const game = new Phaser.Game(config);
-        game.scene.start('IntroScene');
+        game.scene.start('WelcomeScene');
 
     </script>
 </body>

@@ -17,7 +17,7 @@ class EndGame extends Phaser.Scene {
         }).setOrigin(-0.15,-0.2);
 
         this.input.once('pointerdown', () => {
-            this.scene.start("IntroScene");
+            this.scene.start("MenuScene");
         });
 
     }

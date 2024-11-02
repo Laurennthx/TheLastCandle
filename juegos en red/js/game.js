@@ -86,7 +86,7 @@ class GameScene extends Phaser.Scene {
 
 
     hitGround() {
-        this.scene.stop("IntroScene");
+        this.scene.stop("welcome");
         this.scene.start("EndScene");
     }
 
