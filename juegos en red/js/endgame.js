@@ -3,9 +3,16 @@ class EndGame extends Phaser.Scene {
         super({ key: 'EndScene' });
     }
 
-    preload() {}
+    preload() {
+        this.load.image("endGameImage", "assets/UI/endGame.png");
+    }
 
     create(data) {
+
+        // Imagen de fondo
+        const background = this.add.image(0,0, "endGameImage").setOrigin(0,0);
+        background.setDisplaySize(1920, 1080);
+
         const remaining_bricks = data.remaining_bricks;
 
         const message = "You loose";
