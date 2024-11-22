@@ -10,7 +10,7 @@ class MenuScene extends Phaser.Scene {
         this.load.image("bOptions", 'assets/UI/options.png');
         this.load.image("bCredits", 'assets/UI/credits.png');
         this.load.image("bQuit", 'assets/UI/quit.png');
-
+        this.load.image("CreditsBG", 'assets/UI/creditos.jpg');
     }
 
 
@@ -48,8 +48,8 @@ class MenuScene extends Phaser.Scene {
         .on('pointerdown', () => {
             this.sound.play("select");
             // actualizar las escenas más tarde
-            //this.scene.stop("MenuScene");
-            //this.scene.start("GameScene");   
+            this.scene.stop("MenuScene");
+            this.scene.start("CreditsScene");   
         });
         credits_button.setScale(0.5,0.5);
 
