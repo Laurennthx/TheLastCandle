@@ -12,6 +12,9 @@ class GameScene extends Phaser.Scene {
         // Load game assets
         this.load.svg('ball', 'assets/ball.svg');
         this.load.image("terrain", "assets/bomba.svg");
+
+        // divider image
+        this.load.image('divider', 'assets/UI/divider2.png');
     }
 
     create() {
@@ -55,6 +58,12 @@ class GameScene extends Phaser.Scene {
 
         const scndCamera = this.cameras.add(this.scale.width / 2, 0, this.scale.width / 2, this.scale.heigh, false, 'demonCamera')
         scndCamera.startFollow(this.terrain)
+
+        // Añadir la imagen del marco en el centro de la pantalla
+        const divider = this.add.image(this.scale.width / 2, this.scale.height / 2, 'divider')
+        .setOrigin(0.5, 0.5); // Centra la imagen en ambos ejes
+        divider.setDepth(1); // Asegura que la imagen esté por encima de otros elementos
+
     }    
 
     setupPaddleControllersDemon() {
