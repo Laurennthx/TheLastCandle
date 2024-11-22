@@ -36,9 +36,8 @@ class MenuScene extends Phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => {
             this.sound.play("select");
-            // actualizar las escenas más tarde
-            //this.scene.stop("MenuScene");
-            //this.scene.start("GameScene");   
+            this.scene.stop("MenuScene");
+            this.scene.start("OptionsScene");   
         });
         options_button.setScale(0.5,0.5);
 

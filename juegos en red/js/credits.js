@@ -9,7 +9,7 @@ preload() {
     this.load.audio("background", 'assets/8bit-music.mp3');
     
     this.load.image("CreditsBG", "assets/UI/creditos.jpg");
-    this.load.image("back_button", "assets/UI/backBrown.png");
+    this.load.image("return", "assets/UI/return.png");
 }
 
 create() {
@@ -25,7 +25,7 @@ create() {
     //this.bgMusic.play();
 
     // boton back
-    const back_button = this.add.image(980, 1000, "back_button")
+    const back_button = this.add.image(980, 995, "return")
     .setInteractive()
     .on('pointerdown', () => {
         this.sound.play("select");
