@@ -27,14 +27,14 @@ class GameScene extends Phaser.Scene {
         this.ball.body.setImmovable(true);
 
         this.terrain = this.physics.add.sprite(800, 650, 'terrain');
+        this.terrain.setCollideWorldBounds(true);
         this.terrain.body.setImmovable(true);
         this.terrain.body.setAllowGravity(false);
         this.terrain.setScale(0.06,0.06);
         
 
         // Add colliders
-        this.physics.add.collider(this.ball, this.terrain, this.hitGround, null, this);
-        this.physics.add.collider(this.ball, this.terrain, this.hitGround, null, this);
+        this.physics.add.collider(this.ball, this.terrain, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
 
 
         const hello_text = this.add.text(250, 350, 'Press space to start!', { fill: '#000000', fontSize: 40 });
@@ -47,42 +47,84 @@ class GameScene extends Phaser.Scene {
 
         });
 
-        this.setupPaddleControllers();
-    }
+        this.setupPaddleControllersExorcist();
+        this.setupPaddleControllersDemon();
 
-    setupPaddleControllers() {
+        this.cameras.main.setSize(this.scale.width / 2, this.scale.heigh)
+        this.cameras.main.startFollow(this.ball)
+
+        const scndCamera = this.cameras.add(this.scale.width / 2, 0, this.scale.width / 2, this.scale.heigh, false, 'demonCamera')
+        scndCamera.startFollow(this.terrain)
+    }    
+
+    setupPaddleControllersDemon() {
         this.input.keyboard.on('keydown-LEFT', () => {
-            this.ball.setVelocity(-200,0);
+            this.terrain.setVelocity(-200,0);
         });
 
         this.input.keyboard.on('keyup-LEFT', () => {
-            this.ball.setVelocity(0);
+            this.terrain.setVelocity(0);
         });
 
         this.input.keyboard.on('keydown-UP', () => {
-            this.ball.setVelocity(0,-200);
+            this.terrain.setVelocity(0,-200);
         });
 
         this.input.keyboard.on('keyup-UP', () => {
-            this.ball.setVelocity(0);
+            this.terrain.setVelocity(0);
         });
 
         this.input.keyboard.on('keydown-DOWN', () => {
-            this.ball.setVelocity(0,200);
+            this.terrain.setVelocity(0,200);
         });
 
         this.input.keyboard.on('keyup-DOWN', () => {
-            this.ball.setVelocity(0);
+            this.terrain.setVelocity(0);
         });
 
         this.input.keyboard.on('keydown-RIGHT', () => {
-            this.ball.setVelocity(200,0);
+            this.terrain.setVelocity(200,0);
         });
 
         this.input.keyboard.on('keyup-RIGHT', () => {
+            this.terrain.setVelocity(0);
+        });
+    }
+
+    setupPaddleControllersExorcist() {
+        this.input.keyboard.on('keydown-A', () => {
+            this.ball.setVelocity(-200, 0);
+        });
+    
+        this.input.keyboard.on('keyup-A', () => {
+            this.ball.setVelocity(0);
+        });
+    
+        this.input.keyboard.on('keydown-W', () => {
+            this.ball.setVelocity(0, -200);
+        });
+    
+        this.input.keyboard.on('keyup-W', () => {
+            this.ball.setVelocity(0);
+        });
+    
+        this.input.keyboard.on('keydown-S', () => {
+            this.ball.setVelocity(0, 200);
+        });
+    
+        this.input.keyboard.on('keyup-S', () => {
+            this.ball.setVelocity(0);
+        });
+    
+        this.input.keyboard.on('keydown-D', () => {
+            this.ball.setVelocity(200, 0);
+        });
+    
+        this.input.keyboard.on('keyup-D', () => {
             this.ball.setVelocity(0);
         });
     }
+    
 
 
     hitGround() {

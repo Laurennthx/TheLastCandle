@@ -15,7 +15,7 @@ class EndGame extends Phaser.Scene {
 
         const remaining_bricks = data.remaining_bricks;
 
-        const message = "You loose";
+        const message = "You lose";
 
         const messageText = this.add.text(400, 300, message + '\nClick to restart', {
             fontSize: '64px',
