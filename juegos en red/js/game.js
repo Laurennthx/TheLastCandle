@@ -18,18 +18,34 @@ class GameScene extends Phaser.Scene {
 
         // map
         this.load.image('background', 'assets/House/Provisional/mansionConFondo.jpg')
+
+        // crucifix
+        this.load.image('crucifix', 'assets/Objects/crucifix.png')
     }
 
     create() {
 
-       
-        // Set debug mode for the physics engine (shows the bounding boxes)
-        // this.physics.world.createDebugGraphic();
+        const zoomCamara = 4.5
+        const height = this.scale.height
+        const width = this.scale.width
 
+        this.bgContainer = this.add.container(0, 0)
+        // Crear el mapa como fondo, dimensiones: 9962 x 15522
+        const background = this.add.image(0, 0, 'background').setOrigin(0, 0)
+        // Al meterlo dentro del 'container' para posicinarlo correctamente hay que tener en cuenta las dimensiones en píxeles del sprite background.
+        // Otra manera es sacarlo del container y colocarlo en dimensiones de la pantalla 1990 x 1080
+        const crucifix = this.add.image(100, 13000, 'crucifix').setOrigin(0, 0) 
+
+        this.bgContainer.add([background, crucifix])
+        const escala = this.scale.height / background.height
+        this.bgContainer.setScale(escala)
+
+
+        this.charactersContainer = this.add.container(0, 0)
         // Create ball
         this.exorcist = this.physics.add.sprite(400, 530, 'exorcist');
         this.exorcist.setCollideWorldBounds(true);
-        this.exorcist.setScale(0.15,0.15);
+        this.exorcist.setScale(0.03,0.03);
         this.exorcist.body.setAllowGravity(false);
         this.exorcist.body.setImmovable(true);
 
@@ -37,15 +53,14 @@ class GameScene extends Phaser.Scene {
         this.demon.setCollideWorldBounds(true);
         this.demon.body.setImmovable(true);
         this.demon.body.setAllowGravity(false);
-        this.demon.setScale(0.15,0.15);
+        this.demon.setScale(0.06,0.06); // Escalar a ojo los personajes
 
+        this.charactersContainer.add([this.exorcist, this.demon])
         
-        // mapa
-        // Crear el mapa como fondo
-        //this.background = this.add.image(0, 0, 'background').setOrigin(0, 0);
+        
 
         // Establecer los límites del mundo según el tamaño del mapa
-        //this.physics.world.setBounds(0, 0, this.background.width, this.background.height);
+        this.physics.world.setBounds(0, 0, background.width * escala, height);
 
         
 
@@ -64,13 +79,6 @@ class GameScene extends Phaser.Scene {
             }
 
         });
-
-        // CAMBIAR!!! He visto que se pueden usar grupos o containers para hacer colecciones de sprites. Los grupos y containers
-        // hacen cosas distintas pero no me ha dado tiempo a mirar cómo funcionan. Serviría para que la tercera cámara ignore todo el
-        // grupo o el container. 
-        //this.backgroundGroup = this.add.group()
-        //this.backgroundGroup.add(divider)
-        //this.backgroundGroup.add(hello_text)
         
 
         // Add colliders
@@ -86,10 +94,12 @@ class GameScene extends Phaser.Scene {
         // Primera cámara que sigue al exorcista
         this.cameras.main.setSize(this.scale.width / 2, this.scale.height)
         this.cameras.main.startFollow(this.exorcist)
+        this.cameras.main.setZoom(zoomCamara)
         
         // Segunda cámara que sigue al demonio
         const scndCamera = this.cameras.add(this.scale.width / 2, 0, this.scale.width / 2, this.scale.height, false, 'demonCamera')
         scndCamera.startFollow(this.demon)
+        scndCamera.setZoom(zoomCamara)
         
         // Tercera cámara que sólo renderiza el borde
         const marcoCamera = this.cameras.add(0, 0, this.scale.width, this.scale.height)        
@@ -98,14 +108,12 @@ class GameScene extends Phaser.Scene {
         //this.cameras.main.setBounds(0, 0, this.background.width, this.background.height);
         //scndCamera.setBounds(0, 0, this.background.width, this.background.height);
 
-
-
         // IGNORAR SPRITES:
         // Las cámaras de la pantalla dividida ignoran el marco
         this.cameras.main.ignore(divider)
         scndCamera.ignore(divider)
         // La tercera cámara debe ignorar todos los sprites XD
-        marcoCamera.ignore([this.exorcist, this.demon, hello_text])
+        marcoCamera.ignore([this.charactersContainer, hello_text, this.bgContainer])
 
         
 
