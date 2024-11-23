@@ -10,30 +10,44 @@ class GameScene extends Phaser.Scene {
 
     preload() {
         // Load game assets
-        this.load.svg('ball', 'assets/ball.svg');
-        this.load.image("terrain", "assets/bomba.svg");
+        this.load.image('exorcist', 'assets/Characters/exorcist.png');
+        this.load.image("demon", "assets/Characters/demon.png");
 
         // divider image
-        this.load.image('divider', 'assets/UI/divider2.png');
+        this.load.image('divider', 'assets/UI/divider2.png');    
+
+        // map
+        this.load.image('background', 'assets/House/Provisional/mansionConFondo.jpg')
     }
 
     create() {
 
+       
         // Set debug mode for the physics engine (shows the bounding boxes)
         // this.physics.world.createDebugGraphic();
 
         // Create ball
-        this.ball = this.physics.add.sprite(400, 530, 'ball');
-        this.ball.setCollideWorldBounds(true);
-        this.ball.setScale(0.1,0.1);
-        this.ball.body.setAllowGravity(false);
-        this.ball.body.setImmovable(true);
+        this.exorcist = this.physics.add.sprite(400, 530, 'exorcist');
+        this.exorcist.setCollideWorldBounds(true);
+        this.exorcist.setScale(0.15,0.15);
+        this.exorcist.body.setAllowGravity(false);
+        this.exorcist.body.setImmovable(true);
 
-        this.terrain = this.physics.add.sprite(800, 650, 'terrain');
-        this.terrain.setCollideWorldBounds(true);
-        this.terrain.body.setImmovable(true);
-        this.terrain.body.setAllowGravity(false);
-        this.terrain.setScale(0.06,0.06);
+        this.demon = this.physics.add.sprite(800, 650, 'demon');
+        this.demon.setCollideWorldBounds(true);
+        this.demon.body.setImmovable(true);
+        this.demon.body.setAllowGravity(false);
+        this.demon.setScale(0.15,0.15);
+
+        
+        // mapa
+        // Crear el mapa como fondo
+        //this.background = this.add.image(0, 0, 'background').setOrigin(0, 0);
+
+        // Establecer los límites del mundo según el tamaño del mapa
+        //this.physics.world.setBounds(0, 0, this.background.width, this.background.height);
+
+        
 
         // Añadir la imagen del marco en el centro de la pantalla
         const divider = this.add.image(this.scale.width / 2, this.scale.height / 2, 'divider')
@@ -60,7 +74,7 @@ class GameScene extends Phaser.Scene {
         
 
         // Add colliders
-        this.physics.add.collider(this.ball, this.terrain, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
+        this.physics.add.collider(this.exorcist, this.demon, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
 
         
         // Enable inputs
@@ -70,87 +84,98 @@ class GameScene extends Phaser.Scene {
 
         // CREACIÓN DE LAS CÁMARAS:
         // Primera cámara que sigue al exorcista
-        this.cameras.main.setSize(this.scale.width / 2, this.scale.heigh)
-        this.cameras.main.startFollow(this.ball)
+        this.cameras.main.setSize(this.scale.width / 2, this.scale.height)
+        this.cameras.main.startFollow(this.exorcist)
+        
         // Segunda cámara que sigue al demonio
-        const scndCamera = this.cameras.add(this.scale.width / 2, 0, this.scale.width / 2, this.scale.heigh, false, 'demonCamera')
-        scndCamera.startFollow(this.terrain)
+        const scndCamera = this.cameras.add(this.scale.width / 2, 0, this.scale.width / 2, this.scale.height, false, 'demonCamera')
+        scndCamera.startFollow(this.demon)
+        
         // Tercera cámara que sólo renderiza el borde
-        const marcoCamera = this.cameras.add(0, 0, this.scale.width, this.scale.heigh)        
+        const marcoCamera = this.cameras.add(0, 0, this.scale.width, this.scale.height)        
+
+        // limitar la camara principal y la secundaria al tamaño del mapa
+        //this.cameras.main.setBounds(0, 0, this.background.width, this.background.height);
+        //scndCamera.setBounds(0, 0, this.background.width, this.background.height);
+
+
 
         // IGNORAR SPRITES:
         // Las cámaras de la pantalla dividida ignoran el marco
         this.cameras.main.ignore(divider)
         scndCamera.ignore(divider)
         // La tercera cámara debe ignorar todos los sprites XD
-        marcoCamera.ignore([this.ball, this.terrain, hello_text])
+        marcoCamera.ignore([this.exorcist, this.demon, hello_text])
+
+        
+
     }    
 
     setupPaddleControllersDemon() {
         this.input.keyboard.on('keydown-LEFT', () => {
-            this.terrain.setVelocity(-200,0);
+            this.demon.setVelocity(-200,0);
         });
 
         this.input.keyboard.on('keyup-LEFT', () => {
-            this.terrain.setVelocity(0);
+            this.demon.setVelocity(0);
         });
 
         this.input.keyboard.on('keydown-UP', () => {
-            this.terrain.setVelocity(0,-200);
+            this.demon.setVelocity(0,-200);
         });
 
         this.input.keyboard.on('keyup-UP', () => {
-            this.terrain.setVelocity(0);
+            this.demon.setVelocity(0);
         });
 
         this.input.keyboard.on('keydown-DOWN', () => {
-            this.terrain.setVelocity(0,200);
+            this.demon.setVelocity(0,200);
         });
 
         this.input.keyboard.on('keyup-DOWN', () => {
-            this.terrain.setVelocity(0);
+            this.demon.setVelocity(0);
         });
 
         this.input.keyboard.on('keydown-RIGHT', () => {
-            this.terrain.setVelocity(200,0);
+            this.demon.setVelocity(200,0);
         });
 
         this.input.keyboard.on('keyup-RIGHT', () => {
-            this.terrain.setVelocity(0);
+            this.demon.setVelocity(0);
         });
     }
 
     setupPaddleControllersExorcist() {
         this.input.keyboard.on('keydown-A', () => {
-            this.ball.setVelocity(-200, 0);
+            this.exorcist.setVelocity(-200, 0);
         });
     
         this.input.keyboard.on('keyup-A', () => {
-            this.ball.setVelocity(0);
+            this.exorcist.setVelocity(0);
         });
     
         this.input.keyboard.on('keydown-W', () => {
-            this.ball.setVelocity(0, -200);
+            this.exorcist.setVelocity(0, -200);
         });
     
         this.input.keyboard.on('keyup-W', () => {
-            this.ball.setVelocity(0);
+            this.exorcist.setVelocity(0);
         });
     
         this.input.keyboard.on('keydown-S', () => {
-            this.ball.setVelocity(0, 200);
+            this.exorcist.setVelocity(0, 200);
         });
     
         this.input.keyboard.on('keyup-S', () => {
-            this.ball.setVelocity(0);
+            this.exorcist.setVelocity(0);
         });
     
         this.input.keyboard.on('keydown-D', () => {
-            this.ball.setVelocity(200, 0);
+            this.exorcist.setVelocity(200, 0);
         });
     
         this.input.keyboard.on('keyup-D', () => {
-            this.ball.setVelocity(0);
+            this.exorcist.setVelocity(0);
         });
     }
     
