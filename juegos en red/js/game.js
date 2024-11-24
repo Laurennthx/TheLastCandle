@@ -25,7 +25,7 @@ class GameScene extends Phaser.Scene {
 
     create() {
 
-        const zoomCamara = 4.5
+        const zoomCamara = 3.5
         const height = this.scale.height
         const width = this.scale.width
 
@@ -53,7 +53,7 @@ class GameScene extends Phaser.Scene {
         this.demon.setCollideWorldBounds(true);
         this.demon.body.setImmovable(true);
         this.demon.body.setAllowGravity(false);
-        this.demon.setScale(0.06,0.06); // Escalar a ojo los personajes
+        this.demon.setScale(0.037,0.037); // Escalar a ojo los personajes
 
         this.charactersContainer.add([this.exorcist, this.demon])
         
