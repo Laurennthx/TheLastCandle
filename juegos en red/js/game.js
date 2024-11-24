@@ -14,7 +14,7 @@ class GameScene extends Phaser.Scene {
         this.load.image("demon", "assets/Characters/demon.png");
 
         // divider image
-        this.load.image('divider', 'assets/UI/divider2.png');    
+        this.load.image('divider', 'assets/UI/divider4.png');    
 
         // map
         this.load.image('background', 'assets/House/Provisional/mansionConFondo.jpg')
