@@ -17,7 +17,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('divider', 'assets/UI/divider4.png');    
 
         // map
-        this.load.image('background', 'assets/House/Provisional/mansionConFondo.jpg')
+        this.load.image('background', 'assets/House/CasaSinFondo.png')
 
         // crucifix
         this.load.image('crucifix', 'assets/Objects/crucifix.png')
