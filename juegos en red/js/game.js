@@ -21,6 +21,10 @@ class GameScene extends Phaser.Scene {
 
         // crucifix
         this.load.image('crucifix', 'assets/Objects/crucifix.png')
+
+        // velas
+        this.load.image('candle', 'assets/Objects/candle_on.png')
+
     }
 
     create() {
@@ -61,6 +65,10 @@ class GameScene extends Phaser.Scene {
 
         // Establecer los límites del mundo según el tamaño del mapa
         this.physics.world.setBounds(0, 0, background.width * escala, height);
+
+        // Crear velas
+        this.candles = this.physics.add.group(); // Grupo para las velas
+        this.generateCandles(5, background.width, background.height); // Generar 5 velas
 
         
 
@@ -118,6 +126,57 @@ class GameScene extends Phaser.Scene {
         
 
     }    
+
+    /**
+     * Genera las velas en posiciones aleatorias.
+     * @param {number} count - Número de velas a generar.
+     * @param {number} maxWidth - Ancho máximo del mapa.
+     * @param {number} maxHeight - Alto máximo del mapa.
+     */
+    generateCandles(count, maxWidth, maxHeight) {
+        const minDistance = 100; // Distancia mínima entre velas
+        const positions = []; // Para almacenar las posiciones ya usadas
+    
+        // Dimensiones ajustadas según la escala del fondo
+        const adjustedWidth = maxWidth * this.bgContainer.scaleX;
+        const adjustedHeight = maxHeight * this.bgContainer.scaleY;
+    
+        for (let i = 0; i < count; i++) {
+            let x, y, validPosition;
+    
+            do {
+                validPosition = true;
+    
+                // Generar coordenadas aleatorias dentro del área ajustada
+                x = Phaser.Math.Between(0, adjustedWidth);
+                y = Phaser.Math.Between(0, adjustedHeight);
+    
+                // Verificar que la posición no esté demasiado cerca de otras velas
+                for (let pos of positions) {
+                    const distance = Phaser.Math.Distance.Between(x, y, pos.x, pos.y);
+                    if (distance < minDistance) {
+                        validPosition = false;
+                        break;
+                    }
+                }
+            } while (!validPosition);
+    
+            // Guardar la posición y crear la vela
+            positions.push({ x, y });
+            const candle = this.candles.create(x, y, 'candle');
+    
+            // Configuración de la vela
+            candle.setOrigin(0.5, 0.5)
+                  .setScale(0.1, 0.1)
+                  .setCollideWorldBounds(true)
+                  .setImmovable(true); // Evitar que se mueva por colisiones
+            
+            candle.body.setAllowGravity(false); // Desactiva la gravedad
+        }
+    }
+    
+    
+    
 
     setupPaddleControllersDemon() {
         this.input.keyboard.on('keydown-LEFT', () => {
