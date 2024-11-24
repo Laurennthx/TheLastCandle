@@ -1,6 +1,8 @@
 class GameScene extends Phaser.Scene {
     constructor() {
         super({ key: 'GameScene' });
+        this.candleCount = 0; // Contador de velas en el inventario
+
     }
 
     init() {
@@ -17,7 +19,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('divider', 'assets/UI/divider4.png');    
 
         // map
-        this.load.image('background', 'assets/House/CasaSinFondo.png')
+        this.load.image('background', 'assets/House/CasaSinFondo.jpg')
 
         // crucifix
         this.load.image('crucifix', 'assets/Objects/crucifix.png')
@@ -29,6 +31,7 @@ class GameScene extends Phaser.Scene {
 
     create() {
 
+        // MUNDO
         const zoomCamara = 3.5
         const height = this.scale.height
         const width = this.scale.width
@@ -44,59 +47,63 @@ class GameScene extends Phaser.Scene {
         const escala = this.scale.height / background.height
         this.bgContainer.setScale(escala)
 
+        // Establecer los límites del mundo según el tamaño del mapa
+        this.physics.world.setBounds(0, 0, background.width * escala, height);
 
+        // PERSONAJES
+        // Contenedor de personajes
         this.charactersContainer = this.add.container(0, 0)
-        // Create ball
+        
+        // Exorcista
         this.exorcist = this.physics.add.sprite(400, 530, 'exorcist');
         this.exorcist.setCollideWorldBounds(true);
         this.exorcist.setScale(0.03,0.03);
         this.exorcist.body.setAllowGravity(false);
         this.exorcist.body.setImmovable(true);
-
+        
+        //Demonio 
         this.demon = this.physics.add.sprite(800, 650, 'demon');
         this.demon.setCollideWorldBounds(true);
         this.demon.body.setImmovable(true);
         this.demon.body.setAllowGravity(false);
         this.demon.setScale(0.037,0.037); // Escalar a ojo los personajes
 
+        // añadimos los personajes al contenedor
         this.charactersContainer.add([this.exorcist, this.demon])
         
-        
+        // Colliders 
+        this.physics.add.collider(this.exorcist, this.demon, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
 
-        // Establecer los límites del mundo según el tamaño del mapa
-        this.physics.world.setBounds(0, 0, background.width * escala, height);
-
+        // OBJETOS
         // Crear velas
         this.candles = this.physics.add.group(); // Grupo para las velas
         this.generateCandles(5, background.width, background.height); // Generar 5 velas
+        
+        // Texto de contador e icono en la esquina superior izquierda de las velas 
+        this.candleText = this.add.text(20, 20, 'Velas: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
+        this.candleIcon = this.add.image(200, 30, 'candle').setScale(0.1).setVisible(false).setScrollFactor(0);
+
+        // Configurar teclas - pulsar E para recoger vela - SOLO EXORCISTA
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.interactKey = this.input.keyboard.addKey('E');
+
+        // Detectar colisiones con velas
+        this.physics.add.overlap(this.exorcist, this.candles, this.collectCandle, null, this);
+
 
         
 
+
+        
+        // CONTROLES PERSONAJES
+        this.setupPaddleControllersExorcist();
+        this.setupPaddleControllersDemon();
+
+        // DIVIDER PANTALLA
         // Añadir la imagen del marco en el centro de la pantalla
         const divider = this.add.image(this.scale.width / 2, this.scale.height / 2, 'divider')
         .setOrigin(0.5, 0.5); // Centra la imagen en ambos ejes
         divider.setDepth(1); // Asegura que la imagen esté por encima de otros elementos
-
-        // Bueno esto no sirve de mucho.
-        const hello_text = this.add.text(250, 350, 'Press space to start!', { fill: '#000000', fontSize: 40 });
-        hello_text.setOrigin(-0.7, 1);
-        this.input.keyboard.on("keydown-SPACE", () => {
-            if (!this.gameStarted) {
-                hello_text.destroy();
-                this.startGame();
-            }
-
-        });
-        
-
-        // Add colliders
-        this.physics.add.collider(this.exorcist, this.demon, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
-
-        
-        // Enable inputs
-        this.setupPaddleControllersExorcist();
-        this.setupPaddleControllersDemon();
-
 
         // CREACIÓN DE LAS CÁMARAS:
         // Primera cámara que sigue al exorcista
@@ -121,7 +128,7 @@ class GameScene extends Phaser.Scene {
         this.cameras.main.ignore(divider)
         scndCamera.ignore(divider)
         // La tercera cámara debe ignorar todos los sprites XD
-        marcoCamera.ignore([this.charactersContainer, hello_text, this.bgContainer])
+        marcoCamera.ignore([this.charactersContainer, this.bgContainer])
 
         
 
@@ -133,6 +140,8 @@ class GameScene extends Phaser.Scene {
      * @param {number} maxWidth - Ancho máximo del mapa.
      * @param {number} maxHeight - Alto máximo del mapa.
      */
+
+    // CREACIÓN ALEATORIA DE VELAS
     generateCandles(count, maxWidth, maxHeight) {
         const minDistance = 100; // Distancia mínima entre velas
         const positions = []; // Para almacenar las posiciones ya usadas
@@ -175,6 +184,15 @@ class GameScene extends Phaser.Scene {
         }
     }
     
+    // RECOGER VELA
+    collectCandle(exorcist, candle) {
+        if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+            candle.destroy(); // Eliminar la vela del mapa
+            this.candleCount++; // Aumentar el contador
+            this.candleText.setText(`Velas: ${this.candleCount}`); // Actualizar el texto
+            this.candleIcon.setVisible(true); // Mostrar el icono
+        }
+    }
     
     
 
@@ -249,7 +267,7 @@ class GameScene extends Phaser.Scene {
 
 
     hitGround() {
-        this.scene.stop("welcome");
+        this.scene.stop("GameScene");
         this.scene.start("EndScene");
     }
 
