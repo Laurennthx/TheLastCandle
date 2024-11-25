@@ -27,6 +27,8 @@ class GameScene extends Phaser.Scene {
         // velas
         this.load.image('candle', 'assets/Objects/candle_on.png')
 
+        // estrellas de ritual 
+        this.load.image('ritual', 'assets/Objects/star.png');
 
         // Caja de prueba para testear cosas
         this.load.image('block','assets/Pruebas/block.png')
@@ -100,6 +102,10 @@ class GameScene extends Phaser.Scene {
         // Crear velas
         this.candles = this.physics.add.group(); // Grupo para las velas
         this.generateCandles(5, background.width, background.height); // Generar 5 velas
+
+        // Crear rituales 
+        this.rituals = this.physics.add.group(); // Grupo para los rituales
+        
         
         // Texto de contador e icono en la esquina superior izquierda de las velas 
         this.candleText = this.add.text(20, 20, 'Velas: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);

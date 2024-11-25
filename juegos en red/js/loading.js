@@ -21,6 +21,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('background', 'assets/House/CasaSinFondo.png');
         this.load.image('crucifix', 'assets/Objects/crucifix.png');
         this.load.image('candle', 'assets/Objects/candle_on.png');
+        this.load.image('star', 'assets/Objects/star.png');
     }
 
     create() {
