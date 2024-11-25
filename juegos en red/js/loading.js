@@ -18,7 +18,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('exorcist', 'assets/Characters/exorcist.png');
         this.load.image('demon', 'assets/Characters/demon.png');
         this.load.image('divider', 'assets/UI/divider4.png');
-        this.load.image('background', 'assets/House/fondoEstrellas.png');
+        this.load.image('background', 'assets/House/fondo3pentagonos.png');
         this.load.image('crucifix', 'assets/Objects/crucifix.png');
         this.load.image('candle', 'assets/Objects/velaApagada.png');
         this.load.image('star', 'assets/Objects/star.png');

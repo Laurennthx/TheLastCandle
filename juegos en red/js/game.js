@@ -20,7 +20,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('divider', 'assets/UI/divider4.png');
 
         // map
-        this.load.image('background', 'assets/House/fondoEstrellas.png')
+        this.load.image('background', 'assets/House/fondo3pentagonos.png')
         
 
         // crucifix
@@ -28,6 +28,7 @@ class GameScene extends Phaser.Scene {
 
         // velas
         this.load.image('candle', 'assets/Objects/velaApagada.png')
+        this.load.image('candleOn', 'assets/Objects/velaEncendida.png')
 
         // estrellas de ritual 
         this.load.image('ritual', 'assets/Objects/star.png');
@@ -75,6 +76,17 @@ class GameScene extends Phaser.Scene {
         this.walls = this.physics.add.group()
         this.walls.create(5000, 5000, 'block')
         this.walls.create(5150, 950, 'collider1_2')
+
+        // COLLIDERS
+        // ritual 1
+        const ritual1 = this.createCollider(512, 7843, 473, 473); // (pos x, pos y, alto, ancho)
+        // ritual 2
+        const ritual2 = this.createCollider(8540, 14048, 473, 473); // (pos x, pos y, alto, ancho)
+        // ritual 3
+        const ritual3 = this.createCollider(4679, 2332, 473, 473); // (pos x, pos y, alto, ancho)
+
+        this.rituals = [ritual1, ritual2, ritual3]; // Lista de colliders de rituales
+
         // Aplicar setImmovable a todos los objetos en el grupo
         this.walls.children.iterate(function (child) {
             child.setImmovable(true);
@@ -115,17 +127,15 @@ class GameScene extends Phaser.Scene {
         this.candles = this.physics.add.group(); // Grupo para las velas
         this.generateCandles(5, background.width, background.height); // Generar 5 velas
 
-        // Crear rituales 
-        this.rituals = this.physics.add.group(); // Grupo para los rituales
         
         
         // Texto de contador e icono en la esquina superior izquierda de las velas 
-        this.candleText = this.add.text(20, 20, 'Velas: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
-        this.candleIcon = this.add.image(200, 30, 'candle').setScale(0.1).setVisible(false).setScrollFactor(0);
+        this.candleText = this.add.text(20, 20, 'Candles: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
+        this.candleIcon = this.add.image(245, 35, 'candle').setScale(0.05).setVisible(false).setScrollFactor(0);
 
         // Texto de contador e icono en la esquina superior izquierda de los rituales 
-        this.ritualText = this.add.text(20, 60, 'Rituales completados: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
-        this.ritualIcon = this.add.image(300, 60, 'ritual').setScale(0.1).setVisible(false).setScrollFactor(0);
+        this.ritualText = this.add.text(20, 60, 'Completed Rituals: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
+        this.ritualIcon = this.add.image(400, 60, 'candleOn').setScale(0.05).setVisible(false).setScrollFactor(0);
 
         // Configurar teclas - pulsar E para recoger vela - SOLO EXORCISTA
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -141,6 +151,8 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.exorcist, this.walls)
         // Activar colisión entre las paredes y el exorcista
         this.physics.add.collider(this.demon, this.walls)
+
+
 
         // CONTROLES PERSONAJES
         this.setupPaddleControllersExorcist();
@@ -163,8 +175,7 @@ class GameScene extends Phaser.Scene {
         this.visionAreaDe = this.add.image(this.demon.x, this.demon.y, 'gradiente').setOrigin(0.5, 0.5)
         this.visionAreaDe.setScale(this.vScaleBig, this.vScaleBig)
 
-
-
+        
 
 
 
@@ -201,9 +212,20 @@ class GameScene extends Phaser.Scene {
         // La tercera cámara debe ignorar todos los sprites XD
         marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles, this.visionAreaEx, this.visionAreaDe])
 
-
+    
 
     }
+
+
+    // MÉTODO CREACIÓN DE COLLIDERS
+    createCollider(x, y, width, height){
+        const collider = this.walls.create(x, y, 'block').setOrigin(0,0)
+        collider.alpha = 0
+        collider.displayWidth = width
+        collider.displayHeight = height        
+        return collider
+    }
+    
 
     /**
      * Genera las velas en posiciones aleatorias.
@@ -260,10 +282,44 @@ class GameScene extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
             candle.destroy(); // Eliminar la vela del mapa
             this.candleCount++; // Aumentar el contador
-            this.candleText.setText(`Velas: ${this.candleCount}`); // Actualizar el texto
+            this.candleText.setText(`Candles: ${this.candleCount}`); // Actualizar el texto
             this.candleIcon.setVisible(true); // Mostrar el icono
         }
     }
+
+    // COMPLETAR UN RITUAL
+// Método para colocar una vela en un ritual
+placeCandle(exorcist, ritualCollider) {
+    if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+        // Verificar si hay velas disponibles
+        if (this.candleCount > 0) {
+            // Obtener las coordenadas centrales del ritualCollider
+            const bounds = ritualCollider.getBounds();
+            const candle = this.add.sprite(
+                bounds.centerX - 1, // Coordenada X central ajustada
+                bounds.centerY - 7, // Coordenada Y central ajustada
+                'candleOn' // Textura de la vela
+            ).setScale(0.015); // Ajustar el tamaño si es necesario
+
+            // Reducir el número de velas disponibles
+            this.candleCount--;
+            this.candleText.setText(`Candles: ${this.candleCount}`); // Actualizar el texto
+
+            // Incrementar el contador de rituales
+            this.ritualCount++;
+            this.ritualText.setText(`Completed Rituals: ${this.ritualCount}`); // Actualizar el texto de rituales
+            this.ritualIcon.setVisible(true); // Mostrar el icono
+
+            // Desactivar el ritualCollider para evitar múltiples activaciones
+            ritualCollider.active = false; // Desactiva el collider para futuras colisiones
+            // ritualCollider.destroy(); // Alternativamente, elimina el collider del mundo
+        } else {
+            // Opcional: Notificar al jugador que no tiene suficientes velas
+            console.log("You need a candle to complete the ritual!");
+        }
+    }
+}
+
     
     
 
