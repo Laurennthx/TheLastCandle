@@ -350,7 +350,7 @@ class GameScene extends Phaser.Scene {
                 console.log("You need a candle to complete the ritual!");
             }
         }
-    }
+}
 
     ponerInterruptores(posiciones) {
         const scale = 1

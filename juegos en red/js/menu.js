@@ -5,7 +5,7 @@ class MenuScene extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("menuBG", 'assets/UI/menuBG.jpg');
+        this.load.image("menuBG", 'assets/UI/BGpersonajes.jpg');
         this.load.image("bStart", 'assets/UI/start.png');
         this.load.image("bOptions", 'assets/UI/options.png');
         this.load.image("bCredits", 'assets/UI/credits.png');
