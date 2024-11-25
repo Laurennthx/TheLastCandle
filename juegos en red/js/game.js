@@ -20,9 +20,7 @@ class GameScene extends Phaser.Scene {
 
         // map
         this.load.image('background', 'assets/House/CasaSinFondo.png')
-
-        this.load.image('backgroundSmall', 'assets/House/CasaSinFondoSmall.png')
-
+        
         // crucifix
         this.load.image('crucifix', 'assets/Objects/crucifix.png')
 
@@ -54,7 +52,7 @@ class GameScene extends Phaser.Scene {
 
         this.bgContainer = this.add.container(0, 0)
         // Crear el mapa como fondo, dimensiones: 9962 x 15522
-        const background = this.add.image(0, 0, 'backgroundSmall').setOrigin(0, 0)
+        const background = this.add.image(0, 0, 'background').setOrigin(0, 0)
         // Al meterlo dentro del 'container' para posicinarlo correctamente hay que tener en cuenta las dimensiones en píxeles del sprite background.
         // Otra manera es sacarlo del container y colocarlo en dimensiones de la pantalla 1990 x 1080
         const crucifix = this.add.image(100, 13000, 'crucifix').setOrigin(0, 0) 
