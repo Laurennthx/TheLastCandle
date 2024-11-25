@@ -17,7 +17,7 @@ class GameScene extends Phaser.Scene {
         this.load.image("demon", "assets/Characters/demon.png");
 
         // divider image
-        this.load.image('divider', 'assets/UI/divider4.png');
+        this.load.image('divider', 'assets/UI/divider5.png');
 
         // map
         this.load.image('background', 'assets/House/fondo3pentagonos.png')
@@ -98,22 +98,28 @@ class GameScene extends Phaser.Scene {
         const collider19 = this.createCollider(92, 8680, 1352, 202)
         const collider20 = this.createCollider(92, 6608, 3880, 158)
         const collider21 = this.createCollider(3839, 6608, 142, 300)
-        const collider22 = this.createCollider(3839, 8392, 142, 484)
-        const collider23 = this.createCollider(98, 11000, 1782, 164)
-        const collider24 = this.createCollider(2937, 11000, 751, 164)
-        const collider25 = this.createCollider(3528, 11000, 160, 486)
-        const collider26 = this.createCollider(1282, 11000, 167, 2281)
-        const collider27 = this.createCollider(1278, 13000, 2890, 173)
+        const collider22 = this.createCollider(3839, 8392, 142, 484)      
+        const collider24 = this.createCollider(2945, 10496, 739, 223)
+        const collider25 = this.createCollider(3534, 10494, 158, 528)     
+        const collider28 = this.createCollider(3557, 12294, 132, 2899)
+        const collider29 = this.createCollider(3546, 15005, 6150, 199)
+        const collider30 = this.createCollider(9569, 12632, 145, 2562)
+        const collider31 = this.createCollider(7307, 12617, 2406, 218)
+        const collider32 = this.createCollider(7758, 14429, 151, 776)
+        const collider33 = this.createCollider(5051, 12609, 1351, 234)
+        const collider34 = this.createCollider(1290, 12608, 2876, 168)
+        const collider35 = this.createCollider(1274, 10489, 170, 2286)
+        const collider36 = this.createCollider(100, 10489, 1776, 193)
 
 
 
         // COLLIDERS
         // ritual 1
-        const ritual1 = this.createCollider(512, 7843, 473, 473); // (pos x, pos y, alto, ancho)
+        const ritual1 = this.createCollider(512, 7843, 473, 473); // (pos x, pos y, ancho, alto)
         // ritual 2
-        const ritual2 = this.createCollider(8540, 14048, 473, 473); // (pos x, pos y, alto, ancho)
+        const ritual2 = this.createCollider(8540, 14048, 473, 473); // (pos x, pos y, ancho, alto)
         // ritual 3
-        const ritual3 = this.createCollider(4679, 2332, 473, 473); // (pos x, pos y, alto, ancho)
+        const ritual3 = this.createCollider(4679, 2332, 473, 473); // (pos x, pos y, ancho, alto)
 
         this.rituals = [ritual1, ritual2, ritual3]; // Lista de colliders de rituales
 
