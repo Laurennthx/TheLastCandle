@@ -1,6 +1,6 @@
-class GameSceneCopy extends Phaser.Scene {
+class GameSceneCopyCopy extends Phaser.Scene {
     constructor() {
-        super({ key: 'GameSceneCopy' });
+        super({ key: 'GameSceneCopyCopy' });
     }
 
     init() {
