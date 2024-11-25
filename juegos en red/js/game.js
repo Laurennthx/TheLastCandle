@@ -98,7 +98,8 @@ class GameScene extends Phaser.Scene {
         const collider19 = this.createCollider(92, 8680, 1352, 202)
         const collider20 = this.createCollider(92, 6608, 3880, 158)
         const collider21 = this.createCollider(3839, 6608, 142, 300)
-        const collider22 = this.createCollider(3839, 8392, 142, 484)      
+        const collider22 = this.createCollider(3839, 8392, 142, 484)
+      
         const collider24 = this.createCollider(2945, 10496, 739, 223)
         const collider25 = this.createCollider(3534, 10494, 158, 528)     
         const collider28 = this.createCollider(3557, 12294, 132, 2899)
@@ -152,7 +153,7 @@ class GameScene extends Phaser.Scene {
         this.exorcist.setScale(0.03, 0.03);
 
         // Demonio 
-        this.demon = this.physics.add.sprite(800, 650, 'demon');
+        this.demon = this.physics.add.sprite(400, 1000, 'demon');
         this.demon.setCollideWorldBounds(true);
         this.demon.body.setImmovable(false);
         this.demon.setScale(0.037, 0.037); // Escalar a ojo los personajes
