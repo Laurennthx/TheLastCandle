@@ -48,7 +48,7 @@ class GameScene extends Phaser.Scene {
 
     create() {
         // MUNDO
-        const zoomCamara = 4.5
+        const zoomCamara = 5
         const height = this.scale.height
         const width = this.scale.width
 
@@ -61,9 +61,9 @@ class GameScene extends Phaser.Scene {
         this.speedEx = 200
 
         const posInterruptores =
-            [[2660, 1140], [6512, 1140], [816, 2076],
-            [8698, 12900], [1542, 10800], [6190, 9039],
-            [1906, 6876], [4440, 5351], [4734, 3577]]
+            [[2660, 1240], [6512, 1240], [816, 2176],
+            [8698, 13040], [1542, 10940], [6190, 9139],
+            [1906, 6976], [4440, 5451], [4734, 3677]]
 
 
         this.bgContainer = this.add.container(0, 0)
@@ -150,13 +150,13 @@ class GameScene extends Phaser.Scene {
         this.exorcist = this.physics.add.sprite(400, 530, 'exorcist');
         this.exorcist.setCollideWorldBounds(true);
         this.exorcist.body.setImmovable(false);
-        this.exorcist.setScale(0.03, 0.03);
+        this.exorcist.setScale(0.02, 0.02);
 
         // Demonio 
         this.demon = this.physics.add.sprite(400, 1000, 'demon');
         this.demon.setCollideWorldBounds(true);
         this.demon.body.setImmovable(false);
-        this.demon.setScale(0.037, 0.037); // Escalar a ojo los personajes
+        this.demon.setScale(0.025, 0.025); // Escalar a ojo los personajes
 
         // Añadimos los personajes al contenedor
         this.charactersContainer.add([this.exorcist, this.demon])
@@ -216,14 +216,14 @@ class GameScene extends Phaser.Scene {
         this.cooldownLuces = false
 
         // Radios del gradiente
-        this.vScaleSmall = 0.28
-        this.vScaleBig = 0.7
+        this.vScaleSmall = 0.18
+        this.vScaleBig = 0.3
 
         // Definir los campos de visión de los jugadores; el gradiente negro que hay alrededor de ellos
         this.visionAreaEx = this.add.image(this.exorcist.x, this.exorcist.y, 'gradiente').setOrigin(0.5, 0.5)
-        this.visionAreaEx.setScale(this.vScaleBig, this.vScaleBig)
+        this.visionAreaEx.setScale(this.vScaleSmall, this.vScaleSmall)
         this.visionAreaDe = this.add.image(this.demon.x, this.demon.y, 'gradiente').setOrigin(0.5, 0.5)
-        this.visionAreaDe.setScale(this.vScaleSmall, this.vScaleSmall)
+        this.visionAreaDe.setScale(this.vScaleBig, this.vScaleBig)
 
         // Indicar a qué objetos les afecta la luz
         background.setPipeline('Light2D')
@@ -336,7 +336,7 @@ class GameScene extends Phaser.Scene {
 
             // Configuración de la vela
             candle.setOrigin(0.5, 0.5)
-                .setScale(0.02, 0.02)
+                .setScale(0.013, 0.013)
                 .setCollideWorldBounds(true)
                 .setImmovable(true); // Evitar que se mueva por colisiones
 
@@ -366,7 +366,7 @@ class GameScene extends Phaser.Scene {
                     bounds.centerX - 1, // Coordenada X central ajustada
                     bounds.centerY - 7, // Coordenada Y central ajustada
                     'candleOn' // Textura de la vela
-                ).setScale(0.015); // Ajustar el tamaño si es necesario
+                ).setScale(0.013); // Ajustar el tamaño si es necesario
 
                 // Reducir el número de velas disponibles
                 this.candleCount--;
@@ -388,7 +388,7 @@ class GameScene extends Phaser.Scene {
 }
 
     ponerInterruptores(posiciones) {
-        const scale = 1
+        const scale = 0.5
         for (let i = 0; i < posiciones.length; i++) {
             const switchOn = this.interruptoresOn.create(posiciones[i][0], posiciones[i][1], 'switch_on').setOrigin(0, 0)
             switchOn.setScale(scale, scale).setImmovable(true)
