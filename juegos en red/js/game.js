@@ -21,7 +21,7 @@ class GameScene extends Phaser.Scene {
 
         // map
         this.load.image('background', 'assets/House/fondo3pentagonos.png')
-        
+
 
         // crucifix
         this.load.image('crucifix', 'assets/Objects/crucifix.png')
@@ -33,24 +33,20 @@ class GameScene extends Phaser.Scene {
         // estrellas de ritual 
         this.load.image('ritual', 'assets/Objects/star.png');
 
-        // estrellas de ritual 
+        // gradiente negro 
         this.load.image('gradiente', 'assets/Pruebas/gradiente.png');
+
+        // interruptores
+        this.load.image('switch_on', 'assets/Objects/switch_on.png');
+        this.load.image('switch_off', 'assets/Objects/switch_off.png');
 
         // Caja de prueba para testear cosas
         this.load.image('block', 'assets/Pruebas/block.png')
-        this.load.image('collider1_2','assets/House/collider1_2.png');
+        this.load.image('collider1_2', 'assets/House/collider1_2.png');
 
     }
 
     create() {
-
-
-        // Enable lights in the scene
-        this.lights.enable();
-        this.lights.setAmbientColor(0x222222);
-        this.lucesEncendidas = true
-
-
         // MUNDO
         const zoomCamara = 4.5
         const height = this.scale.height
@@ -63,6 +59,12 @@ class GameScene extends Phaser.Scene {
         this.keysPressedEx = [[[-1, 0], false], [[0, -1], false], [[0, 1], false], [[1, 0], false]]
         this.speedDe = 200
         this.speedEx = 200
+
+        const posInterruptores =
+            [[2660, 1140], [6512, 1140], [816, 2076],
+            [8698, 12900], [1542, 10800], [6190, 9039],
+            [1906, 6876], [4440, 5351], [4734, 3577]]
+
 
         this.bgContainer = this.add.container(0, 0)
         // Crear el mapa como fondo, dimensiones: 9962 x 15522
@@ -92,8 +94,12 @@ class GameScene extends Phaser.Scene {
             child.setImmovable(true);
         });
 
+        // Poner los interruptores
+        this.interruptoresOn = this.physics.add.group(); // Grupo para los interruptores
+        this.interruptoresOff = this.physics.add.group(); // Grupo para los interruptores
+        this.ponerInterruptores(posInterruptores)
 
-        this.bgContainer.add([background, crucifix, ...this.walls.getChildren()])
+        this.bgContainer.add([background, crucifix, ...this.walls.getChildren(), ...this.interruptoresOn.getChildren(), ...this.interruptoresOff.getChildren()])
         const escala = this.scale.height / background.height
         this.bgContainer.setScale(escala)
 
@@ -127,8 +133,6 @@ class GameScene extends Phaser.Scene {
         this.candles = this.physics.add.group(); // Grupo para las velas
         this.generateCandles(5, background.width, background.height); // Generar 5 velas
 
-        
-        
         // Texto de contador e icono en la esquina superior izquierda de las velas 
         this.candleText = this.add.text(20, 20, 'Candles: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
         this.candleIcon = this.add.image(245, 35, 'candle').setScale(0.05).setVisible(false).setScrollFactor(0);
@@ -140,18 +144,21 @@ class GameScene extends Phaser.Scene {
         // Configurar teclas - pulsar E para recoger vela - SOLO EXORCISTA
         this.cursors = this.input.keyboard.createCursorKeys();
         this.interactKey = this.input.keyboard.addKey('E');
+        this.interactKeyDe = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
         // Detectar colisiones con velas
         this.physics.add.overlap(this.exorcist, this.candles, this.collectCandle, null, this);
         // Detectar colisiones con rituales
         this.physics.add.overlap(this.exorcist, this.rituals, this.placeCandle, null, this);
+        // Detectar colisiones con interruptores
+        this.physics.add.overlap(this.exorcist, this.interruptoresOn, this.cambiarInterruptores, null, this);
+        this.physics.add.overlap(this.demon, this.interruptoresOn, this.cambiarInterruptores, null, this);
         // Collider del exorcista con el demonio, se podría quitar 
         this.physics.add.collider(this.exorcist, this.demon, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
         // Activar colisión entre las paredes y el exorcista
         this.physics.add.collider(this.exorcist, this.walls)
         // Activar colisión entre las paredes y el exorcista
         this.physics.add.collider(this.demon, this.walls)
-
 
 
         // CONTROLES PERSONAJES
@@ -164,30 +171,46 @@ class GameScene extends Phaser.Scene {
             .setOrigin(0.5, 0.5); // Centra la imagen en ambos ejes
         divider.setDepth(1); // Asegura que la imagen esté por encima de otros elementos
 
-        // #region ***** INTERRUPTORES *****
-        this.vScaleSmall = 0.3
-        this.vScaleBig = 0.5
+        // #region LIGHTS 
+        this.lights.enable();
+        this.lights.setAmbientColor(0xffffff);  // Luces ambientales blancas para así no atenuar el fondo
+        this.rLight = 70    // Radio de las luces indicadoras de los interruptores
+        this.cd = 3000  // Cooldown de 3 segundos
 
+        this.lucesEncendidas = true
+        this.cooldownLuces = false
 
+        // Radios del gradiente
+        this.vScaleSmall = 0.28
+        this.vScaleBig = 0.7
+
+        // Definir los campos de visión de los jugadores; el gradiente negro que hay alrededor de ellos
         this.visionAreaEx = this.add.image(this.exorcist.x, this.exorcist.y, 'gradiente').setOrigin(0.5, 0.5)
         this.visionAreaEx.setScale(this.vScaleBig, this.vScaleBig)
-
         this.visionAreaDe = this.add.image(this.demon.x, this.demon.y, 'gradiente').setOrigin(0.5, 0.5)
-        this.visionAreaDe.setScale(this.vScaleBig, this.vScaleBig)
+        this.visionAreaDe.setScale(this.vScaleSmall, this.vScaleSmall)
 
-        
+        // Indicar a qué objetos les afecta la luz
+        background.setPipeline('Light2D')
+        //this.visionAreaDe.setPipeline('Light2D')
+        //this.visionAreaEx.setPipeline('Light2D')
 
+        // Arrays de luces que se encienden encima de los interruptores para indicar que pueden ser pulsados
+        this.lucesEx = this.ponerLuces(posInterruptores, 0xb8afd0)  // Las luces indicadores del ex. son blancas
+        this.lucesDe = this.ponerLuces(posInterruptores, 0xff8e0d)  // Las luces indicadoras del dem. son naranjas
+        this.lucesEx.forEach(luz => {
+            luz.setPosition(luz.x * escala, luz.y * escala) // Ajustar la posición de las luces
+            luz.setRadius(0)
+        })
+        this.lucesDe.forEach(luz => {
+            luz.setPosition(luz.x * escala, luz.y * escala) // Ajustar la posición de las luces
+        })
 
-
-
+        this.cambiarInterruptores() // Función que cuando los jugadores interactuan con el interruptor cambian las luces
         // #endregion
 
 
-
-
-
-
-        // CREACIÓN DE LAS CÁMARAS:
+        // #region CAMERA
         // Primera cámara que sigue al exorcista
         this.cameras.main.setSize(this.scale.width / 2, this.scale.height)
         this.cameras.main.startFollow(this.exorcist)
@@ -209,23 +232,32 @@ class GameScene extends Phaser.Scene {
         // Las cámaras de la pantalla dividida ignoran el marco
         this.cameras.main.ignore([this.visionAreaDe, divider])
         scndCamera.ignore([this.visionAreaEx, divider])
+
+        // Indicar qué luces son visibles para cada personaje
+        this.lucesEx.forEach(luzEx => {
+            scndCamera.ignore(luzEx)
+        })
+        this.lucesDe.forEach(luzDe => {
+            this.cameras.main.ignore(luzDe)
+        })
         // La tercera cámara debe ignorar todos los sprites XD
         marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles, this.visionAreaEx, this.visionAreaDe])
 
-    
+        // #endregion
+
 
     }
 
 
     // MÉTODO CREACIÓN DE COLLIDERS
-    createCollider(x, y, width, height){
-        const collider = this.walls.create(x, y, 'block').setOrigin(0,0)
+    createCollider(x, y, width, height) {
+        const collider = this.walls.create(x, y, 'block').setOrigin(0, 0)
         collider.alpha = 0
         collider.displayWidth = width
-        collider.displayHeight = height        
-        return collider
-    }
-    
+        collider.displayHeight = height
+        return collider
+    }
+
 
     /**
      * Genera las velas en posiciones aleatorias.
@@ -276,7 +308,7 @@ class GameScene extends Phaser.Scene {
             candle.body.setAllowGravity(false); // Desactiva la gravedad
         }
     }
-    
+
     // RECOGER VELA
     collectCandle(exorcist, candle) {
         if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
@@ -288,40 +320,133 @@ class GameScene extends Phaser.Scene {
     }
 
     // COMPLETAR UN RITUAL
-// Método para colocar una vela en un ritual
-placeCandle(exorcist, ritualCollider) {
-    if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
-        // Verificar si hay velas disponibles
-        if (this.candleCount > 0) {
-            // Obtener las coordenadas centrales del ritualCollider
-            const bounds = ritualCollider.getBounds();
-            const candle = this.add.sprite(
-                bounds.centerX - 1, // Coordenada X central ajustada
-                bounds.centerY - 7, // Coordenada Y central ajustada
-                'candleOn' // Textura de la vela
-            ).setScale(0.015); // Ajustar el tamaño si es necesario
+    // Método para colocar una vela en un ritual
+    placeCandle(exorcist, ritualCollider) {
+        if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+            // Verificar si hay velas disponibles
+            if (this.candleCount > 0) {
+                // Obtener las coordenadas centrales del ritualCollider
+                const bounds = ritualCollider.getBounds();
+                const candle = this.add.sprite(
+                    bounds.centerX - 1, // Coordenada X central ajustada
+                    bounds.centerY - 7, // Coordenada Y central ajustada
+                    'candleOn' // Textura de la vela
+                ).setScale(0.015); // Ajustar el tamaño si es necesario
 
-            // Reducir el número de velas disponibles
-            this.candleCount--;
-            this.candleText.setText(`Candles: ${this.candleCount}`); // Actualizar el texto
+                // Reducir el número de velas disponibles
+                this.candleCount--;
+                this.candleText.setText(`Candles: ${this.candleCount}`); // Actualizar el texto
 
-            // Incrementar el contador de rituales
-            this.ritualCount++;
-            this.ritualText.setText(`Completed Rituals: ${this.ritualCount}`); // Actualizar el texto de rituales
-            this.ritualIcon.setVisible(true); // Mostrar el icono
+                // Incrementar el contador de rituales
+                this.ritualCount++;
+                this.ritualText.setText(`Completed Rituals: ${this.ritualCount}`); // Actualizar el texto de rituales
+                this.ritualIcon.setVisible(true); // Mostrar el icono
 
-            // Desactivar el ritualCollider para evitar múltiples activaciones
-            ritualCollider.active = false; // Desactiva el collider para futuras colisiones
-            // ritualCollider.destroy(); // Alternativamente, elimina el collider del mundo
-        } else {
-            // Opcional: Notificar al jugador que no tiene suficientes velas
-            console.log("You need a candle to complete the ritual!");
+                // Desactivar el ritualCollider para evitar múltiples activaciones
+                ritualCollider.active = false; // Desactiva el collider para futuras colisiones
+                // ritualCollider.destroy(); // Alternativamente, elimina el collider del mundo
+            } else {
+                // Opcional: Notificar al jugador que no tiene suficientes velas
+                console.log("You need a candle to complete the ritual!");
+            }
         }
     }
-}
 
-    
-    
+    ponerInterruptores(posiciones) {
+        const scale = 1
+        for (let i = 0; i < posiciones.length; i++) {
+            const switchOn = this.interruptoresOn.create(posiciones[i][0], posiciones[i][1], 'switch_on').setOrigin(0, 0)
+            switchOn.setScale(scale, scale).setImmovable(true)
+            const switchOff = this.interruptoresOff.create(posiciones[i][0], posiciones[i][1], 'switch_off').setOrigin(0, 0)
+            switchOff.setScale(scale, scale).setImmovable(true).alpha = 0
+        }
+    }
+
+    // USAR INTERRUPTOR
+    cambiarInterruptores(player, interruptor) {
+        if (interruptor != undefined) {
+            if (player == this.exorcist) {
+                if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+                    if (!this.lucesEncendidas) {
+                        this.encenderLuces()
+                    }
+                }
+            }
+            if (player == this.demon) {
+                if (Phaser.Input.Keyboard.JustDown(this.interactKeyDe)) {
+                    if (this.lucesEncendidas) {
+                        this.apagarLuces()
+                    }
+                }
+            }
+
+        }
+    }
+
+    // El demonio llama a esta función para apagar las luces
+    apagarLuces() {
+        if (this.cooldownLuces == false) {
+            this.cooldownLuces = true
+            this.visionAreaEx.setScale(this.vScaleSmall, this.vScaleSmall)
+            this.visionAreaDe.setScale(this.vScaleBig, this.vScaleBig)
+
+            this.interruptoresOn.children.iterate(function (child) {
+                child.alpha = 0;
+            });
+            this.interruptoresOff.children.iterate(function (child) {
+                child.alpha = 1;
+            });
+
+            this.lucesDe.forEach(luz => {
+                luz.setRadius(0)
+            })
+
+            this.time.delayedCall(this.cd, () => { // Al terminar el cooldown se enciende un indicador para el exorcista
+                this.lucesEncendidas = false
+                this.lucesEx.forEach(luz => {
+                    luz.setRadius(this.rLight)
+                })
+                this.cooldownLuces = false
+            })
+        }
+    }
+
+    // El exorcista llama a esta función para encender las luces
+    encenderLuces() {
+        if (this.cooldownLuces == false) {
+            this.cooldownLuces = true
+            this.visionAreaEx.setScale(this.vScaleBig, this.vScaleBig)
+            this.visionAreaDe.setScale(this.vScaleSmall, this.vScaleSmall)
+
+            this.interruptoresOn.children.iterate(function (child) {
+                child.alpha = 1;
+            });
+            this.interruptoresOff.children.iterate(function (child) {
+                child.alpha = 0;
+            });
+
+            this.lucesEx.forEach(luz => {
+                luz.setRadius(0)
+            })
+
+            this.time.delayedCall(this.cd, () => { // Al terminar el cooldown se enciende un indicador para el demonio
+                this.lucesEncendidas = true
+                this.lucesDe.forEach(luz => {
+                    luz.setRadius(this.rLight)
+                })
+                this.cooldownLuces = false
+            })
+        }
+    }
+
+    ponerLuces(posiciones, color) {
+        const arrLuces = []
+        for (let i = 0; i < posiciones.length; i++) {
+            arrLuces[i] = this.lights.addLight(posiciones[i][0] + 150, posiciones[i][1] + 100, 70, color, 2);
+        }
+        return arrLuces
+    }
+
 
     setupPaddleControllersDemon() {
         // Key down
@@ -400,11 +525,6 @@ placeCandle(exorcist, ritualCollider) {
 
     startGame() {
         this.gameStarted = true;
-    }
-
-
-    hitPaddle(ball, paddle) {
-
     }
 
     update(time, delta) {

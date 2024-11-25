@@ -7,6 +7,7 @@
     <script src="js/intro.js"></script>
     <script src="js/game.js"></script>
     <script src="js/gameCopy.js"></script>
+    <script src="js/gameCopyCopy.js"></script>
     <script src="js/endgame.js"></script>
     <script src="js/credits.js"></script>
     <script src="js/options.js"></script>
@@ -22,7 +23,7 @@
             width: 1920,
             height: 1080,
             parent: 'game-canvas',
-            backgroundColor: '#ADD8E6',
+            backgroundColor: '#000000',
             physics: {
                 default: 'arcade',
                 arcade: {
@@ -30,7 +31,7 @@
                     gravity: { y: 0 }
                 }
             },
-            scene: [WelcomeScene, MenuScene, IntroGame, GameScene, GameSceneCopy, EndGame, CreditsScene, OptionsScene, GamePruebas, LoadingScene]
+            scene: [WelcomeScene, MenuScene, IntroGame, GameScene, GameSceneCopy, GameSceneCopyCopy, EndGame, CreditsScene, OptionsScene, GamePruebas, LoadingScene]
         };
 
         // Create the game instance
