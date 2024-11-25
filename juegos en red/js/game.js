@@ -27,7 +27,13 @@ class GameScene extends Phaser.Scene {
         // velas
         this.load.image('candle', 'assets/Objects/candle_on.png')
 
+
+        // Caja de prueba para testear cosas
+        this.load.image('block','assets/Pruebas/block.png')
+
     }
+
+    
 
     create() {
 
@@ -36,6 +42,14 @@ class GameScene extends Phaser.Scene {
         const height = this.scale.height
         const width = this.scale.width
 
+        // MOVIMIENTO
+        this.lastKeyExorcist
+        this.lastKeyDemon
+        this.keysPressedDe = [[[-1, 0], false], [[0, -1], false], [[0, 1], false], [[1, 0], false]]
+        this.keysPressedEx = [[[-1, 0], false], [[0, -1], false], [[0, 1], false], [[1, 0], false]]
+        this.speedDe = 200
+        this.speedEx = 200
+
         this.bgContainer = this.add.container(0, 0)
         // Crear el mapa como fondo, dimensiones: 9962 x 15522
         const background = this.add.image(0, 0, 'background').setOrigin(0, 0)
@@ -43,36 +57,44 @@ class GameScene extends Phaser.Scene {
         // Otra manera es sacarlo del container y colocarlo en dimensiones de la pantalla 1990 x 1080
         const crucifix = this.add.image(100, 13000, 'crucifix').setOrigin(0, 0) 
 
-        this.bgContainer.add([background, crucifix])
+
+        // Ejemplo para que los personajes no puedan atravesar paredes
+        this.walls = this.physics.add.group()
+        this.walls.create(5000, 5000, 'block')
+        // Aplicar setImmovable a todos los objetos en el grupo
+        this.walls.children.iterate(function (child) {
+            child.setImmovable(true);
+        });
+        
+
+        this.bgContainer.add([background, crucifix, ...this.walls.getChildren()])
         const escala = this.scale.height / background.height
         this.bgContainer.setScale(escala)
 
         // Establecer los límites del mundo según el tamaño del mapa
         this.physics.world.setBounds(0, 0, background.width * escala, height);
 
-        // PERSONAJES
+        
+        // #region ***** CREACION DE PERSONAJES *****
         // Contenedor de personajes
         this.charactersContainer = this.add.container(0, 0)
         
         // Exorcista
         this.exorcist = this.physics.add.sprite(400, 530, 'exorcist');
         this.exorcist.setCollideWorldBounds(true);
+        this.exorcist.body.setImmovable(false);
         this.exorcist.setScale(0.03,0.03);
-        this.exorcist.body.setAllowGravity(false);
-        this.exorcist.body.setImmovable(true);
-        
-        //Demonio 
+
+        // Demonio 
         this.demon = this.physics.add.sprite(800, 650, 'demon');
         this.demon.setCollideWorldBounds(true);
-        this.demon.body.setImmovable(true);
-        this.demon.body.setAllowGravity(false);
+        this.demon.body.setImmovable(false);
         this.demon.setScale(0.037,0.037); // Escalar a ojo los personajes
 
-        // añadimos los personajes al contenedor
+        // Añadimos los personajes al contenedor
         this.charactersContainer.add([this.exorcist, this.demon])
+        // #endregion
         
-        // Colliders 
-        this.physics.add.collider(this.exorcist, this.demon, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
 
         // OBJETOS
         // Crear velas
@@ -89,11 +111,12 @@ class GameScene extends Phaser.Scene {
 
         // Detectar colisiones con velas
         this.physics.add.overlap(this.exorcist, this.candles, this.collectCandle, null, this);
-
-
-        
-
-
+        // Collider del exorcista con el demonio, se podría quitar 
+        this.physics.add.collider(this.exorcist, this.demon, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
+        // Activar colisión entre las paredes y el exorcista
+        this.physics.add.collider(this.exorcist, this.walls)
+        // Activar colisión entre las paredes y el exorcista
+        this.physics.add.collider(this.demon, this.walls)
         
         // CONTROLES PERSONAJES
         this.setupPaddleControllersExorcist();
@@ -128,7 +151,7 @@ class GameScene extends Phaser.Scene {
         this.cameras.main.ignore(divider)
         scndCamera.ignore(divider)
         // La tercera cámara debe ignorar todos los sprites XD
-        marcoCamera.ignore([this.charactersContainer, this.bgContainer])
+        marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles])
 
         
 
@@ -197,70 +220,70 @@ class GameScene extends Phaser.Scene {
     
 
     setupPaddleControllersDemon() {
+        // Key down
         this.input.keyboard.on('keydown-LEFT', () => {
-            this.demon.setVelocity(-200,0);
+            this.keysPressedDe[0][1] = true
+            this.lastKeyDemon = 0
         });
-
-        this.input.keyboard.on('keyup-LEFT', () => {
-            this.demon.setVelocity(0);
-        });
-
         this.input.keyboard.on('keydown-UP', () => {
-            this.demon.setVelocity(0,-200);
+            this.keysPressedDe[1][1] = true
+            this.lastKeyDemon = 1
         });
-
-        this.input.keyboard.on('keyup-UP', () => {
-            this.demon.setVelocity(0);
-        });
-
         this.input.keyboard.on('keydown-DOWN', () => {
-            this.demon.setVelocity(0,200);
+            this.keysPressedDe[2][1] = true
+            this.lastKeyDemon = 2
         });
-
-        this.input.keyboard.on('keyup-DOWN', () => {
-            this.demon.setVelocity(0);
-        });
-
         this.input.keyboard.on('keydown-RIGHT', () => {
-            this.demon.setVelocity(200,0);
+            this.keysPressedDe[3][1] = true
+            this.lastKeyDemon = 3
         });
 
-        this.input.keyboard.on('keyup-RIGHT', () => {
-            this.demon.setVelocity(0);
+        // Key up
+        this.input.keyboard.on('keyup-LEFT', (event) => {
+            this.keysPressedDe[0][1] = false              
+        });        
+        this.input.keyboard.on('keyup-UP', (event) => {
+            this.keysPressedDe[1][1] = false
+        });        
+        this.input.keyboard.on('keyup-DOWN', (event) => {
+            this.keysPressedDe[2][1] = false    
+        });        
+        this.input.keyboard.on('keyup-RIGHT', (event) => {
+            this.keysPressedDe[3][1] = false   
         });
     }
 
     setupPaddleControllersExorcist() {
+        // Key down
         this.input.keyboard.on('keydown-A', () => {
-            this.exorcist.setVelocity(-200, 0);
+            this.keysPressedEx[0][1] = true
+            this.lastKeyExorcist = 0
         });
-    
-        this.input.keyboard.on('keyup-A', () => {
-            this.exorcist.setVelocity(0);
-        });
-    
         this.input.keyboard.on('keydown-W', () => {
-            this.exorcist.setVelocity(0, -200);
+            this.keysPressedEx[1][1] = true
+            this.lastKeyExorcist = 1
         });
-    
-        this.input.keyboard.on('keyup-W', () => {
-            this.exorcist.setVelocity(0);
-        });
-    
         this.input.keyboard.on('keydown-S', () => {
-            this.exorcist.setVelocity(0, 200);
+            this.keysPressedEx[2][1] = true
+            this.lastKeyExorcist = 2
         });
-    
-        this.input.keyboard.on('keyup-S', () => {
-            this.exorcist.setVelocity(0);
-        });
-    
         this.input.keyboard.on('keydown-D', () => {
-            this.exorcist.setVelocity(200, 0);
+            this.keysPressedEx[3][1] = true
+            this.lastKeyExorcist = 3
         });
-    
-        this.input.keyboard.on('keyup-D', () => {
-            this.exorcist.setVelocity(0);
+
+        // Key up
+        this.input.keyboard.on('keyup-A', (event) => {
+            this.keysPressedEx[0][1] = false              
+        });        
+        this.input.keyboard.on('keyup-W', (event) => {
+            this.keysPressedEx[1][1] = false
+        });        
+        this.input.keyboard.on('keyup-S', (event) => {
+            this.keysPressedEx[2][1] = false    
+        });        
+        this.input.keyboard.on('keyup-D', (event) => {
+            this.keysPressedEx[3][1] = false   
         });
     }
     
@@ -281,6 +304,25 @@ class GameScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+        this.demon.setVelocity(0,0)
+        for(let i = 0; i < this.keysPressedDe.length; i++){
+            if(this.keysPressedDe[i][1] == true){
+                this.demon.setVelocity(this.keysPressedDe[i][0][0] * this.speedDe, this.keysPressedDe[i][0][1] * this.speedDe)
+                if(this.lastKeyDemon == i) break
+            }
+        }
 
+        this.exorcist.setVelocity(0,0)
+        for(let i = 0; i < this.keysPressedEx.length; i++){
+            if(this.keysPressedEx[i][1] == true){
+                this.exorcist.setVelocity(this.keysPressedEx[i][0][0] * this.speedEx, this.keysPressedEx[i][0][1] * this.speedEx)
+                if(this.lastKeyExorcist == i) break
+            }
+        }
+
+
+        this.walls.children.iterate(function (child) {
+            child.setImmovable(true);
+        });
     }
 }

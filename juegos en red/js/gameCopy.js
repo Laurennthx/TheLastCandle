@@ -38,23 +38,29 @@ class GameSceneCopy extends Phaser.Scene {
     
         // Add walls with physics bodies
         this.walls = this.physics.add.group();
-        const block = this.walls.create(4080, 2050, 'block')
-        block.body.setAllowGravity(false)
-        block.body.setImmovable(true)
-        block.setScale(0.8, 4)
-
+        const block = this.walls.create(4100, 2050, 'block').setOrigin(0.5, 0.5)
+        block.body.setImmovable(true)   // Las paredes deben tener esto activado, los personajes no
+        block.alpha = 1
+        block.displayWidth = 500
+        block.displayHeight = 500
+    
+        // Se añaden en el grupo todos los elementos del background para escalarlos juntos
         this.bgContainer.add([background, block])
         this.escalaFondo = this.scale.height / background.height
         this.bgContainer.setScale(this.escalaFondo)
+        
 
         // Create ball
         this.exorcist = this.physics.add.sprite(200, 200, 'exorcist');
         this.exorcist.setCollideWorldBounds(true);
         this.exorcist.setScale(0.03, 0.03);
         this.exorcist.body.setAllowGravity(false);
-        this.exorcist.body.setImmovable(true);
+        //this.exorcist.body.setImmovable(true);
 
     
+        this.physics.add.collider(this.exorcist, block, this.hitBLock, null, this); // LLama a la función "hitGround" cuando colisionan
+
+
         // console.log(wall1.displayWidth)
         // wall1.setScale(0.2, 0.2)
         // console.log(wall1.displayWidth)
@@ -70,7 +76,7 @@ class GameSceneCopy extends Phaser.Scene {
         }
     
         // Make objects affected by lighting
-        [...this.walls.getChildren()].forEach(obj => obj.setPipeline('Light2D'));
+        [background,...this.walls.getChildren()].forEach(obj => obj.setPipeline('Light2D'));
     
         // Create shadow graphics
         this.shadowGraphics = this.add.graphics();
@@ -120,6 +126,10 @@ class GameSceneCopy extends Phaser.Scene {
         });
     }
     
+    hitBLock() {
+        console.log('choque')
+    }
+
     update() {
         // Update light position based on mouse position
         const pointer = this.input.activePointer;
