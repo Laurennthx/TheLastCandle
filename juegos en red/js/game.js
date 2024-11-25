@@ -31,7 +31,11 @@ class GameScene extends Phaser.Scene {
         this.load.image('ritual', 'assets/Objects/star.png');
 
         // Caja de prueba para testear cosas
-        this.load.image('block','assets/Pruebas/block.png')
+        this.load.image('block','assets/Pruebas/block.png');
+
+        // Caja de prueba para testear cosas
+        this.load.image('collider1_2','assets/House/collider1_2.png');
+
 
     }
 
@@ -63,6 +67,7 @@ class GameScene extends Phaser.Scene {
         // Ejemplo para que los personajes no puedan atravesar paredes
         this.walls = this.physics.add.group()
         this.walls.create(5000, 5000, 'block')
+        this.walls.create(5150, 950, 'collider1_2')
         // Aplicar setImmovable a todos los objetos en el grupo
         this.walls.children.iterate(function (child) {
             child.setImmovable(true);
