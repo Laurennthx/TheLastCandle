@@ -27,7 +27,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('crucifix', 'assets/Objects/crucifix.png')
 
         // velas
-        this.load.image('candle', 'assets/Objects/candle_on.png')
+        this.load.image('candle', 'assets/Objects/velaApagada.png')
 
         // estrellas de ritual 
         this.load.image('ritual', 'assets/Objects/star.png');
@@ -247,7 +247,7 @@ class GameScene extends Phaser.Scene {
 
             // Configuración de la vela
             candle.setOrigin(0.5, 0.5)
-                .setScale(0.1, 0.1)
+                .setScale(0.02, 0.02)
                 .setCollideWorldBounds(true)
                 .setImmovable(true); // Evitar que se mueva por colisiones
 
