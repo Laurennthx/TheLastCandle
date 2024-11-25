@@ -20,7 +20,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('divider', 'assets/UI/divider4.png');
 
         // map
-        this.load.image('background', 'assets/House/CasaSinFondo.png')
+        this.load.image('background', 'assets/House/fondoEstrellas.png')
         
 
         // crucifix
