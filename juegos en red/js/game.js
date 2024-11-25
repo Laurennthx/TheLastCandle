@@ -75,7 +75,35 @@ class GameScene extends Phaser.Scene {
         // Ejemplo para que los personajes no puedan atravesar paredes
         this.walls = this.physics.add.group()
         this.walls.create(5000, 5000, 'block')
-        this.walls.create(5150, 950, 'collider1_2')
+        const collider1 = this.createCollider(1737, 876, 6804, 144)
+        const collider2 = this.createCollider(1744, 876, 120, 2720)
+        const collider3 = this.createCollider(96, 1768, 1784, 168)
+        const collider4 = this.createCollider(8360, 888, 168, 2582)
+        const collider5 = this.createCollider(4016, 880, 124, 736)
+        const collider6 = this.createCollider(5648, 880, 124, 736)
+        const collider7 = this.createCollider(4016, 2980, 128, 444)
+        const collider8 = this.createCollider(5648, 2980, 128, 444)
+        const collider9 = this.createCollider(1740, 3288, 615, 138)
+        const collider10 = this.createCollider(3234, 3288, 2898, 138)
+        const collider11 = this.createCollider(7023, 3288, 1506, 138)
+        const collider12 = this.createCollider(98, 1778, 140, 8902)
+        const collider13 = this.createCollider(7762, 3316, 148, 9750)
+        const collider14 = this.createCollider(982, 5072, 5898, 182)
+        const collider15 = this.createCollider(1732, 4927, 150, 329)
+        const collider16 = this.createCollider(6700, 5074, 178, 3808)
+        const collider17 = this.createCollider(5802, 8680, 1078, 202)
+        const collider18 = this.createCollider(2619, 8680, 2136, 202)
+        const collider19 = this.createCollider(92, 8680, 1352, 202)
+        const collider20 = this.createCollider(92, 6608, 3880, 158)
+        const collider21 = this.createCollider(3839, 6608, 142, 300)
+        const collider22 = this.createCollider(3839, 8392, 142, 484)
+        const collider23 = this.createCollider(98, 11000, 1782, 164)
+        const collider24 = this.createCollider(2937, 11000, 751, 164)
+        const collider25 = this.createCollider(3528, 11000, 160, 486)
+        const collider26 = this.createCollider(1282, 11000, 167, 2281)
+        const collider27 = this.createCollider(1278, 13000, 2890, 173)
+
+
 
         // COLLIDERS
         // ritual 1
