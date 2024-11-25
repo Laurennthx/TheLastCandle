@@ -13,7 +13,7 @@ En este documento se detalla la concepción de nuestro proyecto de prácticas pa
 ## Sinopsis y Concepto
 The Last Candle se enmarca en el género de terror y combina elementos de escape room con la resolución de acertijos, generando una atmósfera de tensión y misterio. La dinámica principal enfrenta a dos jugadores, cada uno con objetivos opuestos para ganar la partida. Uno de los personajes, el exorcista, deberá escapar y liberar la casa de una maldición, mientras que el otro, un demonio, intentará evitarlo, asesinando al exorcista y perpetuando su permanencia en la casa.
 
-El argumento del juego gira en torno a dos protagonistas: un exorcista y un demonio de gran poder. El demonio ha tomado control de una casa, la cual se encuentra maldita, y el exorcista ha sido contratado para liberar la casa en nombre de un cliente. Sin embargo, al ingresar, el exorcista se percata de que está atrapado dentro de la casa. Para sobrevivir, no solo deberá exorcizar al demonio, sino también resolver una serie de complicados acertijos que le permitirán escapar con vida. El demonio, por su parte, hará todo lo posible para impedir que el exorcista logre su misión, creando una experiencia intensa y llena de suspense.
+El argumento del juego gira en torno a dos protagonistas: un exorcista y un demonio de gran poder. El demonio ha tomado control de una casa, la cual se encuentra maldita, y el exorcista ha sido contratado para liberar la casa en nombre de un cliente. Sin embargo, al ingresar, el exorcista se percata de que está atrapado dentro de la casa. Para sobrevivir, deberá exorcizar al demonio completando un ritual que le permitirá escapar con vida. El demonio, por su parte, hará todo lo posible para impedir que el exorcista logre su misión, creando una experiencia intensa y llena de suspense.
 
 ## Historia y personajes
 Una vez más, la niebla densa rodeaba la vieja mansión en la colina. Nadie recordaba quién había construido aquella casa, pero todos sabían lo que habitaba en su interior. La maldición había cobrado vida, y con ella, un demonio de poder inimaginable. Ningún alma valiente que había intentado purificarla había vuelto a salir… hasta ahora.
@@ -51,13 +51,13 @@ Cuando el exorcista recoge el crucifijo, se retroalimenta al jugador en respuest
 
 ### Recoger velas escondidas por el mapa para completar el ritual (Exorcista) / Impedir que el exorcista acabe el ritual (Demonio)
 #### Objetivo
-El exorcista necesita encontrar y encender las velas repartidas por el mapa y llevarlas a la sala del ritual, un lugar donde el demonio no puede entrar, para poder iniciarlo y así ganar la partida. El demonio puede contrarrestar este objetivo al apagar las velas o impedir que sean recolectadas, dinámica de contrarreloj.
+El exorcista necesita encontrar las velas repartidas por el mapa y colocarlas en los distintos símbolos del ritual que se encuentran repartidos por la casa, para poder iniciarlo y así ganar la partida. El demonio tendrá que buscar y dar caza al exorcista antes de que complete el ritual.
 
 #### Implementación
 **Distribución de las velas**
-* Las velas están ocultas en diferentes habitaciones o puntos estratégicos del mapa, y algunas están bloqueadas por puzzles o trampas.
-* El número total de velas puede ser un requisito para el ritual (por ejemplo, el exorcista necesita encontrar 5 velas para iniciar el ritual).
-* Cada vez que el exorcista encuentra una vela, deberá encenderla (interacción que toma unos segundos) antes de recogerla, aumentando la tensión. Luego, deberá llevar las velas encendidas una por una hasta la sala del ritual.
+* Las velas están ocultas en diferentes habitaciones o puntos estratégicos del mapa.
+* Por cada vela hay un símbolo del ritual, siendo el requisito para completar el exorcismo colocar un número de velas de las disponibles (por ejemplo, si hay 5 velas para iniciar el ritual habrá colocar 4 de estas).
+* Cada vez que el exorcista encuentra una vela, deberá llevarla a uno de los símbolos del ritual que se encuentran distribuidos por laa habitaciones de la casa.
 
 **Mecánica de Tiempo Limitado**
 * Para añadir más presión, una vez que el exorcista encuentra la primera vela, se puede activar una cuenta regresiva (por ejemplo, 5 minutos) durante la cual debe recoger todas las velas antes de que se apaguen.
