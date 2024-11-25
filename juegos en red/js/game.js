@@ -288,36 +288,36 @@ class GameScene extends Phaser.Scene {
     }
 
     // COMPLETAR UN RITUAL
-// Método para colocar una vela en un ritual
-placeCandle(exorcist, ritualCollider) {
-    if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
-        // Verificar si hay velas disponibles
-        if (this.candleCount > 0) {
-            // Obtener las coordenadas centrales del ritualCollider
-            const bounds = ritualCollider.getBounds();
-            const candle = this.add.sprite(
-                bounds.centerX - 1, // Coordenada X central ajustada
-                bounds.centerY - 7, // Coordenada Y central ajustada
-                'candleOn' // Textura de la vela
-            ).setScale(0.015); // Ajustar el tamaño si es necesario
+    // Método para colocar una vela en un ritual
+    placeCandle(exorcist, ritualCollider) {
+        if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+            // Verificar si hay velas disponibles
+            if (this.candleCount > 0) {
+                // Obtener las coordenadas centrales del ritualCollider
+                const bounds = ritualCollider.getBounds();
+                const candle = this.add.sprite(
+                    bounds.centerX - 1, // Coordenada X central ajustada
+                    bounds.centerY - 7, // Coordenada Y central ajustada
+                    'candleOn' // Textura de la vela
+                ).setScale(0.015); // Ajustar el tamaño si es necesario
 
-            // Reducir el número de velas disponibles
-            this.candleCount--;
-            this.candleText.setText(`Candles: ${this.candleCount}`); // Actualizar el texto
+                // Reducir el número de velas disponibles
+                this.candleCount--;
+                this.candleText.setText(`Candles: ${this.candleCount}`); // Actualizar el texto
 
-            // Incrementar el contador de rituales
-            this.ritualCount++;
-            this.ritualText.setText(`Completed Rituals: ${this.ritualCount}`); // Actualizar el texto de rituales
-            this.ritualIcon.setVisible(true); // Mostrar el icono
+                // Incrementar el contador de rituales
+                this.ritualCount++;
+                this.ritualText.setText(`Completed Rituals: ${this.ritualCount}`); // Actualizar el texto de rituales
+                this.ritualIcon.setVisible(true); // Mostrar el icono
 
-            // Desactivar el ritualCollider para evitar múltiples activaciones
-            ritualCollider.active = false; // Desactiva el collider para futuras colisiones
-            // ritualCollider.destroy(); // Alternativamente, elimina el collider del mundo
-        } else {
-            // Opcional: Notificar al jugador que no tiene suficientes velas
-            console.log("You need a candle to complete the ritual!");
+                // Desactivar el ritualCollider para evitar múltiples activaciones
+                ritualCollider.active = false; // Desactiva el collider para futuras colisiones
+                // ritualCollider.destroy(); // Alternativamente, elimina el collider del mundo
+            } else {
+                // Opcional: Notificar al jugador que no tiene suficientes velas
+                console.log("You need a candle to complete the ritual!");
+            }
         }
-    }
 }
 
     
