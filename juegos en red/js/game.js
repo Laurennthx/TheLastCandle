@@ -2,6 +2,7 @@ class GameScene extends Phaser.Scene {
     constructor() {
         super({ key: 'GameScene' });
         this.candleCount = 0; // Contador de velas en el inventario
+        this.ritualCount = 0; // Contador de rituales completados
 
     }
 
@@ -110,11 +111,15 @@ class GameScene extends Phaser.Scene {
 
         // Crear rituales 
         this.rituals = this.physics.add.group(); // Grupo para los rituales
-        
+        this.generateRituals(3); // Generar 3 rituales
         
         // Texto de contador e icono en la esquina superior izquierda de las velas 
         this.candleText = this.add.text(20, 20, 'Velas: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
         this.candleIcon = this.add.image(200, 30, 'candle').setScale(0.1).setVisible(false).setScrollFactor(0);
+
+        // Texto de contador e icono en la esquina superior izquierda de los rituales 
+        this.ritualText = this.add.text(20, 60, 'Rituales completados: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
+        this.ritualIcon = this.add.image(300, 60, 'ritual').setScale(0.1).setVisible(false).setScrollFactor(0);
 
         // Configurar teclas - pulsar E para recoger vela - SOLO EXORCISTA
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -122,6 +127,8 @@ class GameScene extends Phaser.Scene {
 
         // Detectar colisiones con velas
         this.physics.add.overlap(this.exorcist, this.candles, this.collectCandle, null, this);
+        // Detectar colisiones con rituales
+        this.physics.add.overlap(this.exorcist, this.rituals, this.placeCandle, null, this);
         // Collider del exorcista con el demonio, se podría quitar 
         this.physics.add.collider(this.exorcist, this.demon, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
         // Activar colisión entre las paredes y el exorcista
@@ -217,6 +224,20 @@ class GameScene extends Phaser.Scene {
             candle.body.setAllowGravity(false); // Desactiva la gravedad
         }
     }
+
+    // CREACION DE RITUALES
+    generateRituals(count) {
+        // Creacion del ritual
+        const ritual = this.rituals.create(5, 7, 'ritual');
+
+        // Configuración del ritual
+        ritual.setOrigin(0.5, 0.5)
+                  .setScale(0.05, 0.05)
+                  .setCollideWorldBounds(true)
+                  .setImmovable(true); // Evitar que se mueva por colisiones
+            
+        ritual.body.setAllowGravity(false); // Desactiva la gravedad
+    }
     
     // RECOGER VELA
     collectCandle(exorcist, candle) {
@@ -228,7 +249,34 @@ class GameScene extends Phaser.Scene {
         }
     }
     
+    // COLOCAR VELA
+    placeCandle(exorcist, ritual) {
+        if (this.candleCount > 0 && Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+            
+            if (this.playerNearRitual()){
+                this.candleCount--; // Disminuir el contador de velas 
+                this.candleText.setText(`Velas: ${this.candleCount}`); // Actualizar el texto de velas
+                
+                const candle = this.add.image (
+                    this.ritual.x + Phaser.Math.Between(-20, 20),
+                    this.ritual.y + Phaser.Math.Between(-20, 20),
+                    'candle'
+                );
+         
+            this.ritualCount++; // Aumentar el contador de rituales 
+            this.ritualText.setText(`Rituales completados: ${this.ritualCount}`); // Actualizar el texto de rituales
+            }
+        }
+    }
     
+    playerNearRitual() {
+        const dist = Phaser.Math.Distance.Between(
+            this.exorcist.x, this.exorcist.y,
+            this.ritual.x, this.ritual.y
+        );
+
+        return dist < 5;
+    }
 
     setupPaddleControllersDemon() {
         // Key down
