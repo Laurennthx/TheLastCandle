@@ -91,10 +91,10 @@ Al encender o apagar los interruptores, la luz de la mansión se enciende o se a
 Mientras que ambos personajes pueden moverse libremente por el espacio, cada uno puede llevar a cabos sus propias acciones al pulsar el botón de interactuar. Ambos tienen acciones relacionadas, como encender o apagar las velas y los interruptores y otras acciones descritas en las mecánicas. Sin embargo, el demonio también puede atacar al exorcista si está lo suficientemente cerca, causándole daño y dándole un instante para huir si le queda más de un corazón.
 
 **Controles en modo local:**
-* Jugador 1: WASD para moverse por el espacio y el ESPACIO para el resto de interacciones.
-* Jugador 2: FLECHAS del teclado para moverse y el ENTER para el resto de interacciones.
+* Jugador 1: "WASD" para moverse por el espacio y la "E" para el resto de interacciones.
+* Jugador 2: FLECHAS del teclado para moverse y el "ENTER" para el resto de interacciones.
 
-**Controles en modo online:** ambos jugadores tendrán los mismos controles, siendo estos WASD para moverse y el ESPACIO para el resto de interacciones.
+**Controles en modo online:** ambos jugadores tendrán los mismos controles, siendo estos WASD para moverse y la "E" para el resto de interacciones.
 
 ## Niveles y misiones
 En este juego, no existen niveles convencionales (como nivel 1, nivel 2, etc.). En lugar de progresar a través de múltiples fases, toda la acción tiene lugar en una casa encantada. El jugador deberá completar la partida en esta misma pantalla, que funciona a modo de "escape room." El objetivo es resolver los acertijos y evitar ser atrapado por el demonio, o bien morir en el proceso. No hay transición a otros niveles, sólo el éxito al escapar o el fracaso al ser eliminado.
@@ -198,7 +198,6 @@ El menú contará con su propia música, pudiendo cada pantalla tener una melod�
  * Ataque del demonio y daño recibido.
  * Ritual activado
 
-## Aspectos de negocio y distribución
 ## Estrategia de mercado
 ### Público objetivo
 El juego se encuentra dirigido a jugadores a partir de dieciséis años. Pese a que los gráficos contarán con una estética “cartoon”, el género en el que se encuentra, es decir, el terror, atrae a jugadores de edades más altas, los cuales disfrutan del suspense propio del mismo. 
@@ -208,14 +207,62 @@ A su vez, se podría encasillar en un PEGI 16. Esto es debido a la violencia pre
 El propósito del juego es el entretenimiento. Los aspectos comentados proporcionarán un gran interés en el juego proveniente de jugadores experimentados en el género, dado que tiene aspectos similares a grandes videojuegos como “Don't Starve Together” o “Dead by Daylight”, entre otros.
 
 ### Tecnología y plataforma
-Su desarrollo se diseñará e implementará mediante JavaScript. 
+Su desarrollo se diseñará e implementará mediante JavaScript y contará con una licencia open source, concretamente, “Apache 2”. 
 
 El juego estará diseñado para ejecutarse en el navegador, a través de una red de ordenadores que cuenten con el sistema operativo de Windows.
 
 ### Modelo de negocio
 Se ha decidido que el juego cuente con un modelo de negocio mixto. Se implementarán anuncios dentro del mismo, en algunos casos haciendo que el jugador obtenga beneficios al verlos, propio de un modelo de negocio “adware”. Además, se utilizará el modelo de negocio “freemium”, ya que se ofrecerá contenido adicional para la personalización de los personajes y/o accesorios. Por último, se encontrará disponible la opción de donación para aquellos que decidan apoyar el desarrollo del videojuego, implementando así un modelo de negocio “donationware”.
 
+## Implementación y arte "Fase 2"
+Se han realizado ciertos cambios, entre ellos, el intercambio de teclas para interactuar con los objetos, sustituyendo al “espacio” por la tecla “E”. Se ha incluido en el apartado correspondiente la licencia con la que se encuentra realizado el trabajo.
 
+### Mecánicas
+
+
+### Iluminación
+
+
+### Música y sonidos
+Se ha implementado la opción de elegir entre activar o desactivar una música de fondo, elegido por sus características, propias de los juegos de terror, que aporta una sensación inmersiva al jugador.
+A su vez, se han implementado efectos de sonido al interactuar con los botones de la interfaz, tanto en la interacción de pulsarlos como al mantener el ratón por encima. 
+También existen efectos de sonido durante el juego, cuando el exorcista o el demonio interactúan con los interruptores se produce un “click”, indicando que se ha activado o desactivado dicho interruptor. 
+
+### Diseño del logotipo
+
+ 
+
+
+
+### Diseño de personajes
+#### Bocetos
+
+#### Diseño final
+
+#### Animaciones
+
+
+### Diseño del mapa
+#### Boceto
+
+
+#### Texturas
+
+
+#### Resultado final
+
+
+### Decoraciones
+Estas decoraciones aún no han sido implementadas pero se han probado en el juego y se van a realizar cambios en ellas de cara a las siguientes entregas.
+La mansión encantada se encontrará decorada con varias cajas de mudanza, que, a su vez, tendrán una doble función de “escondite” para aquel jugador que tome el control del exorcista. Además, se han comenzado a diseñar los futuros muebles que se ubicarán en las distintas habitaciones, aunque se verán modificados según las necesidades de la estética de esta. Gran parte de dicho mobiliario contará con la doble función de “escondite”.
+
+
+### Objetos
+Se han diseñado cuatro objetos interactuables, cuyas funciones se han desarrollado en los apartados previos. En concreto son las velas, los interruptores, las estrellas de los rituales y el crucifijo. Varios de ellos cuentan con dos versiones distintas según la variación que ofrecen.
+
+
+### Interfaces
+El diseño de las interfaces se ha realizado siguiendo la estética del videojuego propuesto, una estética gótico-estilizada. Se han implementado en total nueve interfaces, sumándole la interfaz del juego que cuenta con un “divider” vertical en el centro de la pantalla. Entre ellas, podemos encontrar los siguientes diseños:
 
 
 
