@@ -70,16 +70,7 @@ class GameScene extends Phaser.Scene {
         });       
         returnButton.setScale(0.28,0.28);
 
-        // TEXT BOX 
-        const killDemon = this.add.image(480, 800, "textBoxExorcist")
-        .setInteractive()
-        .on('pointerdown', () => {
-        this.sound.play("select");
-        this.scene.stop("gameScene");
-        this.scene.start("ExorcistWinsScene");   
-        });       
-        killDemon.setScale(0.4,0.4);
-        killDemon.setVisible(false);
+
 
         // MOVIMIENTO
         this.lastKeyExorcist
@@ -221,6 +212,17 @@ class GameScene extends Phaser.Scene {
         // Texto de contador e icono en la esquina superior izquierda de los rituales 
         this.ritualText = this.add.text(20, 60, 'Completed Rituals: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
         this.ritualIcon = this.add.image(400, 60, 'candleOn').setScale(0.05).setVisible(false).setScrollFactor(0);
+
+        // TEXT BOX (Declarado como propiedad de la clase)
+        this.killDemon = this.add.image(480, 800, "textBoxExorcist")
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.sound.play("select");
+                this.scene.stop("gameScene");
+                this.scene.start("ExorcistWinsScene");   
+            });       
+        this.killDemon.setScale(0.4, 0.4);
+        this.killDemon.setVisible(false);
 
         // Configurar teclas - pulsar E para recoger vela - SOLO EXORCISTA
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -440,20 +442,22 @@ class GameScene extends Phaser.Scene {
 
                 // Desactivar el ritualCollider para evitar múltiples activaciones
                 ritualCollider.active = false; // Desactiva el collider para futuras colisiones
-                // ritualCollider.destroy(); // Alternativamente, elimina el collider del mundo
 
-                // Verificar si se han completado los 3 rituales
-                if (this.ritualCount == 1) {
-
-                    //this.killDemon.setVisible(true); // mostrar el textBox
-                }
-
-            } else {
-                // Opcional: Notificar al jugador que no tiene suficientes velas
-                console.log("You need a candle to complete the ritual!");
-            }
+                // Llama al método para verificar rituales
+                this.checkCompletedRituals();
+            } 
         }
     }
+
+    // COMPROBAR NUMERO RITUALES - MATAR DEMONIO
+    // comprueba el numero de rituales y da la opción de matar al demonio 
+    checkCompletedRituals() {
+        if (this.ritualCount == 3) { // Si se completaron 3 rituales
+            console.log("All 3 rituals completed! Activating the text box.");
+            this.killDemon.setVisible(true); // Activa la caja de texto
+        }
+    }
+    
 
 
 
