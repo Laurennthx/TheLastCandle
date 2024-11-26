@@ -11,7 +11,15 @@ class GameScene extends Phaser.Scene {
         this.score = 0;
     }
 
+    // #region PRELOAD
     preload() {
+
+        // AUDIOS
+        this.load.audio("pickUpCandle", 'assets/Music/effects/candle/putItem.mp3');
+        this.load.audio("LightCandle", 'assets/Music/effects/candle/lightItem.mp3');
+        this.load.audio("match", 'assets/Music/effects/candle/match.mp3');
+
+
         // Load game assets
         this.load.image('exorcist', 'assets/Characters/exorcist.png');
         this.load.image("demon", "assets/Characters/demon.png");
@@ -63,8 +71,11 @@ class GameScene extends Phaser.Scene {
             frameHeight: 1853  // Altura de cada fotograma
         });
 
+
+
     }
 
+    // #region CREATE
     create() {
         // MUNDO
         const zoomCamara = 5
@@ -108,7 +119,7 @@ class GameScene extends Phaser.Scene {
         // Otra manera es sacarlo del container y colocarlo en dimensiones de la pantalla 1990 x 1080
         const crucifix = this.add.image(100, 13000, 'crucifix').setOrigin(0, 0)
 
-
+         // #region COLLIDERS
         // Ejemplo para que los personajes no puedan atravesar paredes
         this.walls = this.physics.add.group()
         const collider1 = this.createCollider(1737, 876, 6804, 144)
@@ -203,11 +214,10 @@ class GameScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, background.width * escala, height);
 
 
-        // #region ***** CREACION DE PERSONAJES *****
+        // #region PERSONAJES 
         // Contenedor de personajes
         this.charactersContainer = this.add.container(0, 0)
-
-        /////////////////////
+      
         // EXORCISTA ANIMACIÓN
         // Crear la animación de caminar
         this.anims.create({
@@ -241,7 +251,7 @@ class GameScene extends Phaser.Scene {
         this.charactersContainer.add([this.exorcist, this.demon])
         // #endregion
 
-
+        // #region OBJETOS
         // OBJETOS
         // Crear velas
         this.candles = this.physics.add.group(); // Grupo para las velas
@@ -401,6 +411,8 @@ class GameScene extends Phaser.Scene {
      * @param {number} maxHeight - Alto máximo del mapa.
      */
 
+     // #region GENERACION VELAS
+
     // CREACIÓN ALEATORIA DE VELAS
     generateCandles(count, maxWidth, maxHeight) {
         const minDistance = 100; // Distancia mínima entre velas
@@ -462,6 +474,7 @@ class GameScene extends Phaser.Scene {
     // RECOGER VELA
     collectCandle(exorcist, candle) {
         if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+            this.sound.play("pickUpCandle"); // Reproducir sonido al recoger la vela
             candle.destroy(); // Eliminar la vela del mapa
             this.candleCount++; // Aumentar el contador
             this.candleText.setText(`Candles: ${this.candleCount}`); // Actualizar el texto
@@ -469,12 +482,15 @@ class GameScene extends Phaser.Scene {
         }
     }
 
+     // #region RITUALES
     // COMPLETAR UN RITUAL
     // Método para colocar una vela en un ritual
     placeCandle(exorcist, ritualCollider) {
         if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
             // Verificar si hay velas disponibles
             if (this.candleCount > 0) {
+                this.sound.play("match");
+                this.sound.play("LightCandle");
                 // Obtener las coordenadas centrales del ritualCollider
                 const bounds = ritualCollider.getBounds();
                 const candle = this.add.sprite(
@@ -505,11 +521,11 @@ class GameScene extends Phaser.Scene {
     // comprueba el numero de rituales y da la opción de matar al demonio 
     checkCompletedRituals() {
         if (this.ritualCount == 3) { // Si se completaron 3 rituales
-            console.log("All 3 rituals completed! Activating the text box.");
             this.killDemon.setVisible(true); // Activa la caja de texto
         }
     }
     
+     // #region INTERRUPTORES
     ponerInterruptores(posiciones) {
         const scale = 0.5
         for (let i = 0; i < posiciones.length; i++) {
@@ -607,7 +623,7 @@ class GameScene extends Phaser.Scene {
         return arrLuces
     }
 
-
+ // #region CONTROLES
     setupPaddleControllersDemon() {
         // Key down
         this.input.keyboard.on('keydown-LEFT', () => {
@@ -706,6 +722,8 @@ class GameScene extends Phaser.Scene {
         this.gameStarted = true;
     }
 
+
+     // #region UPDATE
     update(time, delta) {
         this.demon.setVelocity(0, 0)
         for (let i = 0; i < this.keysPressedDe.length; i++) {
