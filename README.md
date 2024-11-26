@@ -215,9 +215,19 @@ El juego estará diseñado para ejecutarse en el navegador, a través de una red
 Se ha decidido que el juego cuente con un modelo de negocio mixto. Se implementarán anuncios dentro del mismo, en algunos casos haciendo que el jugador obtenga beneficios al verlos, propio de un modelo de negocio “adware”. Además, se utilizará el modelo de negocio “freemium”, ya que se ofrecerá contenido adicional para la personalización de los personajes y/o accesorios. Por último, se encontrará disponible la opción de donación para aquellos que decidan apoyar el desarrollo del videojuego, implementando así un modelo de negocio “donationware”.
 
 ## Implementación y arte "Fase 2"
-Se han realizado ciertos cambios, entre ellos, el intercambio de teclas para interactuar con los objetos, sustituyendo al “espacio” por la tecla “E”. Se ha incluido en el apartado correspondiente la licencia con la que se encuentra realizado el trabajo.
+Se han realizado ciertos cambios, entre ellos, el intercambio de teclas para interactuar con los objetos, sustituyendo al “espacio” por la tecla “E”. Se ha incluido en el apartado correspondiente la licencia con la que se encuentra realizado el trabajo. A su vez, en lugar de tener que colocar cinco velas, el exorcista tendrá que colocar tres velas, una en cada ritual, para así ganar al demonio.
+
 
 ### Mecánicas
+#### Recoger un crucifijo que aparece en un lugar aleatorio (Exorcista)
+Para recoger el crucifijo lo único que hay que hacer es pasar por encima de él, haciendo que su collider y el del jugador choquen, recibiendo así el jugador un corazón más para el resto de la partida (por lo que podrá recibir un hit más del demonio).
+
+#### Recoger velas escondidas por el mapa para completar el ritual (Exorcista) / Impedir que el exorcista acabe el ritual (Demonio)
+Para poder recoger las velas situadas aleatoriamente por el mapa hay que acercarse al objeto y pulsar la “E”. El exorcista tendrá que colocar (con la misma tecla: “E”) las 3 velas, cada una en un ritual distinto llegando a completar 3 de ellos y así ganar la partida. Por el contrario, el demonio deberá impedir que el exorcista los complete y quitarle todas las vidas para poder ganar la partida.
+
+#### Encender y apagar la luz de la casa usando interruptores de las paredes
+Para que el exorcista pueda tener más campo de visión en el juego y, por lo tanto, ver un zona más grande del mapa, tendrá que pulsar la tecla “E” al llegar a un interruptor colocado aleatoriamente en la pared. Por otra parte, el demonio podrá hacer lo mismo para poder tener más campo de visión en el juego, perjudicándose el uno al otro.
+Los interruptores tendrán un cooldown de unos segundos para volver a pulsarlos y se notificará al jugador con un efecto visual.
 
 
 ### Iluminación
@@ -230,7 +240,8 @@ También existen efectos de sonido durante el juego, cuando el exorcista o el de
 
 ### Diseño del logotipo
 
- 
+  ![Logotipo]()
+
 
 
 
@@ -238,38 +249,88 @@ También existen efectos de sonido durante el juego, cuando el exorcista o el de
 #### Bocetos
 
 #### Diseño final
+  ![Exorcista2]()
+  ![Demonio]()
 
 #### Animaciones
+  ![spriteSheetExorcista]()
+  ![spriteSheetDemonio]()
 
 
 ### Diseño del mapa
 #### Boceto
-
+  ![Mapa_Boceto]()
 
 #### Texturas
 
 
 #### Resultado final
+  ![Mapa_ResultadoFinal]()
 
 
 ### Decoraciones
 Estas decoraciones aún no han sido implementadas pero se han probado en el juego y se van a realizar cambios en ellas de cara a las siguientes entregas.
 La mansión encantada se encontrará decorada con varias cajas de mudanza, que, a su vez, tendrán una doble función de “escondite” para aquel jugador que tome el control del exorcista. Además, se han comenzado a diseñar los futuros muebles que se ubicarán en las distintas habitaciones, aunque se verán modificados según las necesidades de la estética de esta. Gran parte de dicho mobiliario contará con la doble función de “escondite”.
 
+  ![Decoracion_Armario]()
+  ![Decoracion_Chimenea]()
+  ![Decoracion_Libreria]()
+  ![Decoracion_Sillon]()
+  ![Decoracion_Silla]()
+  ![Decoracion_Mesilla]()
+  ![Decoracion_Cajas1]()
+  ![Decoracion_Cajas2]()
+  ![Decoracion_Cajas3]()
+  ![Decoracion_Cajas4]()
 
 ### Objetos
 Se han diseñado cuatro objetos interactuables, cuyas funciones se han desarrollado en los apartados previos. En concreto son las velas, los interruptores, las estrellas de los rituales y el crucifijo. Varios de ellos cuentan con dos versiones distintas según la variación que ofrecen.
+ ***Crucifijo***
+  ![Objeto_Crucifijo]()
+
+ ***Velas***
+  ![Objeto_VelaApagada]()
+  ![Objeto_VelaEncendida]()
+
+ ***Interruptores***
+  ![Objeto_InterruptorOff]()
+  ![Objeto_InterruptorOn]()
+
+ ***Rituales***
+  ![Objeto_Ritual]()
+  ![Objeto_Ritual2]()
 
 
 ### Interfaces
 El diseño de las interfaces se ha realizado siguiendo la estética del videojuego propuesto, una estética gótico-estilizada. Se han implementado en total nueve interfaces, sumándole la interfaz del juego que cuenta con un “divider” vertical en el centro de la pantalla. Entre ellas, podemos encontrar los siguientes diseños:
 
+ ***Pantalla Inicio***
+  ![Interfaz_Inicio]()
 
+ ***Pantalla Menu Principal***
+  ![Interfaz_MenuPrincipal]()
 
+ ***Pantalla de Opciones***
+  ![Interfaz_Opciones]()
 
+ ***Pantalla de Créditos***
+  ![Interfaz_Creditos]()
 
+ ***Tutorial del exorcista***
+  ![Interfaz_TutExorc]()
 
+ ***Tutorial del demonio***
+  ![Interfaz_TutDem]()
 
+ ***Pantalla de carga***
+  ![Interfaz_Cargando]()
 
+ ***Pantalla de juego***
+  ![Interfaz_Juego]()
 
+ ***Victoria del exorcista***
+  ![Interfaz_ExorcistaGana]()
+
+ ***Victoria del demonio***
+  ![Interfaz_DemonioGana]()
 
