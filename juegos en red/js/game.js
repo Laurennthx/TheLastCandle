@@ -214,7 +214,7 @@ class GameScene extends Phaser.Scene {
         this.ritualIcon = this.add.image(400, 60, 'candleOn').setScale(0.05).setVisible(false).setScrollFactor(0);
 
         // TEXT BOX (Declarado como propiedad de la clase)
-        this.killDemon = this.add.image(480, 800, "textBoxExorcist")
+        this.killDemon = this.add.image(480, 900, "textBoxExorcist")
             .setInteractive()
             .on('pointerdown', () => {
                 this.sound.play("select");
