@@ -655,20 +655,34 @@ class GameScene extends Phaser.Scene {
 
         // Key up
         this.input.keyboard.on('keyup-LEFT', (event) => {
-            this.demon.anims.stop('demonWalk'); // parar animación
             this.keysPressedDe[0][1] = false
+            if(this.keysPressedDe[3][1] == true){
+                this.demon.flipX = false; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
+            }
+            if(this.characterIsStill(this.demon)){
+                this.demon.anims.stop('demonWalk'); // parar animación
+            }
         });
         this.input.keyboard.on('keyup-UP', (event) => {
-            this.demon.anims.stop('demonWalk'); // parar animación
             this.keysPressedDe[1][1] = false
+            if(this.characterIsStill(this.demon)){
+                this.demon.anims.stop('demonWalk'); // parar animación
+            }
         });
         this.input.keyboard.on('keyup-DOWN', (event) => {
-            this.demon.anims.stop('demonWalk'); // parar animación
             this.keysPressedDe[2][1] = false
+            if(this.characterIsStill(this.demon)){
+                this.demon.anims.stop('demonWalk'); // parar animación
+            }
         });
         this.input.keyboard.on('keyup-RIGHT', (event) => {
-            this.demon.anims.stop('demonWalk'); // parar animación
             this.keysPressedDe[3][1] = false
+            if(this.keysPressedDe[0][1] == true){
+                this.demon.flipX = true; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
+            }
+            if(this.characterIsStill(this.demon)){
+                this.demon.anims.stop('demonWalk'); // parar animación
+            }
         });
     }
 
@@ -699,23 +713,55 @@ class GameScene extends Phaser.Scene {
 
         // Key up
         this.input.keyboard.on('keyup-A', (event) => {
-            this.exorcist.anims.stop('walk'); // parar la animación si deja de moverse
             this.keysPressedEx[0][1] = false
+            if(this.keysPressedEx[3][1] == true){
+                this.exorcist.flipX = false; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
+            }
+            if(this.characterIsStill(this.exorcist)){
+                this.exorcist.anims.stop('walk'); // parar animación
+            }
         });
         this.input.keyboard.on('keyup-W', (event) => {
-            this.exorcist.anims.stop('walk'); // parar la animación si deja de moverse
             this.keysPressedEx[1][1] = false
+            if(this.characterIsStill(this.exorcist)){
+                this.exorcist.anims.stop('walk'); // parar animación
+            }
         });
         this.input.keyboard.on('keyup-S', (event) => {
-            this.exorcist.anims.stop('walk'); // parar la animación si deja de moverse
             this.keysPressedEx[2][1] = false
+            if(this.characterIsStill(this.exorcist)){
+                this.exorcist.anims.stop('walk'); // parar animación
+            }
         });
         this.input.keyboard.on('keyup-D', (event) => {
-            this.exorcist.anims.stop('walk'); // parar la animación si deja de moverse
             this.keysPressedEx[3][1] = false
+            if(this.keysPressedEx[0][1] == true){
+                this.exorcist.flipX = true; // Si al soltar la D, se estaba moviendo hacia la A, se voltea el sprite
+            }
+            if(this.characterIsStill(this.exorcist)){
+                this.exorcist.anims.stop('walk'); // parar animación
+            }
         });
     }
 
+    characterIsStill(character){
+        var nKeysPressed = 0
+        if(character == this.demon){
+            for(let i = 0; i < this.keysPressedDe.length; i++){
+                if(this.keysPressedDe[i][1] == true){
+                    nKeysPressed++
+                }
+            }
+        }
+        else if(character == this.exorcist){
+            for(let i = 0; i < this.keysPressedEx.length; i++){
+                if(this.keysPressedEx[i][1] == true){
+                    nKeysPressed++
+                }
+            }
+        }
+        return nKeysPressed == 0
+    }
 
 
     hitGround() {
