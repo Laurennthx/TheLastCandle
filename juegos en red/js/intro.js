@@ -4,8 +4,9 @@ class IntroGame extends Phaser.Scene {
     }
 
     preload() {
-		this.load.audio("select", 'assets/select.mp3');
         this.load.audio("background", 'assets/8bit-music.mp3');
+        this.load.audio("introMusic", 'assets/Music/sinister.mp3');
+
         
         this.load.image("start_button", "assets/start-button.svg");
         this.load.image("exit_button", "assets/exit-button.svg");
@@ -14,7 +15,8 @@ class IntroGame extends Phaser.Scene {
     create() {
         const hello_text = this.add.text(150, 50, 'THE LAST CANDLE', { fill: '#000000', fontSize: 100 })
         hello_text.setOrigin(-0.32, -0.3);
-        this.bgMusic = this.sound.add('background');
+        
+        this.bgMusic = this.sound.add('introMusic');
         this.bgMusic.loop = true;
         this.bgMusic.play();
 

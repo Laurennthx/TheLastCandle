@@ -44,6 +44,9 @@ class GameScene extends Phaser.Scene {
         this.load.image('block', 'assets/Pruebas/block.png')
         this.load.image('collider1_2', 'assets/House/collider1_2.png');
 
+        // botón de return
+        this.load.image('return', 'assets/UI/return.png');
+
     }
 
     create() {
@@ -51,6 +54,17 @@ class GameScene extends Phaser.Scene {
         const zoomCamara = 5
         const height = this.scale.height
         const width = this.scale.width
+
+        // BOTÓN RETURN TO MENU
+        // boton back
+        const returnButton = this.add.image(1810, 40, "return")
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.sound.play("select");
+            this.scene.stop("GameScene");
+            this.scene.start("MenuScene");   
+        });       
+        returnButton.setScale(0.28,0.28);
 
         // MOVIMIENTO
         this.lastKeyExorcist
@@ -181,7 +195,7 @@ class GameScene extends Phaser.Scene {
         // OBJETOS
         // Crear velas
         this.candles = this.physics.add.group(); // Grupo para las velas
-        this.generateCandles(3, background.width, background.height); // Generar 3 velas
+        this.generateCandles(5, background.width, background.height); // Generar 3 velas
 
         // Texto de contador e icono en la esquina superior izquierda de las velas 
         this.candleText = this.add.text(20, 20, 'Candles: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);

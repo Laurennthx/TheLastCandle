@@ -5,7 +5,7 @@ class WelcomeScene extends Phaser.Scene {
     }
 
     preload() {
-		this.load.audio("select", 'assets/select.mp3');
+		this.load.audio("select", 'assets/Music/effects/click/darkButton.mp3');
         this.load.audio("background", 'assets/8bit-music.mp3');
         
         this.load.image("BGimage", "assets/UI/theLastCandle.jpg");

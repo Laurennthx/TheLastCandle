@@ -5,8 +5,7 @@ class OptionsScene extends Phaser.Scene {
     }
     
     preload() {
-        this.load.audio("select", 'assets/select.mp3');
-        this.load.audio("background", 'assets/8bit-music.mp3');
+        this.load.audio("introMusic", 'assets/Music/sinister.mp3');
         
         this.load.image("OptionsBG", "assets/UI/options.jpg");
         
@@ -30,7 +29,7 @@ class OptionsScene extends Phaser.Scene {
                 this.sound.play("select");
                 // Verifica si la música ya está inicializada y reproduciéndose
                 if (!this.bgMusic || !this.bgMusic.isPlaying) {
-                    this.bgMusic = this.sound.add('background');
+                    this.bgMusic = this.sound.add('introMusic');
                     this.bgMusic.loop = true;
                     this.bgMusic.play();
                 }
