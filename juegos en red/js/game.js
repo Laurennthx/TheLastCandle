@@ -87,16 +87,16 @@ class GameScene extends Phaser.Scene {
         // BOTÓN RETURN TO MENU
         // boton back
         const returnButton = this.add.image(1810, 40, "return")
-        .setInteractive()
-        .on('pointerdown', () => {
-            this.sound.play("select");
-            this.scene.stop("GameScene");
-            this.scene.start("MenuScene");   
-        })
-        .on('pointerover', () => {
-            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
-        });        
-        returnButton.setScale(0.28,0.28);
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.sound.play("select");
+                this.scene.stop("GameScene");
+                this.scene.start("MenuScene");
+            })
+            .on('pointerover', () => {
+                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+            });
+        returnButton.setScale(0.28, 0.28);
 
 
 
@@ -121,7 +121,7 @@ class GameScene extends Phaser.Scene {
         // Otra manera es sacarlo del container y colocarlo en dimensiones de la pantalla 1990 x 1080
         const crucifix = this.add.image(100, 13000, 'crucifix').setOrigin(0, 0)
 
-         // #region COLLIDERS
+        // #region COLLIDERS
         // Ejemplo para que los personajes no puedan atravesar paredes
         this.walls = this.physics.add.group()
         const collider1 = this.createCollider(1737, 876, 6804, 144)
@@ -146,9 +146,9 @@ class GameScene extends Phaser.Scene {
         const collider20 = this.createCollider(92, 6608, 3880, 158)
         const collider21 = this.createCollider(3839, 6608, 142, 300)
         const collider22 = this.createCollider(3839, 8392, 142, 484)
-      
+
         const collider24 = this.createCollider(2945, 10496, 739, 223)
-        const collider25 = this.createCollider(3534, 10494, 158, 528)     
+        const collider25 = this.createCollider(3534, 10494, 158, 528)
         const collider28 = this.createCollider(3557, 12294, 132, 2899)
         const collider29 = this.createCollider(3546, 15005, 6150, 199)
         const collider30 = this.createCollider(9569, 12632, 145, 2562)
@@ -163,21 +163,21 @@ class GameScene extends Phaser.Scene {
 
         // COLLIDERS
         this.grupoRituales = this.physics.add.group()
-        const ritual1 = this.grupoRituales.create(512, 7843, 'block').setOrigin(0,0).setImmovable(true)
+        const ritual1 = this.grupoRituales.create(512, 7843, 'block').setOrigin(0, 0).setImmovable(true)
         ritual1.displayWidth = 473
         ritual1.displayHeight = 473
         ritual1.alpha = 0
 
-        const ritual2 = this.grupoRituales.create(8540, 14048, 'block').setOrigin(0,0).setImmovable(true)
+        const ritual2 = this.grupoRituales.create(8540, 14048, 'block').setOrigin(0, 0).setImmovable(true)
         ritual2.displayWidth = 473
         ritual2.displayHeight = 473
         ritual2.alpha = 0
 
-        const ritual3 = this.grupoRituales.create(4679, 2332, 'block').setOrigin(0,0).setImmovable(true)
+        const ritual3 = this.grupoRituales.create(4679, 2332, 'block').setOrigin(0, 0).setImmovable(true)
         ritual3.displayWidth = 473
         ritual3.displayHeight = 473
         ritual3.alpha = 0
-        
+
 
         this.rituals = [ritual1, ritual2, ritual3]; // Lista de colliders de rituales
 
@@ -189,20 +189,20 @@ class GameScene extends Phaser.Scene {
         //CONTENEDOR HABITACIONES
         this.roomsContainer = this.add.container(0.0);
 
-        this.bedroom1 = this.add.rectangle(1001.5,3870,1495,2390);
-        this.bedroom2 = this.add.rectangle(2934,2545.5,2130,1471);
-        this.bedroom3 = this.add.rectangle(7056,2539,2566,1496);
-        this.bathroom1 = this.add.rectangle(4886.5,2533,1471,1458);
-        this.bathroom2 = this.add.rectangle(2512,12016.5,2124,1205);
-        this.kitchen = this.add.rectangle(5341.5,7329.5,2723,2693);
-        this.diningRoom = this.add.rectangle(2030,8084.5,3564,1175);
-        this.storageRoom = this.add.rectangle(8738,14278,1634,1520);
-        this.livingRoom = this.add.rectangle(5704,11096.5,4048,2977);
-        this.hall = this.add.rectangle(1968.5,10037,3455,872);
+        this.bedroom1 = this.add.rectangle(1001.5, 3870, 1495, 2390);
+        this.bedroom2 = this.add.rectangle(2934, 2545.5, 2130, 1471);
+        this.bedroom3 = this.add.rectangle(7056, 2539, 2566, 1496);
+        this.bathroom1 = this.add.rectangle(4886.5, 2533, 1471, 1458);  // Zona ritual arriba
+        this.bathroom2 = this.add.rectangle(2512, 12016.5, 2124, 1205);
+        this.kitchen = this.add.rectangle(5341.5, 7329.5, 2723, 2693);
+        this.diningRoom = this.add.rectangle(2030, 8084.5, 3564, 1175);   // Zona ritual izquierda
+        this.storageRoom = this.add.rectangle(8738, 14278, 1634, 1520);   // Zona ritual abajo derecha
+        this.livingRoom = this.add.rectangle(5704, 11096.5, 4048, 2977);
+        this.hall = this.add.rectangle(1968.5, 10037, 3455, 872);
 
-        this.roomsContainer.add([this.bedroom1,this.bedroom2,this.bedroom3,this.bathroom1,this.bathroom2,this.kitchen,this.diningRoom,this.storageRoom,this.livingRoom,this.hall]);
-        const escala = this.scale.height / background.height
-        this.roomsContainer.setScale(escala);
+        this.roomsContainer.add([this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom1, this.bathroom2, this.kitchen, this.diningRoom, this.storageRoom, this.livingRoom, this.hall]);
+        this.escalaBg = this.scale.height / background.height
+        this.roomsContainer.setScale(this.escalaBg);
 
         // Poner los interruptores
         this.interruptoresOn = this.physics.add.group(); // Grupo para los interruptores
@@ -210,23 +210,23 @@ class GameScene extends Phaser.Scene {
         this.ponerInterruptores(posInterruptores)
 
         this.bgContainer.add([background, crucifix, ...this.walls.getChildren(), ...this.interruptoresOn.getChildren(), ...this.interruptoresOff.getChildren(), ...this.grupoRituales.getChildren()])
-        this.bgContainer.setScale(escala)
+        this.bgContainer.setScale(this.escalaBg)
 
         // Establecer los límites del mundo según el tamaño del mapa
-        this.physics.world.setBounds(0, 0, background.width * escala, height);
+        this.physics.world.setBounds(0, 0, background.width * this.escalaBg, height);
 
 
         // #region PERSONAJES 
         // Contenedor de personajes
         this.charactersContainer = this.add.container(0, 0)
-      
+
         // EXORCISTA ANIMACIÓN
         // Crear la animación de caminar
         this.anims.create({
-        key: 'walk', // Nombre de la animación
-        frames: this.anims.generateFrameNumbers('exorcistWalk', { start: 0, end: 3 }), // Rango de fotogramas
-        frameRate: 4, // Velocidad de reproducción (fotogramas por segundo)
-        repeat: -1 // Repetir indefinidamente
+            key: 'walk', // Nombre de la animación
+            frames: this.anims.generateFrameNumbers('exorcistWalk', { start: 0, end: 3 }), // Rango de fotogramas
+            frameRate: 4, // Velocidad de reproducción (fotogramas por segundo)
+            repeat: -1 // Repetir indefinidamente
         });
 
         // Crear el sprite del exorcista
@@ -241,12 +241,12 @@ class GameScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('demonWalk', { start: 0, end: 3 }), // Rango de fotogramas
             frameRate: 4, // Velocidad de reproducción (fotogramas por segundo)
             repeat: -1 // Repetir indefinidamente
-            });
-    
-            // Crear el sprite del demonio
-            this.demon = this.physics.add.sprite(400, 800, 'demonWalk');
-            this.demon.setCollideWorldBounds(true);
-            this.demon.setScale(0.035); // Ajusta el tamaño según tus necesidades
+        });
+
+        // Crear el sprite del demonio
+        this.demon = this.physics.add.sprite(400, 800, 'demonWalk');
+        this.demon.setCollideWorldBounds(true);
+        this.demon.setScale(0.035); // Ajusta el tamaño según tus necesidades
 
 
         // Añadimos los personajes al contenedor
@@ -257,7 +257,7 @@ class GameScene extends Phaser.Scene {
         // OBJETOS
         // Crear velas
         this.candles = this.physics.add.group(); // Grupo para las velas
-        this.generateCandles(5, background.width, background.height); // Generar 3 velas
+        this.generateCandles(5); // Generar 5 velas
 
         // Texto de contador e icono en la esquina superior izquierda de las velas 
         this.candleText = this.add.text(20, 20, 'Candles: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
@@ -273,8 +273,8 @@ class GameScene extends Phaser.Scene {
             .on('pointerdown', () => {
                 this.sound.play("select");
                 this.scene.stop("gameScene");
-                this.scene.start("ExorcistWinsScene");   
-            });       
+                this.scene.start("ExorcistWinsScene");
+            });
         this.killDemon.setScale(0.4, 0.4);
         this.killDemon.setVisible(false);
 
@@ -284,8 +284,8 @@ class GameScene extends Phaser.Scene {
             .on('pointerdown', () => {
                 this.sound.play("select");
                 this.scene.stop("gameScene");
-                this.scene.start("EndScene");   
-            });       
+                this.scene.start("EndScene");
+            });
         this.killExorcist.setScale(0.4, 0.4);
         this.killExorcist.setVisible(false);
 
@@ -346,10 +346,10 @@ class GameScene extends Phaser.Scene {
         this.lucesEx = this.ponerLuces(posInterruptores, 0xb8afd0)  // Las luces indicadores del ex. son blancas
         this.lucesDe = this.ponerLuces(posInterruptores, 0xff8e0d)  // Las luces indicadoras del dem. son naranjas
         this.lucesEx.forEach(luz => {
-            luz.setPosition(luz.x * escala, luz.y * escala) // Ajustar la posición de las luces
+            luz.setPosition(luz.x * this.escalaBg, luz.y * this.escalaBg) // Ajustar la posición de las luces
         })
         this.lucesDe.forEach(luz => {
-            luz.setPosition(luz.x * escala, luz.y * escala) // Ajustar la posición de las luces
+            luz.setPosition(luz.x * this.escalaBg, luz.y * this.escalaBg) // Ajustar la posición de las luces
             luz.setRadius(0)
         })
 
@@ -409,67 +409,60 @@ class GameScene extends Phaser.Scene {
     /**
      * Genera las velas en posiciones aleatorias.
      * @param {number} count - Número de velas a generar.
-     * @param {number} maxWidth - Ancho máximo del mapa.
-     * @param {number} maxHeight - Alto máximo del mapa.
      */
 
-     // #region GENERACION VELAS
+    // #region GENERACION VELAS
 
     // CREACIÓN ALEATORIA DE VELAS
-    generateCandles(count, maxWidth, maxHeight) {
-        const minDistance = 100; // Distancia mínima entre velas
+    generateCandles(count) {
+        const texturaVela = this.textures.get('candle');
+        const anchuraVela = texturaVela.getSourceImage().width * 0.013 / this.escalaBg
+        const alturaVela = texturaVela.getSourceImage().height * 0.013 / this.escalaBg
+
+        const minDistance = 1500; // Distancia mínima entre velas
         const positions = []; // Para almacenar las posiciones ya usadas
-        const rooms = [this.bedroom1,this.bedroom2,this.bedroom3,this.bathroom1,this.bathroom2,this.kitchen,this.diningRoom,this.storageRoom,this.livingRoom,this.hall]
-        // Dimensiones ajustadas según la escala del fondo
-        const adjustedWidth = maxWidth * this.bgContainer.scaleX;
-        const adjustedHeight = maxHeight * this.bgContainer.scaleY;
+        const rooms = [this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom2, this.kitchen, this.livingRoom, this.hall]
 
+        // For que se repite count veces, donde count es el numero de velas a generar
         for (let i = 0; i < count; i++) {
-            let x, y, validPosition;
+            let x, y
+            let validPosition
+            let minDistanceTemp = minDistance
+            let nIteracions = 0
+            while (!validPosition) {
+                if(nIteracions++ == rooms.length) minDistanceTemp = 0
+                // Escoger una habitación al azar
+                const randomRoom = Phaser.Utils.Array.GetRandom(rooms);
+                let nIntentos = 10  // Va a hacer 10 intentos de encontrar una posición válida en esa habitación
 
-            // Generar coordenadas aleatorias dentro de habitaciones (sin usar contenedor)
-            //fuera del do porque estaba probando todavia sin guardar posiciones ya usadas
-            /*const randomRoom = Phaser.Utils.Array.GetRandom(rooms);
+                for (let j = 0; j < nIntentos; j++) {
+                    validPosition = true
 
-            x = randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2, randomRoom.width / 2);
-            y = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2);*/
+                    // Generar una posición al azar en esa habitación
+                    x = randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2, randomRoom.width / 2 - anchuraVela);
+                    y = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2 - alturaVela);
 
-            do {
-                validPosition = true;
-
-                // Generar coordenadas aleatorias dentro del área ajustada (sin habitaciones)
-                x = Phaser.Math.Between(0, adjustedWidth);
-                y = Phaser.Math.Between(0, adjustedHeight);
-
-                // Generar coordenadas aleatorias dentro de habitaciones (con contenedor)
-                /*const randomIndex = Phaser.Math.Between(0, roomsContainer.list.length - 1);
-                const randomRoom = roomsContainer.list[randomIndex];
-            
-                const candleX =  randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2, randomRoom.width / 2);
-                const candleY = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2);*/
-                
-                
-                // Verificar que la posición no esté demasiado cerca de otras velas
-                for (let pos of positions) {
-                    const distance = Phaser.Math.Distance.Between(x, y, pos.x, pos.y);
-                    if (distance < minDistance) {
-                        validPosition = false;
-                        break;
+                    // Asegurarse que no está cerca de ninguna otra vela
+                    for (let pos of positions) {
+                        const distance = Phaser.Math.Distance.Between(x, y, pos.x, pos.y);
+                        if (distance < minDistanceTemp) {
+                            validPosition = false;  // Salir del for si hay alguna otra vela cerca
+                            break;
+                        }
                     }
+                    if (validPosition) break // Si ha encontrado una posición válida sale del for. Si no, busca otra posición
                 }
-            } while (!validPosition);
-
+            }
             // Guardar la posición y crear la vela
             positions.push({ x, y });
-            const candle = this.candles.create(x, y, 'candle');
-
+            const candle = this.candles.create(x * this.escalaBg, y * this.escalaBg, 'candle')  // Escalar su posición a la hora de generarlas
             // Configuración de la vela
-            candle.setOrigin(0.5, 0.5)
-                .setScale(0.013, 0.013)
+            candle.setScale(0.013, 0.013)
                 .setCollideWorldBounds(true)
                 .setImmovable(true); // Evitar que se mueva por colisiones
 
             candle.body.setAllowGravity(false); // Desactiva la gravedad
+            console.log(candle.x + " " + candle.y)
         }
     }
 
@@ -484,7 +477,7 @@ class GameScene extends Phaser.Scene {
         }
     }
 
-     // #region RITUALES
+    // #region RITUALES
     // COMPLETAR UN RITUAL
     // Método para colocar una vela en un ritual
     placeCandle(exorcist, ritualCollider) {
@@ -515,7 +508,7 @@ class GameScene extends Phaser.Scene {
 
                 // Llama al método para verificar rituales
                 this.checkCompletedRituals();
-            } 
+            }
         }
     }
 
@@ -526,8 +519,8 @@ class GameScene extends Phaser.Scene {
             this.killDemon.setVisible(true); // Activa la caja de texto
         }
     }
-    
-     // #region INTERRUPTORES
+
+    // #region INTERRUPTORES
     ponerInterruptores(posiciones) {
         const scale = 0.5
         for (let i = 0; i < posiciones.length; i++) {
@@ -627,7 +620,7 @@ class GameScene extends Phaser.Scene {
         return arrLuces
     }
 
- // #region CONTROLES
+    // #region CONTROLES
     setupPaddleControllersDemon() {
         // Key down
         this.input.keyboard.on('keydown-LEFT', () => {
@@ -656,31 +649,31 @@ class GameScene extends Phaser.Scene {
         // Key up
         this.input.keyboard.on('keyup-LEFT', (event) => {
             this.keysPressedDe[0][1] = false
-            if(this.keysPressedDe[3][1] == true){
+            if (this.keysPressedDe[3][1] == true) {
                 this.demon.flipX = false; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
             }
-            if(this.characterIsStill(this.demon)){
+            if (this.characterIsStill(this.demon)) {
                 this.demon.anims.stop('demonWalk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-UP', (event) => {
             this.keysPressedDe[1][1] = false
-            if(this.characterIsStill(this.demon)){
+            if (this.characterIsStill(this.demon)) {
                 this.demon.anims.stop('demonWalk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-DOWN', (event) => {
             this.keysPressedDe[2][1] = false
-            if(this.characterIsStill(this.demon)){
+            if (this.characterIsStill(this.demon)) {
                 this.demon.anims.stop('demonWalk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-RIGHT', (event) => {
             this.keysPressedDe[3][1] = false
-            if(this.keysPressedDe[0][1] == true){
+            if (this.keysPressedDe[0][1] == true) {
                 this.demon.flipX = true; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
             }
-            if(this.characterIsStill(this.demon)){
+            if (this.characterIsStill(this.demon)) {
                 this.demon.anims.stop('demonWalk'); // parar animación
             }
         });
@@ -714,48 +707,48 @@ class GameScene extends Phaser.Scene {
         // Key up
         this.input.keyboard.on('keyup-A', (event) => {
             this.keysPressedEx[0][1] = false
-            if(this.keysPressedEx[3][1] == true){
+            if (this.keysPressedEx[3][1] == true) {
                 this.exorcist.flipX = false; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
             }
-            if(this.characterIsStill(this.exorcist)){
+            if (this.characterIsStill(this.exorcist)) {
                 this.exorcist.anims.stop('walk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-W', (event) => {
             this.keysPressedEx[1][1] = false
-            if(this.characterIsStill(this.exorcist)){
+            if (this.characterIsStill(this.exorcist)) {
                 this.exorcist.anims.stop('walk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-S', (event) => {
             this.keysPressedEx[2][1] = false
-            if(this.characterIsStill(this.exorcist)){
+            if (this.characterIsStill(this.exorcist)) {
                 this.exorcist.anims.stop('walk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-D', (event) => {
             this.keysPressedEx[3][1] = false
-            if(this.keysPressedEx[0][1] == true){
+            if (this.keysPressedEx[0][1] == true) {
                 this.exorcist.flipX = true; // Si al soltar la D, se estaba moviendo hacia la A, se voltea el sprite
             }
-            if(this.characterIsStill(this.exorcist)){
+            if (this.characterIsStill(this.exorcist)) {
                 this.exorcist.anims.stop('walk'); // parar animación
             }
         });
     }
 
-    characterIsStill(character){
+    characterIsStill(character) {
         var nKeysPressed = 0
-        if(character == this.demon){
-            for(let i = 0; i < this.keysPressedDe.length; i++){
-                if(this.keysPressedDe[i][1] == true){
+        if (character == this.demon) {
+            for (let i = 0; i < this.keysPressedDe.length; i++) {
+                if (this.keysPressedDe[i][1] == true) {
                     nKeysPressed++
                 }
             }
         }
-        else if(character == this.exorcist){
-            for(let i = 0; i < this.keysPressedEx.length; i++){
-                if(this.keysPressedEx[i][1] == true){
+        else if (character == this.exorcist) {
+            for (let i = 0; i < this.keysPressedEx.length; i++) {
+                if (this.keysPressedEx[i][1] == true) {
                     nKeysPressed++
                 }
             }
@@ -773,7 +766,7 @@ class GameScene extends Phaser.Scene {
     }
 
 
-     // #region UPDATE
+    // #region UPDATE
     update(time, delta) {
         this.demon.setVelocity(0, 0)
         for (let i = 0; i < this.keysPressedDe.length; i++) {
