@@ -18,6 +18,8 @@ class GameScene extends Phaser.Scene {
         this.load.audio("pickUpCandle", 'assets/Music/effects/candle/putItem.mp3');
         this.load.audio("LightCandle", 'assets/Music/effects/candle/lightItem.mp3');
         this.load.audio("match", 'assets/Music/effects/candle/match.mp3');
+        this.load.audio("switch", 'assets/Music/effects/interruptor/switch.mp3');
+
 
 
         // Load game assets
@@ -562,6 +564,7 @@ class GameScene extends Phaser.Scene {
     // El demonio llama a esta función para apagar las luces
     apagarLuces() {
         if (this.cooldownLuces == false) {
+            this.sound.play('switch');
             this.cooldownLuces = true
             this.visionAreaEx.setScale(this.vScaleSmall, this.vScaleSmall)
             this.visionAreaDe.setScale(this.vScaleBig, this.vScaleBig)
@@ -590,6 +593,7 @@ class GameScene extends Phaser.Scene {
     // El exorcista llama a esta función para encender las luces
     encenderLuces() {
         if (this.cooldownLuces == false) {
+            this.sound.play('switch');
             this.cooldownLuces = true
             this.visionAreaEx.setScale(this.vScaleBig, this.vScaleBig)
             this.visionAreaDe.setScale(this.vScaleSmall, this.vScaleSmall)
