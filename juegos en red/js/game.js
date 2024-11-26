@@ -47,6 +47,10 @@ class GameScene extends Phaser.Scene {
         // botón de return
         this.load.image('return', 'assets/UI/return.png');
 
+        // textBox Exorcista gana
+        this.load.image('textBoxExorcist', 'assets/UI/textBox.png');
+
+
     }
 
     create() {
@@ -65,6 +69,17 @@ class GameScene extends Phaser.Scene {
             this.scene.start("MenuScene");   
         });       
         returnButton.setScale(0.28,0.28);
+
+        // TEXT BOX 
+        const killDemon = this.add.image(480, 1000, "textBoxExorcist")
+        .setInteractive()
+        .on('pointerdown', () => {
+        this.sound.play("select");
+        this.scene.stop("gameScene");
+        this.scene.start("ExorcistWins");   
+        });       
+        returnButton.setScale(0.4,0.4);
+        killDemon.setVisible(false);
 
         // MOVIMIENTO
         this.lastKeyExorcist
@@ -415,12 +430,21 @@ class GameScene extends Phaser.Scene {
                 // Desactivar el ritualCollider para evitar múltiples activaciones
                 ritualCollider.active = false; // Desactiva el collider para futuras colisiones
                 // ritualCollider.destroy(); // Alternativamente, elimina el collider del mundo
+
+                // Verificar si se han completado los 3 rituales
+                if (this.ritualCount === 1) {
+
+                    killDemon.setVisible(true);
+                }
+
             } else {
                 // Opcional: Notificar al jugador que no tiene suficientes velas
                 console.log("You need a candle to complete the ritual!");
             }
         }
-}
+    }
+
+
 
     ponerInterruptores(posiciones) {
         const scale = 0.5

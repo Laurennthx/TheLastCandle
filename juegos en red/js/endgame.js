@@ -1,4 +1,4 @@
-class EndGame extends Phaser.Scene {
+class EndScene extends Phaser.Scene {
     constructor() {
         super({ key: 'EndScene' });
     }
@@ -25,15 +25,11 @@ class EndGame extends Phaser.Scene {
        //     align: 'center'
        // }).setOrigin(-0.15,-0.2);
 
-        this.input.once('pointerdown', () => {
-            this.scene.start("MenuScene");
-        });
-
         const returnButton = this.add.image(960, 1000, "tryAgain")
         .setInteractive()
         .on('pointerdown', () => {
             this.sound.play("select");
-            this.scene.stop("GameScene");
+            this.scene.stop("EndScene");
             this.scene.start("MenuScene");   
         });       
         returnButton.setScale(0.4,0.4);
