@@ -117,9 +117,7 @@ class GameScene extends Phaser.Scene {
         this.bgContainer = this.add.container(0, 0)
         // Crear el mapa como fondo, dimensiones: 9962 x 15522
         const background = this.add.image(0, 0, 'background').setOrigin(0, 0)
-        // Al meterlo dentro del 'container' para posicinarlo correctamente hay que tener en cuenta las dimensiones en píxeles del sprite background.
-        // Otra manera es sacarlo del container y colocarlo en dimensiones de la pantalla 1990 x 1080
-        const crucifix = this.add.image(100, 13000, 'crucifix').setOrigin(0, 0)
+        this.crucifix = this.physics.add.sprite(0, 0, 'crucifix').setOrigin(0, 0)    // Iniciar el crucifijo en cualquier parte
 
         // #region COLLIDERS
         // Ejemplo para que los personajes no puedan atravesar paredes
@@ -213,7 +211,7 @@ class GameScene extends Phaser.Scene {
         this.interruptoresOff = this.physics.add.group(); // Grupo para los interruptores
         this.ponerInterruptores(posInterruptores)
 
-        this.bgContainer.add([background, crucifix, ...this.walls.getChildren(), ...this.interruptoresOn.getChildren(), ...this.interruptoresOff.getChildren(), ...this.grupoRituales.getChildren()])
+        this.bgContainer.add([background, this.crucifix, ...this.walls.getChildren(), ...this.interruptoresOn.getChildren(), ...this.interruptoresOff.getChildren(), ...this.grupoRituales.getChildren()])
         this.bgContainer.setScale(this.escalaBg)
 
         // Establecer los límites del mundo según el tamaño del mapa
@@ -306,6 +304,8 @@ class GameScene extends Phaser.Scene {
         this.physics.add.overlap(this.exorcist, this.candles, this.collectCandle, null, this);
         // Detectar colisiones con rituales
         this.physics.add.overlap(this.exorcist, this.grupoRituales, this.placeCandle, null, this);
+        // Detectar colisión del exorcista con el crucifijo
+        this.physics.add.overlap(this.exorcist, this.crucifix, this.cogerCrucifijo, null, this);
         // Detectar colisiones con interruptores
         this.physics.add.overlap(this.exorcist, this.interruptoresOn, this.cambiarInterruptores, null, this);
         this.physics.add.overlap(this.demon, this.interruptoresOn, this.cambiarInterruptores, null, this);
@@ -331,6 +331,10 @@ class GameScene extends Phaser.Scene {
         this.lights.setAmbientColor(0xffffff);  // Luces ambientales blancas para así no atenuar el fondo
         this.rLight = 70    // Radio de las luces indicadoras de los interruptores
         this.cd = 3000  // Cooldown de 3 segundos
+
+        // VALOR QUE INDICA SI HA OBTENIDO EL CRUCIFIJO
+        this.crucifijoObtenido = false
+        this.aura = this.lights.addLight(0, 0, 0, 0xff2a00, 6) // El último valor es la intensidad de la luz
 
         this.lucesEncendidas = true    // Estado inicial de las luces
         this.cooldownLuces = false
@@ -422,6 +426,12 @@ class GameScene extends Phaser.Scene {
 
         // #endregion
 
+        // Generar el crucifijo tras 6 segundos de partida
+        this.time.addEvent({
+            delay: 6000,          // Retraso en milisegundos (6000 ms = 6 segundos)
+            callback: this.generateCrucifix,   // Función a llamar después del retraso
+            callbackScope: this   // Contexto (scope) de la función, generalmente `this` para acceder a la escena
+        });
 
     }
 
@@ -433,6 +443,33 @@ class GameScene extends Phaser.Scene {
         collider.displayWidth = width
         collider.displayHeight = height
         return collider
+    }
+
+
+    // #region METODOS CRUCIFIJO
+    generateCrucifix(){
+        const texturaCrucifix = this.textures.get('crucifix');
+        let escalaCrucifijo = 0.5
+        this.crucifix.setScale(escalaCrucifijo)
+        const anchuraCrucifix = texturaCrucifix.getSourceImage().width * escalaCrucifijo
+        const alturaCrucifix = texturaCrucifix.getSourceImage().height * escalaCrucifijo
+
+        const rooms = [this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom2, this.kitchen, this.livingRoom, this.hall, this.corridor1, this.corridor2, this.hall2]
+
+        const randomRoom = Phaser.Utils.Array.GetRandom(rooms);
+
+        let x = randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2, randomRoom.width / 2 - anchuraCrucifix);
+        let y = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2 - alturaCrucifix);
+
+        this.crucifix.setPosition(x, y)
+
+        console.log("Crucifijo generado")
+    }
+
+    cogerCrucifijo(){
+        this.crucifix.destroy()
+        this.aura.setRadius(75) // Poner el radio a 75 para que sea visible el aura. Para quitarla poner el radio a 0
+        this.crucifijoObtenido = true
     }
 
 
@@ -469,7 +506,7 @@ class GameScene extends Phaser.Scene {
                     validPosition = true
 
                     // Generar una posición al azar en esa habitación
-                    x = randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2, randomRoom.width / 2 - anchuraVela);
+                    x = randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2 + 100, randomRoom.width / 2 - anchuraVela);
                     y = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2 - alturaVela);
 
                     // Asegurarse que no está cerca de ninguna otra vela
@@ -492,7 +529,6 @@ class GameScene extends Phaser.Scene {
                 .setImmovable(true); // Evitar que se mueva por colisiones
 
             candle.body.setAllowGravity(false); // Desactiva la gravedad
-            console.log(candle.x + " " + candle.y)
         }
     }
 
@@ -818,5 +854,6 @@ class GameScene extends Phaser.Scene {
         this.visionAreaEx.setPosition(this.exorcist.x, this.exorcist.y)
         this.visionAreaDe.setPosition(this.demon.x, this.demon.y)
 
+        this.aura.setPosition(this.exorcist.x, this.exorcist.y)
     }
 }
