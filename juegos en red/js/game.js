@@ -111,7 +111,6 @@ class GameScene extends Phaser.Scene {
 
         // Ejemplo para que los personajes no puedan atravesar paredes
         this.walls = this.physics.add.group()
-        this.walls.create(5000, 5000, 'block')
         const collider1 = this.createCollider(1737, 876, 6804, 144)
         const collider2 = this.createCollider(1744, 876, 120, 2720)
         const collider3 = this.createCollider(96, 1768, 1784, 168)
@@ -150,12 +149,22 @@ class GameScene extends Phaser.Scene {
 
 
         // COLLIDERS
-        // ritual 1
-        const ritual1 = this.createCollider(512, 7843, 473, 473); // (pos x, pos y, ancho, alto)
-        // ritual 2
-        const ritual2 = this.createCollider(8540, 14048, 473, 473); // (pos x, pos y, ancho, alto)
-        // ritual 3
-        const ritual3 = this.createCollider(4679, 2332, 473, 473); // (pos x, pos y, ancho, alto)
+        this.grupoRituales = this.physics.add.group()
+        const ritual1 = this.grupoRituales.create(512, 7843, 'block').setOrigin(0,0).setImmovable(true)
+        ritual1.displayWidth = 473
+        ritual1.displayHeight = 473
+        ritual1.alpha = 0
+
+        const ritual2 = this.grupoRituales.create(8540, 14048, 'block').setOrigin(0,0).setImmovable(true)
+        ritual2.displayWidth = 473
+        ritual2.displayHeight = 473
+        ritual2.alpha = 0
+
+        const ritual3 = this.grupoRituales.create(4679, 2332, 'block').setOrigin(0,0).setImmovable(true)
+        ritual3.displayWidth = 473
+        ritual3.displayHeight = 473
+        ritual3.alpha = 0
+        
 
         this.rituals = [ritual1, ritual2, ritual3]; // Lista de colliders de rituales
 
@@ -187,7 +196,7 @@ class GameScene extends Phaser.Scene {
         this.interruptoresOff = this.physics.add.group(); // Grupo para los interruptores
         this.ponerInterruptores(posInterruptores)
 
-        this.bgContainer.add([background, crucifix, ...this.walls.getChildren(), ...this.interruptoresOn.getChildren(), ...this.interruptoresOff.getChildren()])
+        this.bgContainer.add([background, crucifix, ...this.walls.getChildren(), ...this.interruptoresOn.getChildren(), ...this.interruptoresOff.getChildren(), ...this.grupoRituales.getChildren()])
         this.bgContainer.setScale(escala)
 
         // Establecer los límites del mundo según el tamaño del mapa
@@ -277,7 +286,7 @@ class GameScene extends Phaser.Scene {
         // Detectar colisiones con velas
         this.physics.add.overlap(this.exorcist, this.candles, this.collectCandle, null, this);
         // Detectar colisiones con rituales
-        this.physics.add.overlap(this.exorcist, this.rituals, this.placeCandle, null, this);
+        this.physics.add.overlap(this.exorcist, this.grupoRituales, this.placeCandle, null, this);
         // Detectar colisiones con interruptores
         this.physics.add.overlap(this.exorcist, this.interruptoresOn, this.cambiarInterruptores, null, this);
         this.physics.add.overlap(this.demon, this.interruptoresOn, this.cambiarInterruptores, null, this);
@@ -310,7 +319,7 @@ class GameScene extends Phaser.Scene {
 
         // Radios del gradiente
         this.vScaleSmall = 0.18
-        this.vScaleBig = 0.3
+        this.vScaleBig = 0.5
 
         // Definir los campos de visión de los jugadores; el gradiente negro que hay alrededor de ellos
         this.visionAreaEx = this.add.image(this.exorcist.x, this.exorcist.y, 'gradiente').setOrigin(0.5, 0.5)
@@ -320,18 +329,16 @@ class GameScene extends Phaser.Scene {
 
         // Indicar a qué objetos les afecta la luz
         background.setPipeline('Light2D')
-        //this.visionAreaDe.setPipeline('Light2D')
-        //this.visionAreaEx.setPipeline('Light2D')
 
         // Arrays de luces que se encienden encima de los interruptores para indicar que pueden ser pulsados
         this.lucesEx = this.ponerLuces(posInterruptores, 0xb8afd0)  // Las luces indicadores del ex. son blancas
         this.lucesDe = this.ponerLuces(posInterruptores, 0xff8e0d)  // Las luces indicadoras del dem. son naranjas
         this.lucesEx.forEach(luz => {
             luz.setPosition(luz.x * escala, luz.y * escala) // Ajustar la posición de las luces
-            luz.setRadius(0)
         })
         this.lucesDe.forEach(luz => {
             luz.setPosition(luz.x * escala, luz.y * escala) // Ajustar la posición de las luces
+            luz.setRadius(0)
         })
 
         this.cambiarInterruptores() // Función que cuando los jugadores interactuan con el interruptor cambian las luces
@@ -508,8 +515,10 @@ class GameScene extends Phaser.Scene {
         for (let i = 0; i < posiciones.length; i++) {
             const switchOn = this.interruptoresOn.create(posiciones[i][0], posiciones[i][1], 'switch_on').setOrigin(0, 0)
             switchOn.setScale(scale, scale).setImmovable(true)
+            switchOn.setPipeline('Light2D')
             const switchOff = this.interruptoresOff.create(posiciones[i][0], posiciones[i][1], 'switch_off').setOrigin(0, 0)
             switchOff.setScale(scale, scale).setImmovable(true).alpha = 0
+            switchOff.setPipeline('Light2D')
         }
     }
 
@@ -593,7 +602,7 @@ class GameScene extends Phaser.Scene {
     ponerLuces(posiciones, color) {
         const arrLuces = []
         for (let i = 0; i < posiciones.length; i++) {
-            arrLuces[i] = this.lights.addLight(posiciones[i][0] + 150, posiciones[i][1] + 100, 70, color, 2);
+            arrLuces[i] = this.lights.addLight(posiciones[i][0] + 50, posiciones[i][1] + 50, 70, color, 6);
         }
         return arrLuces
     }
