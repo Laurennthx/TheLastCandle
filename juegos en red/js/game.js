@@ -52,9 +52,15 @@ class GameScene extends Phaser.Scene {
         // textBox Demonio gana
         this.load.image('textBoxDemon', 'assets/UI/demonTextBox.png');
 
+        // Animación exorcista
         this.load.spritesheet('exorcistWalk', 'assets/Animations/Exorcista/Exorcista/spriteSheetExorcista.png', {
             frameWidth: 1100,  // Ancho de cada fotograma
             frameHeight: 1920  // Altura de cada fotograma
+        });
+
+        this.load.spritesheet('demonWalk', 'assets/Animations/Demonio/Demonio/spriteSheetDemonio.png', {
+            frameWidth: 1280,  // Ancho de cada fotograma
+            frameHeight: 1853  // Altura de cada fotograma
         });
 
     }
@@ -202,14 +208,22 @@ class GameScene extends Phaser.Scene {
         // Crear el sprite del exorcista
         this.exorcist = this.physics.add.sprite(400, 530, 'exorcistWalk');
         this.exorcist.setCollideWorldBounds(true);
-        //this.exorcist.body.setImmovable(false);
-        this.exorcist.setScale(0.02); // Ajusta el tamaño según tus necesidades
+        this.exorcist.setScale(0.03); // Ajusta el tamaño según tus necesidades
 
-        // Demonio 
-        this.demon = this.physics.add.sprite(400, 1000, 'demon');
-        this.demon.setCollideWorldBounds(true);
-        this.demon.body.setImmovable(false);
-        this.demon.setScale(0.025, 0.025); // Escalar a ojo los personajes
+        // DEMONIO ANIMACIÓN
+        // Crear la animación de caminar
+        this.anims.create({
+            key: 'demonWalk', // Nombre de la animación
+            frames: this.anims.generateFrameNumbers('demonWalk', { start: 0, end: 3 }), // Rango de fotogramas
+            frameRate: 4, // Velocidad de reproducción (fotogramas por segundo)
+            repeat: -1 // Repetir indefinidamente
+            });
+    
+            // Crear el sprite del demonio
+            this.demon = this.physics.add.sprite(400, 800, 'demonWalk');
+            this.demon.setCollideWorldBounds(true);
+            this.demon.setScale(0.035); // Ajusta el tamaño según tus necesidades
+
 
         // Añadimos los personajes al contenedor
         this.charactersContainer.add([this.exorcist, this.demon])
@@ -585,33 +599,43 @@ class GameScene extends Phaser.Scene {
     setupPaddleControllersDemon() {
         // Key down
         this.input.keyboard.on('keydown-LEFT', () => {
+            this.demon.anims.play('demonWalk', true); // Reproducir animación
+            this.demon.flipX = true; // Voltear el sprite horizontalmente
             this.keysPressedDe[0][1] = true
             this.lastKeyDemon = 0
         });
         this.input.keyboard.on('keydown-UP', () => {
+            this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.keysPressedDe[1][1] = true
             this.lastKeyDemon = 1
         });
         this.input.keyboard.on('keydown-DOWN', () => {
+            this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.keysPressedDe[2][1] = true
             this.lastKeyDemon = 2
         });
         this.input.keyboard.on('keydown-RIGHT', () => {
+            this.demon.anims.play('demonWalk', true); // Reproducir animación
+            this.demon.flipX = false; // Voltear el sprite horizontalmente
             this.keysPressedDe[3][1] = true
             this.lastKeyDemon = 3
         });
 
         // Key up
         this.input.keyboard.on('keyup-LEFT', (event) => {
+            this.demon.anims.stop('demonWalk'); // parar animación
             this.keysPressedDe[0][1] = false
         });
         this.input.keyboard.on('keyup-UP', (event) => {
+            this.demon.anims.stop('demonWalk'); // parar animación
             this.keysPressedDe[1][1] = false
         });
         this.input.keyboard.on('keyup-DOWN', (event) => {
+            this.demon.anims.stop('demonWalk'); // parar animación
             this.keysPressedDe[2][1] = false
         });
         this.input.keyboard.on('keyup-RIGHT', (event) => {
+            this.demon.anims.stop('demonWalk'); // parar animación
             this.keysPressedDe[3][1] = false
         });
     }
@@ -643,15 +667,19 @@ class GameScene extends Phaser.Scene {
 
         // Key up
         this.input.keyboard.on('keyup-A', (event) => {
+            this.exorcist.anims.stop('walk'); // parar la animación si deja de moverse
             this.keysPressedEx[0][1] = false
         });
         this.input.keyboard.on('keyup-W', (event) => {
+            this.exorcist.anims.stop('walk'); // parar la animación si deja de moverse
             this.keysPressedEx[1][1] = false
         });
         this.input.keyboard.on('keyup-S', (event) => {
+            this.exorcist.anims.stop('walk'); // parar la animación si deja de moverse
             this.keysPressedEx[2][1] = false
         });
         this.input.keyboard.on('keyup-D', (event) => {
+            this.exorcist.anims.stop('walk'); // parar la animación si deja de moverse
             this.keysPressedEx[3][1] = false
         });
     }
