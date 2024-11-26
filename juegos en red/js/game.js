@@ -52,6 +52,11 @@ class GameScene extends Phaser.Scene {
         // textBox Demonio gana
         this.load.image('textBoxDemon', 'assets/UI/demonTextBox.png');
 
+        this.load.spritesheet('exorcistWalk', 'assets/Animations/Exorcista/Exorcista/spriteSheetExorcista.png', {
+            frameWidth: 1100,  // Ancho de cada fotograma
+            frameHeight: 1920  // Altura de cada fotograma
+        });
+
     }
 
     create() {
@@ -184,11 +189,21 @@ class GameScene extends Phaser.Scene {
         // Contenedor de personajes
         this.charactersContainer = this.add.container(0, 0)
 
-        // Exorcista
-        this.exorcist = this.physics.add.sprite(400, 530, 'exorcist');
+        /////////////////////
+        // EXORCISTA ANIMACIÓN
+        // Crear la animación de caminar
+        this.anims.create({
+        key: 'walk', // Nombre de la animación
+        frames: this.anims.generateFrameNumbers('exorcistWalk', { start: 0, end: 3 }), // Rango de fotogramas
+        frameRate: 4, // Velocidad de reproducción (fotogramas por segundo)
+        repeat: -1 // Repetir indefinidamente
+        });
+
+        // Crear el sprite del exorcista
+        this.exorcist = this.physics.add.sprite(400, 530, 'exorcistWalk');
         this.exorcist.setCollideWorldBounds(true);
-        this.exorcist.body.setImmovable(false);
-        this.exorcist.setScale(0.02, 0.02);
+        //this.exorcist.body.setImmovable(false);
+        this.exorcist.setScale(0.02); // Ajusta el tamaño según tus necesidades
 
         // Demonio 
         this.demon = this.physics.add.sprite(400, 1000, 'demon');
@@ -604,18 +619,24 @@ class GameScene extends Phaser.Scene {
     setupPaddleControllersExorcist() {
         // Key down
         this.input.keyboard.on('keydown-A', () => {
+            this.exorcist.anims.play('walk', true); // Reproducir animación
+            this.exorcist.flipX = true; // Voltear el sprite horizontalmente
             this.keysPressedEx[0][1] = true
             this.lastKeyExorcist = 0
         });
         this.input.keyboard.on('keydown-W', () => {
+            this.exorcist.anims.play('walk', true); // Reproducir animación
             this.keysPressedEx[1][1] = true
             this.lastKeyExorcist = 1
         });
         this.input.keyboard.on('keydown-S', () => {
+            this.exorcist.anims.play('walk', true); // Reproducir animación
             this.keysPressedEx[2][1] = true
             this.lastKeyExorcist = 2
         });
         this.input.keyboard.on('keydown-D', () => {
+            this.exorcist.anims.play('walk', true); // Reproducir animación
+            this.exorcist.flipX = false; // Restaurar orientación original
             this.keysPressedEx[3][1] = true
             this.lastKeyExorcist = 3
         });
