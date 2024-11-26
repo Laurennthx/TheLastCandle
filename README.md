@@ -76,7 +76,7 @@ La mecánica de control de luz crea un contraste interesante entre los dos perso
 #### Implementación
 **Sistema de interruptores**
 * Los interruptores de luz están distribuidos por la casa en puntos clave (cerca de las entradas de las habitaciones, en pasillos largos, etc.).
-* Ambos personajes pueden interactuar con los interruptores para encender o apagar la luz y ganar visibilidad de la zona, o reducirla.
+* Ambos personajes pueden interactuar con los interruptores para encender o apagar la luz de la mansión y así aumentar su campo de visión y reducir la del oponente.
 * Tras interactuar con los interruptores, tendrán un cooldown de unos 3s para poder volver a cambiar el estado de la luz.
 
 **Visibilidad reducida**
@@ -85,7 +85,7 @@ La mecánica de control de luz crea un contraste interesante entre los dos perso
 * Por el contrario, el demonio tiene mejor visión en la oscuridad, dándole una ventaja táctica cuando las luces están apagadas. 
 
 #### Estrategia de juego
-El exorcista debe gestionar cuándo y dónde encender las luces, ya que no puede controlar todas las áreas a la vez. El demonio puede apagar las luces estratégicamente en áreas donde sepa que el exorcista necesita trabajar en puzzles, aprovechando la oscuridad para emboscarlo. Como extra, se puede hacer que el fuego de las velas sea visible para ambos jugadores, independientemente del estado de la luz de las salas.
+Al encender o apagar los interruptores, la luz de la mansión se enciende o se apaga. Ambos jugadores deben activar un interruptor cuando su campo de visión esté reducido para así moverse con más facilidad por el mapa. Esto hace que cada 3 segundos (el cooldown de los interruptores) uno de los dos jugadores quiera ir urgentemente a cambiar el estado de las luces. El exorcista quiere tener las luces encendidas para encontrar las velas que hay repartidas por la mansión, y el demonio quiere apagar las luces para acechar con mayor facilidad al exorcsita.
 
 ## Controles
 Mientras que ambos personajes pueden moverse libremente por el espacio, cada uno puede llevar a cabos sus propias acciones al pulsar el botón de interactuar. Ambos tienen acciones relacionadas, como encender o apagar las velas y los interruptores y otras acciones descritas en las mecánicas. Sin embargo, el demonio también puede atacar al exorcista si está lo suficientemente cerca, causándole daño y dándole un instante para huir si le queda más de un corazón.
