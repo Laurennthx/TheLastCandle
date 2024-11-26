@@ -214,7 +214,12 @@ class GameScene extends Phaser.Scene {
 
         // Establecer los límites del mundo según el tamaño del mapa
         this.physics.world.setBounds(0, 0, background.width * this.escalaBg, height);
+        // #endregion
 
+        // #region GENERACION VELAS
+        // Crear velas
+        this.candles = this.physics.add.group(); // Grupo para las velas
+        this.generateCandles(5); // Generar 5 velas
 
         // #region PERSONAJES 
         // Contenedor de personajes
@@ -255,9 +260,7 @@ class GameScene extends Phaser.Scene {
 
         // #region OBJETOS
         // OBJETOS
-        // Crear velas
-        this.candles = this.physics.add.group(); // Grupo para las velas
-        this.generateCandles(5); // Generar 5 velas
+        // Las velas se generan antes que los personajes para que no aparezcan visualmente por encima de los personajes
 
         // Texto de contador e icono en la esquina superior izquierda de las velas 
         this.candleText = this.add.text(20, 20, 'Candles: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
@@ -318,7 +321,6 @@ class GameScene extends Phaser.Scene {
         // Añadir la imagen del marco en el centro de la pantalla
         const divider = this.add.image(this.scale.width / 2, this.scale.height / 2, 'divider')
             .setOrigin(0.5, 0.5); // Centra la imagen en ambos ejes
-        divider.setDepth(1); // Asegura que la imagen esté por encima de otros elementos
 
         // #region LIGHTS 
         this.lights.enable();
@@ -369,7 +371,7 @@ class GameScene extends Phaser.Scene {
         scndCamera.setZoom(zoomCamara)
 
         // Tercera cámara que sólo renderiza el borde
-        const marcoCamera = this.cameras.add(0, 0, this.scale.width, this.scale.height)
+        this.marcoCamera = this.cameras.add(0, 0, this.scale.width, this.scale.height)
 
         // limitar la camara principal y la secundaria al tamaño del mapa
         //this.cameras.main.setBounds(0, 0, this.background.width, this.background.height);
@@ -388,7 +390,7 @@ class GameScene extends Phaser.Scene {
             this.cameras.main.ignore(luzDe)
         })
         // La tercera cámara debe ignorar todos los sprites XD
-        marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles, this.visionAreaEx, this.visionAreaDe])
+        this.marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles, this.visionAreaEx, this.visionAreaDe, this.killDemon, this.killExorcist])
 
         // #endregion
 
@@ -493,6 +495,7 @@ class GameScene extends Phaser.Scene {
                     bounds.centerY - 7, // Coordenada Y central ajustada
                     'candleOn' // Textura de la vela
                 ).setScale(0.013); // Ajustar el tamaño si es necesario
+                this.marcoCamera.ignore(candle)
 
                 // Reducir el número de velas disponibles
                 this.candleCount--;
