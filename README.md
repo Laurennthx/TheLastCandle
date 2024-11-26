@@ -104,21 +104,6 @@ El juego se va a desarrollar en una única planta (más concretamente en la plan
 
 * **Misión del demonio:** deberá impedir que el exorcista recoja las velas, ya sea llevando a cabo persecuciones en las que podrá dañar su vida o situando trampas. También podrá apagar las velas, perjudicando la visión del exorcista al reducir la iluminación. Su misión principal es intentar matar al exorcista antes de que logre colocar las cinco velas, finalizando el ritual y acabando con su vida.
 
-
-## Aspectos de negocio y distribución
-### Estrategia de mercado
-#### Público objetivo
-El juego se encuentra dirigido a jugadores a partir de dieciséis años. Pese a que los gráficos contarán con una estética “cartoon”, el género en el que se encuentra, es decir, el terror, atrae a jugadores de edades más altas, los cuales disfrutan del suspense propio del mismo. 
-A su vez, se podría encasillar en un PEGI 16. Esto es debido a la violencia presente en las interacciones entre el demonio y el exorcista, así como la alta tensión en determinadas ocasiones dentro del “gameplay”, destacando en esta última la poca iluminación, sumada a la dificultad y rapidez con la que tendrá que actuar el jugador si quiere permanecer vivo.
-El propósito del juego es el entretenimiento. Los aspectos comentados proporcionarán un gran interés en el juego proveniente de jugadores experimentados en el género, dado que tiene aspectos similares a grandes videojuegos como “Don't Starve Together” o “Dead by Daylight”, entre otros.
-
-#### Tecnología y plataforma
-Su desarrollo se diseñará e implementará mediante JavaScript. 
-El juego estará diseñado para ejecutarse en el navegador, a través de una red de ordenadores que cuenten con el sistema operativo de Windows.
-
-#### Modelo de negocio
-Se ha decidido que el juego cuente con un modelo de negocio mixto. Implementarán anuncios dentro del mismo, en algunos casos haciendo que el jugador obtenga beneficios al verlos, propio de un modelo de negocio “shareware”. Además, se utilizará el modelo de negocio “freemium”, ya que se ofrecerá contenido adicional para la personalización de los personajes y/o accesorios. Por último, se encontrará disponible la opción de donación para aquellos que decidan apoyar el desarrollo del videojuego, implementando así un modelo de negocio “donationware”.
-
 ## Apartado Artístico
 
 ### Estilo visual y referencias
@@ -213,6 +198,7 @@ El menú contará con su propia música, pudiendo cada pantalla tener una melod�
  * Ataque del demonio y daño recibido.
  * Ritual activado
 
+## Aspectos de negocio y distribución
 ## Estrategia de mercado
 ### Público objetivo
 El juego se encuentra dirigido a jugadores a partir de dieciséis años. Pese a que los gráficos contarán con una estética “cartoon”, el género en el que se encuentra, es decir, el terror, atrae a jugadores de edades más altas, los cuales disfrutan del suspense propio del mismo. 
