@@ -199,8 +199,12 @@ class GameScene extends Phaser.Scene {
         this.storageRoom = this.add.rectangle(8738, 14278, 1634, 1520);   // Zona ritual abajo derecha
         this.livingRoom = this.add.rectangle(5704, 11096.5, 4048, 2977);
         this.hall = this.add.rectangle(1968.5, 10037, 3455, 872);
+        this.corridor1 = this.add.rectangle(3229 + 2895 / 2, 4195 + 878 / 2, 2895, 878);
+        this.corridor2 = this.add.rectangle(6884 + 868 / 2, 5080 + 4538 / 2, 868, 4538);
+        this.hall2 = this.add.rectangle(3700 + 4046 / 2, 13520 + 1500 / 2, 4046, 1500);
 
-        this.roomsContainer.add([this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom1, this.bathroom2, this.kitchen, this.diningRoom, this.storageRoom, this.livingRoom, this.hall]);
+        this.roomsContainer.add([this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom1, this.bathroom2, this.kitchen, this.diningRoom, 
+            this.storageRoom, this.livingRoom, this.hall, this.corridor1, this.corridor2, this.hall2]);
         this.escalaBg = this.scale.height / background.height
         this.roomsContainer.setScale(this.escalaBg);
 
@@ -328,18 +332,30 @@ class GameScene extends Phaser.Scene {
         this.rLight = 70    // Radio de las luces indicadoras de los interruptores
         this.cd = 3000  // Cooldown de 3 segundos
 
-        this.lucesEncendidas = false
+        this.lucesEncendidas = true    // Estado inicial de las luces
         this.cooldownLuces = false
 
         // Radios del gradiente
         this.vScaleSmall = 0.18
         this.vScaleBig = 0.5
 
+        let visionInicialDemon
+        let visionInicialExorcist
+
+        if(this.lucesEncendidas){
+            visionInicialDemon = this.vScaleSmall
+            visionInicialExorcist = this.vScaleBig
+        }
+        else{
+            visionInicialDemon = this.vScaleBig
+            visionInicialExorcist = this.vScaleSmall
+        }
+
         // Definir los campos de visión de los jugadores; el gradiente negro que hay alrededor de ellos
         this.visionAreaEx = this.add.image(this.exorcist.x, this.exorcist.y, 'gradiente').setOrigin(0.5, 0.5)
-        this.visionAreaEx.setScale(this.vScaleSmall, this.vScaleSmall)
+        this.visionAreaEx.setScale(visionInicialExorcist, visionInicialExorcist)
         this.visionAreaDe = this.add.image(this.demon.x, this.demon.y, 'gradiente').setOrigin(0.5, 0.5)
-        this.visionAreaDe.setScale(this.vScaleBig, this.vScaleBig)
+        this.visionAreaDe.setScale(visionInicialDemon, visionInicialDemon)
 
         // Indicar a qué objetos les afecta la luz
         background.setPipeline('Light2D')
@@ -349,11 +365,23 @@ class GameScene extends Phaser.Scene {
         this.lucesDe = this.ponerLuces(posInterruptores, 0xff8e0d)  // Las luces indicadoras del dem. son naranjas
         this.lucesEx.forEach(luz => {
             luz.setPosition(luz.x * this.escalaBg, luz.y * this.escalaBg) // Ajustar la posición de las luces
+            if(this.lucesEncendidas) luz.setRadius(0)
         })
         this.lucesDe.forEach(luz => {
             luz.setPosition(luz.x * this.escalaBg, luz.y * this.escalaBg) // Ajustar la posición de las luces
-            luz.setRadius(0)
+            if(!this.lucesEncendidas) luz.setRadius(0)
         })
+
+        if(this.lucesEncendidas){
+            this.interruptoresOff.children.iterate(function (child) {
+                child.alpha = 0;
+            });
+        }
+        else{
+            this.interruptoresOn.children.iterate(function (child) {
+                child.alpha = 0;
+            });
+        }
 
         this.cambiarInterruptores() // Función que cuando los jugadores interactuan con el interruptor cambian las luces
         // #endregion
@@ -379,8 +407,8 @@ class GameScene extends Phaser.Scene {
 
         // IGNORAR SPRITES:
         // Las cámaras de la pantalla dividida ignoran el marco
-        this.cameras.main.ignore([this.visionAreaDe, divider])
-        scndCamera.ignore([this.visionAreaEx, divider])
+        this.cameras.main.ignore([this.visionAreaDe, divider, this.killDemon, this.killExorcist])
+        scndCamera.ignore([this.visionAreaEx, divider, this.killDemon, this.killExorcist])
 
         // Indicar qué luces son visibles para cada personaje
         this.lucesEx.forEach(luzEx => {
@@ -390,7 +418,7 @@ class GameScene extends Phaser.Scene {
             this.cameras.main.ignore(luzDe)
         })
         // La tercera cámara debe ignorar todos los sprites XD
-        this.marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles, this.visionAreaEx, this.visionAreaDe, this.killDemon, this.killExorcist])
+        this.marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles, this.visionAreaEx, this.visionAreaDe])
 
         // #endregion
 
@@ -421,9 +449,9 @@ class GameScene extends Phaser.Scene {
         const anchuraVela = texturaVela.getSourceImage().width * 0.013 / this.escalaBg
         const alturaVela = texturaVela.getSourceImage().height * 0.013 / this.escalaBg
 
-        const minDistance = 1500; // Distancia mínima entre velas
+        const minDistance = 2500; // Distancia mínima entre velas
         const positions = []; // Para almacenar las posiciones ya usadas
-        const rooms = [this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom2, this.kitchen, this.livingRoom, this.hall]
+        const rooms = [this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom2, this.kitchen, this.livingRoom, this.hall, this.corridor1, this.corridor2, this.hall2]
 
         // For que se repite count veces, donde count es el numero de velas a generar
         for (let i = 0; i < count; i++) {
@@ -531,7 +559,7 @@ class GameScene extends Phaser.Scene {
             switchOn.setScale(scale, scale).setImmovable(true)
             switchOn.setPipeline('Light2D')
             const switchOff = this.interruptoresOff.create(posiciones[i][0], posiciones[i][1], 'switch_off').setOrigin(0, 0)
-            switchOff.setScale(scale, scale).setImmovable(true).alpha = 0
+            switchOff.setScale(scale, scale).setImmovable(true)
             switchOff.setPipeline('Light2D')
         }
     }
