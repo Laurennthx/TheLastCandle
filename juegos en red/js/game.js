@@ -92,6 +92,8 @@ class GameScene extends Phaser.Scene {
                 this.sound.play("select");
                 this.scene.stop("GameScene");
                 this.scene.start("MenuScene");
+                this.ritualCount = 0;
+                this.candleCount = 0;
             })
             .on('pointerover', () => {
                 this.sound.play("hover"); // Reproduce sonido al pasar el cursor
@@ -279,7 +281,9 @@ class GameScene extends Phaser.Scene {
                 this.sound.play("select");
                 this.scene.stop("gameScene");
                 this.scene.start("ExorcistWinsScene");
-            });
+            }).on('pointerover', () => {
+                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+            });      
         this.killDemon.setScale(0.4, 0.4);
         this.killDemon.setVisible(false);
 
@@ -290,7 +294,12 @@ class GameScene extends Phaser.Scene {
                 this.sound.play("select");
                 this.scene.stop("gameScene");
                 this.scene.start("EndScene");
-            });
+                this.ritualCount = 0;
+                this.candleCount = 0;
+
+            }).on('pointerover', () => {
+                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+            });      
         this.killExorcist.setScale(0.4, 0.4);
         this.killExorcist.setVisible(false);
 

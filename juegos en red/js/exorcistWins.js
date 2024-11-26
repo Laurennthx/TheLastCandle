@@ -25,7 +25,9 @@ class ExorcistWinsScene extends Phaser.Scene {
             this.sound.play("select");
             this.scene.stop("ExorcistWins");
             this.scene.start("MenuScene");   
-        });       
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });             
         returnButton.setScale(0.4,0.4);
 
     }

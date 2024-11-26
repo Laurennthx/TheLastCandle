@@ -31,7 +31,9 @@ class EndScene extends Phaser.Scene {
             this.sound.play("select");
             this.scene.stop("EndScene");
             this.scene.start("MenuScene");   
-        });       
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });            
         returnButton.setScale(0.4,0.4);
 
     }
