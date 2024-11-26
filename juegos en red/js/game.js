@@ -159,27 +159,29 @@ class GameScene extends Phaser.Scene {
         });
 
         //CONTENEDOR HABITACIONES
-        /*this.roomsContainer = this.container(0.0);
+        this.roomsContainer = this.add.container(0.0);
 
-        this.bedroom1 = this.add.rectangle(1495,2390);
-        this.bedroom2 = this.add.rectangle(2130,1471);
-        this.bedroom3 = this.add.rectangle(2566,1496);
-        this.bathroom1 = this.add.rectangle(1471,1458);
-        this.bathroom2 = this.add.rectangle(2124,1205);
-        this.kitchen = this.add.rectangle(2723,2693);
-        this.diningRoom = this.add.rectangle(3564,1175);
-        this.storageRoom = this.add.rectangle(1634,1520);
-        this.livingRoom = this.add.rectangle(4048,2977);
-        this.hall = this.add.rectangle(3455,872);
+        this.bedroom1 = this.add.rectangle(1001.5,3870,1495,2390);
+        this.bedroom2 = this.add.rectangle(2934,2545.5,2130,1471);
+        this.bedroom3 = this.add.rectangle(7056,2539,2566,1496);
+        this.bathroom1 = this.add.rectangle(4886.5,2533,1471,1458);
+        this.bathroom2 = this.add.rectangle(2512,12016.5,2124,1205);
+        this.kitchen = this.add.rectangle(5341.5,7329.5,2723,2693);
+        this.diningRoom = this.add.rectangle(2030,8084.5,3564,1175);
+        this.storageRoom = this.add.rectangle(8738,14278,1634,1520);
+        this.livingRoom = this.add.rectangle(5704,11096.5,4048,2977);
+        this.hall = this.add.rectangle(1968.5,10037,3455,872);
 
-        this.roomsContainer.add([this.bedroom1,this.bedroom2,this.bedroom3,this.bathroom1,this.bathroom2,this.kitchen,this.diningRoom,this.storageRoom,this.livingRoom,this.hall]);*/
+        this.roomsContainer.add([this.bedroom1,this.bedroom2,this.bedroom3,this.bathroom1,this.bathroom2,this.kitchen,this.diningRoom,this.storageRoom,this.livingRoom,this.hall]);
+        const escala = this.scale.height / background.height
+        this.roomsContainer.setScale(escala);
+
         // Poner los interruptores
         this.interruptoresOn = this.physics.add.group(); // Grupo para los interruptores
         this.interruptoresOff = this.physics.add.group(); // Grupo para los interruptores
         this.ponerInterruptores(posInterruptores)
 
         this.bgContainer.add([background, crucifix, ...this.walls.getChildren(), ...this.interruptoresOn.getChildren(), ...this.interruptoresOff.getChildren()])
-        const escala = this.scale.height / background.height
         this.bgContainer.setScale(escala)
 
         // Establecer los límites del mundo según el tamaño del mapa
@@ -349,7 +351,7 @@ class GameScene extends Phaser.Scene {
     generateCandles(count, maxWidth, maxHeight) {
         const minDistance = 100; // Distancia mínima entre velas
         const positions = []; // Para almacenar las posiciones ya usadas
-
+        const rooms = [this.bedroom1,this.bedroom2,this.bedroom3,this.bathroom1,this.bathroom2,this.kitchen,this.diningRoom,this.storageRoom,this.livingRoom,this.hall]
         // Dimensiones ajustadas según la escala del fondo
         const adjustedWidth = maxWidth * this.bgContainer.scaleX;
         const adjustedHeight = maxHeight * this.bgContainer.scaleY;
@@ -357,18 +359,27 @@ class GameScene extends Phaser.Scene {
         for (let i = 0; i < count; i++) {
             let x, y, validPosition;
 
+            // Generar coordenadas aleatorias dentro de habitaciones (sin usar contenedor)
+            //fuera del do porque estaba probando todavia sin guardar posiciones ya usadas
+            /*const randomRoom = Phaser.Utils.Array.GetRandom(rooms);
+
+            x = randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2, randomRoom.width / 2);
+            y = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2);*/
+
             do {
                 validPosition = true;
 
-                // Generar coordenadas aleatorias dentro del área ajustada
+                // Generar coordenadas aleatorias dentro del área ajustada (sin habitaciones)
                 x = Phaser.Math.Between(0, adjustedWidth);
                 y = Phaser.Math.Between(0, adjustedHeight);
+
+                // Generar coordenadas aleatorias dentro de habitaciones (con contenedor)
                 /*const randomIndex = Phaser.Math.Between(0, roomsContainer.list.length - 1);
                 const randomRoom = roomsContainer.list[randomIndex];
             
                 const candleX =  randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2, randomRoom.width / 2);
                 const candleY = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2);*/
-            
+                
                 
                 // Verificar que la posición no esté demasiado cerca de otras velas
                 for (let pos of positions) {
