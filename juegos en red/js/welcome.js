@@ -5,7 +5,8 @@ class WelcomeScene extends Phaser.Scene {
     }
 
     preload() {
-		this.load.audio("select", 'assets/Music/effects/click/darkButton.mp3');
+		this.load.audio("select", 'assets/Music/effects/click/oldRadio.mp3');
+        this.load.audio("hover", 'assets/Music/effects/click/darkButton.mp3');
         this.load.audio("background", 'assets/8bit-music.mp3');
         
         this.load.image("BGimage", "assets/UI/theLastCandle.jpg");
@@ -38,12 +39,6 @@ class WelcomeScene extends Phaser.Scene {
         this.scene.stop("WelcomeScene"); // detener escena actual
         this.scene.start("MenuScene"); // iniciar siguiente escena
         });
-
-        // parar la musica al pasar de escena 
-        //this.events.on('shutdown', () => {
-        //    this.bgMusic.stop();
-        //});
-        
     }
 
     update() {}

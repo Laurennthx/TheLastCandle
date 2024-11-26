@@ -33,6 +33,9 @@ class OptionsScene extends Phaser.Scene {
                     this.bgMusic.loop = true;
                     this.bgMusic.play();
                 }
+            })
+            .on('pointerover', () => {
+                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
             });      
         on_music.setScale(0.5,0.5);
 
@@ -42,6 +45,9 @@ class OptionsScene extends Phaser.Scene {
         .on('pointerdown', () => {
             this.sound.play("select");
             this.bgMusic.stop();  
+        })
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
         });       
         off_music.setScale(0.5,0.5);
 
@@ -52,7 +58,10 @@ class OptionsScene extends Phaser.Scene {
             this.sound.play("select");
             this.scene.stop("OptionsScene");
             this.scene.start("MenuScene");   
-        });       
+        })
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });         
         returnButton.setScale(0.4,0.4);
     
     }

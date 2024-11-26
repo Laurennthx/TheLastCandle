@@ -31,7 +31,9 @@ create() {
         this.sound.play("select");
         this.scene.stop("CreditsScene");
         this.scene.start("MenuScene");   
-    });
+    }).on('pointerover', () => {
+        this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+    });  
     back_button.setScale(0.4,0.4);
 
 }

@@ -27,7 +27,9 @@ class MenuScene extends Phaser.Scene {
             this.sound.play("select");
             this.scene.stop("MenuScene");
             this.scene.start("LoadingScene");   
-        });
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
         start_button.setScale(0.5,0.5);
 
 
@@ -38,7 +40,7 @@ class MenuScene extends Phaser.Scene {
             this.sound.play("select");
             this.scene.stop("MenuScene");
             this.scene.start("OptionsScene");   
-        });
+        });  
         options_button.setScale(0.5,0.5);
 
         // boton credits
@@ -49,7 +51,9 @@ class MenuScene extends Phaser.Scene {
             // actualizar las escenas más tarde
             this.scene.stop("MenuScene");
             this.scene.start("CreditsScene");   
-        });
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
         credits_button.setScale(0.5,0.5);
 
         // boton quit
@@ -59,7 +63,9 @@ class MenuScene extends Phaser.Scene {
             this.sound.play("select");
             this.scene.stop("MenuScene");
             this.scene.start("WelcomeScene");   
-        });
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
         quit_button.setScale(0.5,0.5);
     }
 

@@ -79,7 +79,10 @@ class GameScene extends Phaser.Scene {
             this.sound.play("select");
             this.scene.stop("GameScene");
             this.scene.start("MenuScene");   
-        });       
+        })
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });        
         returnButton.setScale(0.28,0.28);
 
 
