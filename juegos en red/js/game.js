@@ -71,14 +71,14 @@ class GameScene extends Phaser.Scene {
         returnButton.setScale(0.28,0.28);
 
         // TEXT BOX 
-        const killDemon = this.add.image(480, 1000, "textBoxExorcist")
+        const killDemon = this.add.image(480, 800, "textBoxExorcist")
         .setInteractive()
         .on('pointerdown', () => {
         this.sound.play("select");
         this.scene.stop("gameScene");
-        this.scene.start("ExorcistWins");   
+        this.scene.start("ExorcistWinsScene");   
         });       
-        returnButton.setScale(0.4,0.4);
+        killDemon.setScale(0.4,0.4);
         killDemon.setVisible(false);
 
         // MOVIMIENTO
@@ -432,9 +432,9 @@ class GameScene extends Phaser.Scene {
                 // ritualCollider.destroy(); // Alternativamente, elimina el collider del mundo
 
                 // Verificar si se han completado los 3 rituales
-                if (this.ritualCount === 1) {
+                if (this.ritualCount == 1) {
 
-                    killDemon.setVisible(true);
+                    //this.killDemon.setVisible(true); // mostrar el textBox
                 }
 
             } else {

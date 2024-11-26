@@ -4,7 +4,7 @@ class ExorcistWinsScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("endGameImage", "assets/UI/ExcorcistWins.jpg");
+        this.load.image("exorcistWinsBG", "assets/UI/ExorcistWins.jpg");
         this.load.image("tryAgain", "assets/UI/tryAgain.png");
 
     }
@@ -12,7 +12,7 @@ class ExorcistWinsScene extends Phaser.Scene {
     create(data) {
 
         // Imagen de fondo
-        const background = this.add.image(0,0, "ExorcistWins").setOrigin(0,0);
+        const background = this.add.image(0,0, "exorcistWinsBG").setOrigin(0,0);
         background.setDisplaySize(1920, 1080);
 
         this.input.once('pointerdown', () => {
