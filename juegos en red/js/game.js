@@ -109,6 +109,7 @@ class GameScene extends Phaser.Scene {
         this.keysPressedEx = [[[-1, 0], false], [[0, -1], false], [[0, 1], false], [[1, 0], false]]
         this.speedDe = 200
         this.speedEx = 200
+        this.velocidadReducida = 1
 
         const posInterruptores =
             [[2660, 1240], [6512, 1240], [816, 2176],
@@ -319,7 +320,7 @@ class GameScene extends Phaser.Scene {
         this.physics.add.overlap(this.exorcist, this.interruptoresOn, this.cambiarInterruptores, null, this);
         this.physics.add.overlap(this.demon, this.interruptoresOn, this.cambiarInterruptores, null, this);
         // Collider del exorcista con el demonio, se podría quitar 
-        this.physics.add.collider(this.exorcist, this.demon, this.hitGround, null, this); // LLama a la función "hitGround" cuando colisionan
+        this.physics.add.collider(this.exorcist, this.demon, this.hitExorcist, null, this); // LLama a la función "hitExorcist" cuando colisionan
         // Activar colisión entre las paredes y el exorcista
         this.physics.add.collider(this.exorcist, this.walls)
         // Activar colisión entre las paredes y el exorcista
@@ -441,6 +442,7 @@ class GameScene extends Phaser.Scene {
             callback: this.generateCrucifix,   // Función a llamar después del retraso
             callbackScope: this   // Contexto (scope) de la función, generalmente `this` para acceder a la escena
         });
+
 
     }
 
@@ -833,8 +835,18 @@ class GameScene extends Phaser.Scene {
     }
 
 
-    hitGround() {
-        this.killExorcist.setVisible(true);
+    hitExorcist() {
+        if(this.crucifijoObtenido){
+            this.crucifijoObtenido = false
+            this.aura.setRadius(0)
+            this.velocidadReducida = 0.3
+            this.time.delayedCall(2000, () => { // Cooldown para reducir la velocidad del demonio si pega al exorcista y no le mata
+                this.velocidadReducida = 1
+            })
+        }
+        else if(!this.crucifijoObtenido && this.velocidadReducida == 1){
+            this.killExorcist.setVisible(true);
+        }
     }
 
     startGame() {
@@ -847,7 +859,7 @@ class GameScene extends Phaser.Scene {
         this.demon.setVelocity(0, 0)
         for (let i = 0; i < this.keysPressedDe.length; i++) {
             if (this.keysPressedDe[i][1] == true) {
-                this.demon.setVelocity(this.keysPressedDe[i][0][0] * this.speedDe, this.keysPressedDe[i][0][1] * this.speedDe)
+                this.demon.setVelocity(this.keysPressedDe[i][0][0] * this.speedDe * this.velocidadReducida, this.keysPressedDe[i][0][1] * this.speedDe * this.velocidadReducida)
                 if (this.lastKeyDemon == i) break
             }
         }
