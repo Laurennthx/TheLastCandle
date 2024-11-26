@@ -49,7 +49,8 @@ class GameScene extends Phaser.Scene {
 
         // textBox Exorcista gana
         this.load.image('textBoxExorcist', 'assets/UI/textBox.png');
-
+        // textBox Demonio gana
+        this.load.image('textBoxDemon', 'assets/UI/demonTextBox.png');
 
     }
 
@@ -213,7 +214,7 @@ class GameScene extends Phaser.Scene {
         this.ritualText = this.add.text(20, 60, 'Completed Rituals: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
         this.ritualIcon = this.add.image(400, 60, 'candleOn').setScale(0.05).setVisible(false).setScrollFactor(0);
 
-        // TEXT BOX (Declarado como propiedad de la clase)
+        // MATAR AL DEMONIO
         this.killDemon = this.add.image(480, 900, "textBoxExorcist")
             .setInteractive()
             .on('pointerdown', () => {
@@ -223,6 +224,18 @@ class GameScene extends Phaser.Scene {
             });       
         this.killDemon.setScale(0.4, 0.4);
         this.killDemon.setVisible(false);
+
+        // MATAR AL EXORCISTA
+        this.killExorcist = this.add.image(1480, 900, "textBoxDemon")
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.sound.play("select");
+                this.scene.stop("gameScene");
+                this.scene.start("EndScene");   
+            });       
+        this.killExorcist.setScale(0.4, 0.4);
+        this.killExorcist.setVisible(false);
+
 
         // Configurar teclas - pulsar E para recoger vela - SOLO EXORCISTA
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -458,9 +471,6 @@ class GameScene extends Phaser.Scene {
         }
     }
     
-
-
-
     ponerInterruptores(posiciones) {
         const scale = 0.5
         for (let i = 0; i < posiciones.length; i++) {
@@ -628,8 +638,7 @@ class GameScene extends Phaser.Scene {
 
 
     hitGround() {
-        this.scene.stop("GameScene");
-        this.scene.start("EndScene");
+        this.killExorcist.setVisible(true);
     }
 
     startGame() {
