@@ -129,6 +129,21 @@ class GameScene extends Phaser.Scene {
             child.setImmovable(true);
         });
 
+        //CONTENEDOR HABITACIONES
+        /*this.roomsContainer = this.container(0.0);
+
+        this.bedroom1 = this.add.rectangle(1495,2390);
+        this.bedroom2 = this.add.rectangle(2130,1471);
+        this.bedroom3 = this.add.rectangle(2566,1496);
+        this.bathroom1 = this.add.rectangle(1471,1458);
+        this.bathroom2 = this.add.rectangle(2124,1205);
+        this.kitchen = this.add.rectangle(2723,2693);
+        this.diningRoom = this.add.rectangle(3564,1175);
+        this.storageRoom = this.add.rectangle(1634,1520);
+        this.livingRoom = this.add.rectangle(4048,2977);
+        this.hall = this.add.rectangle(3455,872);
+
+        this.roomsContainer.add([this.bedroom1,this.bedroom2,this.bedroom3,this.bathroom1,this.bathroom2,this.kitchen,this.diningRoom,this.storageRoom,this.livingRoom,this.hall]);*/
         // Poner los interruptores
         this.interruptoresOn = this.physics.add.group(); // Grupo para los interruptores
         this.interruptoresOff = this.physics.add.group(); // Grupo para los interruptores
@@ -166,7 +181,7 @@ class GameScene extends Phaser.Scene {
         // OBJETOS
         // Crear velas
         this.candles = this.physics.add.group(); // Grupo para las velas
-        this.generateCandles(5, background.width, background.height); // Generar 5 velas
+        this.generateCandles(3, background.width, background.height); // Generar 3 velas
 
         // Texto de contador e icono en la esquina superior izquierda de las velas 
         this.candleText = this.add.text(20, 20, 'Candles: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
@@ -212,7 +227,7 @@ class GameScene extends Phaser.Scene {
         this.rLight = 70    // Radio de las luces indicadoras de los interruptores
         this.cd = 3000  // Cooldown de 3 segundos
 
-        this.lucesEncendidas = true
+        this.lucesEncendidas = false
         this.cooldownLuces = false
 
         // Radios del gradiente
@@ -319,7 +334,13 @@ class GameScene extends Phaser.Scene {
                 // Generar coordenadas aleatorias dentro del área ajustada
                 x = Phaser.Math.Between(0, adjustedWidth);
                 y = Phaser.Math.Between(0, adjustedHeight);
-
+                /*const randomIndex = Phaser.Math.Between(0, roomsContainer.list.length - 1);
+                const randomRoom = roomsContainer.list[randomIndex];
+            
+                const candleX =  randomRoom.x + Phaser.Math.Between(-randomRoom.width / 2, randomRoom.width / 2);
+                const candleY = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2);*/
+            
+                
                 // Verificar que la posición no esté demasiado cerca de otras velas
                 for (let pos of positions) {
                     const distance = Phaser.Math.Distance.Between(x, y, pos.x, pos.y);
