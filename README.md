@@ -305,7 +305,7 @@ El diseño de las interfaces se ha realizado siguiendo la estética del videojue
 
  ***Diagrama***
 
-![DiagramaFinal](https://github.com/user-attachments/assets/a6b91f04-948b-4f15-b6a4-94e4cc664736)
+![DiagramaFinal](imagenesGDD/diagramaInterfaces.png)
 
 
 
