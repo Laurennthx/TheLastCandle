@@ -303,6 +303,12 @@ Se han diseñado cuatro objetos interactuables, cuyas funciones se han desarroll
 ### Interfaces
 El diseño de las interfaces se ha realizado siguiendo la estética del videojuego propuesto, una estética gótico-estilizada. Se han implementado en total nueve interfaces, sumándole la interfaz del juego que cuenta con un “divider” vertical en el centro de la pantalla. Entre ellas, podemos encontrar los siguientes diseños:
 
+ ***Diagrama***
+
+![DiagramaFinal](https://github.com/user-attachments/assets/a6b91f04-948b-4f15-b6a4-94e4cc664736)
+
+
+
  ***Pantalla Inicio***
 
   Pantalla en la que se comienza al iniciar "The Last Candle". Solo permite una interacción, pulsar cualquier tecla para avanzar a la pantalla principal.
