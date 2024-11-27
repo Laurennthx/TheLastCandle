@@ -275,14 +275,13 @@ También existen efectos de sonido durante el juego, cuando el exorcista o el de
 
 
 ### Diseño del mapa
-#### Boceto
+#### Boceto y Final
 
+![mapa](https://github.com/user-attachments/assets/4a260eec-2621-436e-96b3-73e7fd90e6b6)
 
 #### Texturas
 
-
-#### Resultado final
- 
+![texturas](https://github.com/user-attachments/assets/7bfd0f12-c1a0-4c14-a992-581c9fda7a4e)
 
 
 ### Decoraciones
@@ -297,7 +296,8 @@ La mansión encantada se encontrará decorada con varias cajas de mudanza, que, 
 ### Objetos
 Se han diseñado cuatro objetos interactuables, cuyas funciones se han desarrollado en los apartados previos. En concreto son las velas, los interruptores, las estrellas de los rituales y el crucifijo. Varios de ellos cuentan con dos versiones distintas según la variación que ofrecen.
  
-  ![Objetos](https://github.com/user-attachments/assets/ea2267b4-4359-4c45-8eb5-a237c075716f)
+  
+![Objetos](https://github.com/user-attachments/assets/f7d2488e-27fb-40fd-bb4c-87345b137e70)
 
 
 ### Interfaces
