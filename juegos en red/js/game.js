@@ -80,7 +80,7 @@ class GameScene extends Phaser.Scene {
     // #region CREATE
     create() {
         // MUNDO
-        const zoomCamara = 5
+        const zoomCamara = 4
         const height = this.scale.height
         const width = this.scale.width
 
@@ -342,10 +342,10 @@ class GameScene extends Phaser.Scene {
         this.aura = this.lights.addLight(0, 0, 0, 0xff2a00, 6) // El último valor es la intensidad de la luz
 
         this.lucesEncendidas = true    // Estado inicial de las luces
-        this.cooldownLuces = false
+        this.cooldownLuces = true
 
         // Radios del gradiente
-        this.vScaleSmall = 0.18
+        this.vScaleSmall = 0.2
         this.vScaleBig = 0.5
 
         let visionInicialDemon
@@ -374,11 +374,11 @@ class GameScene extends Phaser.Scene {
         this.lucesDe = this.ponerLuces(posInterruptores, 0xff8e0d)  // Las luces indicadoras del dem. son naranjas
         this.lucesEx.forEach(luz => {
             luz.setPosition(luz.x * this.escalaBg, luz.y * this.escalaBg) // Ajustar la posición de las luces
-            if(this.lucesEncendidas) luz.setRadius(0)
+            luz.setRadius(0)
         })
         this.lucesDe.forEach(luz => {
             luz.setPosition(luz.x * this.escalaBg, luz.y * this.escalaBg) // Ajustar la posición de las luces
-            if(!this.lucesEncendidas) luz.setRadius(0)
+            luz.setRadius(0)
         })
 
         if(this.lucesEncendidas){
@@ -391,6 +391,20 @@ class GameScene extends Phaser.Scene {
                 child.alpha = 0;
             });
         }
+
+        this.time.delayedCall(5000, () => { // 5 segundos iniciales en el que las luces están encendidas para un jugador
+            if(this.lucesEncendidas){
+                this.lucesDe.forEach(luz => {
+                    luz.setRadius(this.rLight)
+                })
+            }
+            else{
+                this.lucesEx.forEach(luz => {
+                    luz.setRadius(this.rLight)
+                })
+            }
+            this.cooldownLuces = false
+        })
 
         this.cambiarInterruptores() // Función que cuando los jugadores interactuan con el interruptor cambian las luces
         // #endregion
