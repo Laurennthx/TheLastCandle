@@ -321,40 +321,48 @@ El diseño de las interfaces se ha realizado siguiendo la estética del videojue
 
  ***Pantalla Inicio***
   
-![Interfaz_Inicio](https://github.com/user-attachments/assets/c58e321a-bccd-4c95-8041-ca808a6ee575)
+![Interfaz_Inicio](https://github.com/user-attachments/assets/a6b91f04-948b-4f15-b6a4-94e4cc664736)
+
 
  ***Pantalla Menu Principal***
- 
-![Interfaz_MenuPrincipal](https://github.com/user-attachments/assets/aca7ca34-0a8e-4d82-9c32-66f7a49acccd)
+
+![Interfaz_MenuPrincipal](https://github.com/user-attachments/assets/2904fc3d-6696-42de-bc9b-90041c52019f)
 
  ***Pantalla de Opciones***
   
-![Interfaz_Opciones](https://github.com/user-attachments/assets/e371be34-10d7-46cc-97ae-accc44688ed4)
+![Interfaz_Opciones](https://github.com/user-attachments/assets/c7020cfa-b26b-40f5-a709-ab13b842789a)
+
 
  ***Pantalla de Créditos***
   
-![Interfaz_Creditos](https://github.com/user-attachments/assets/4106c24c-fce4-4b69-9192-5c4660297eb4)
+![Interfaz_Creditos](https://github.com/user-attachments/assets/52ad6bce-a5cd-46b6-8fca-ab01472e7ff4)
+
 
  ***Tutorial del exorcista***
-  ![Interfaz_TutExorc](https://github.com/user-attachments/assets/cfe8074d-e2b4-44cb-be9f-a169af12a7cc)
+  
+![Interfaz_TutExorc](https://github.com/user-attachments/assets/dcfef833-b6ad-4431-9644-e1396245c9fb)
 
  ***Tutorial del demonio***
  
-![Interfaz_TutDem](https://github.com/user-attachments/assets/fcac275b-d432-467e-ab0d-24222f028dc8)
+![Interfaz_TutDem](https://github.com/user-attachments/assets/60181580-74b5-4275-a02d-83743a99b8b7)
+
 
  ***Pantalla de carga***
- ![Interfaz_Cargando](https://github.com/user-attachments/assets/34d0863a-4549-4e6a-995e-b031e7921fc7)
+
+![Interfaz_Cargando](https://github.com/user-attachments/assets/e448c0b6-fca4-4ec1-99d5-eed0b85006e4)
 
 
  ***Pantalla de juego***
  
-![Interfaz_Juego](https://github.com/user-attachments/assets/02855d45-5e08-4687-a9d4-a0da02a98aad)
+ ![Interfaz_Juego](https://github.com/user-attachments/assets/92dda414-685a-43ee-890d-81ee932908b7)
 
  ***Victoria del exorcista***
   
-![Interfaz_ExorcistaGana](https://github.com/user-attachments/assets/84461470-695a-4143-a320-7377f3b44c93)
+![Interfaz_ExorcistaGana](https://github.com/user-attachments/assets/b0d5b30f-e519-422b-8ff6-e271e2d1319d)
+
 
  ***Victoria del demonio***
  
-![Interfaz_DemonioGana](https://github.com/user-attachments/assets/50b63ddd-57e5-4de5-acc7-f44694be2c6c)
+![Interfaz_DemonioGana](https://github.com/user-attachments/assets/ee382b10-0e90-4136-9e0d-98f6350a2e52)
+
 
