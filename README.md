@@ -240,7 +240,8 @@ También existen efectos de sonido durante el juego, cuando el exorcista o el de
 
 ### Diseño del logotipo
 
-  ![Logotipo]()
+
+![Logotipo](https://github.com/user-attachments/assets/d5b77692-c6cd-4eed-8735-27e0f020a785)
 
 
 
@@ -249,88 +250,115 @@ También existen efectos de sonido durante el juego, cuando el exorcista o el de
 #### Bocetos
 
 #### Diseño final
-  ![Exorcista2]()
-  ![Demonio]()
+ ![Exorcista2](https://github.com/user-attachments/assets/a84f4737-fd8f-43fa-87fb-8d3b5a38f51d)
+
+ ![Demonio](https://github.com/user-attachments/assets/04781b05-ffea-423d-bdf5-cba1c071c75f)
+
 
 #### Animaciones
-  ![spriteSheetExorcista]()
-  ![spriteSheetDemonio]()
+  ![spriteSheetExorcista](https://github.com/user-attachments/assets/bf88764d-1065-412f-9f1b-a3a95003dea7)
+
+  ![spriteSheetDemonio](https://github.com/user-attachments/assets/b18ebda9-8815-4777-a837-68dafa4af592)
+
 
 
 ### Diseño del mapa
 #### Boceto
-  ![Mapa_Boceto]()
+
 
 #### Texturas
 
 
 #### Resultado final
-  ![Mapa_ResultadoFinal]()
+ 
 
 
 ### Decoraciones
 Estas decoraciones aún no han sido implementadas pero se han probado en el juego y se van a realizar cambios en ellas de cara a las siguientes entregas.
 La mansión encantada se encontrará decorada con varias cajas de mudanza, que, a su vez, tendrán una doble función de “escondite” para aquel jugador que tome el control del exorcista. Además, se han comenzado a diseñar los futuros muebles que se ubicarán en las distintas habitaciones, aunque se verán modificados según las necesidades de la estética de esta. Gran parte de dicho mobiliario contará con la doble función de “escondite”.
 
-  ![Decoracion_Armario]()
-  ![Decoracion_Chimenea]()
-  ![Decoracion_Libreria]()
-  ![Decoracion_Sillon]()
-  ![Decoracion_Silla]()
-  ![Decoracion_Mesilla]()
-  ![Decoracion_Cajas1]()
-  ![Decoracion_Cajas2]()
-  ![Decoracion_Cajas3]()
-  ![Decoracion_Cajas4]()
+ ![Decoracion_Armario](https://github.com/user-attachments/assets/d16999d6-f751-4dee-bf7c-71ebc9276855)
+
+ ![Decoracion_Chimenea](https://github.com/user-attachments/assets/8ceb2466-c7d1-4411-864a-47f8a4d8effe)
+
+ ![Decoracion_Libreria](https://github.com/user-attachments/assets/c921bf32-79c1-4249-9bd7-8862ae1fc857)
+
+ ![Decoracion_Sillon](https://github.com/user-attachments/assets/a3706519-eec8-4cd3-8431-0ce735e20df0)
+
+ ![Decoracion_Silla](https://github.com/user-attachments/assets/49e29879-e165-4be7-87c1-5af12ecce8c5)
+
+ ![Decoracion_Mesilla](https://github.com/user-attachments/assets/2edc44de-714a-4172-b085-7a6b29b9998b)
+
+ ![Decoracion_Cajas1](https://github.com/user-attachments/assets/bce3f972-47c4-4438-a0cd-106385c0dae7)
+
+ ![Decoracion_Cajas2](https://github.com/user-attachments/assets/e2b891cf-58a4-48fa-aea9-bbc5eadb0265)
+
+ ![Decoracion_Cajas3](https://github.com/user-attachments/assets/3ef6d86d-25a8-46f1-a3ad-0887aef65370)
+
+ ![Decoracion_Cajas4](https://github.com/user-attachments/assets/9adef397-4113-4f3f-9c06-5022a8644bac)
+
 
 ### Objetos
 Se han diseñado cuatro objetos interactuables, cuyas funciones se han desarrollado en los apartados previos. En concreto son las velas, los interruptores, las estrellas de los rituales y el crucifijo. Varios de ellos cuentan con dos versiones distintas según la variación que ofrecen.
  ***Crucifijo***
-  ![Objeto_Crucifijo]()
+  ![Objeto_crucifijo](https://github.com/user-attachments/assets/8fbad88a-cb04-4ef7-8908-c0953eac9d60)
+
 
  ***Velas***
-  ![Objeto_VelaApagada]()
-  ![Objeto_VelaEncendida]()
+  ![Objeto_VelaApagada](https://github.com/user-attachments/assets/3f72bfa6-d558-461d-a698-6ba512e24f7f)
+
+  ![Objeto_VelaEncendida](https://github.com/user-attachments/assets/4045f8ac-5f75-4338-b3a9-01044a0cd7b1)
+
 
  ***Interruptores***
-  ![Objeto_InterruptorOff]()
-  ![Objeto_InterruptorOn]()
+  ![Objeto_InterruptorOff](https://github.com/user-attachments/assets/db8f161a-5f95-4875-83f1-e04f4d4540b5)
+
+  ![Objeto_InterruptorOn](https://github.com/user-attachments/assets/1a1286d1-ec14-45b7-82c7-10125a733c75)
+
 
  ***Rituales***
-  ![Objeto_Ritual]()
-  ![Objeto_Ritual2]()
+  ![Objeto_ritual](https://github.com/user-attachments/assets/ea2267b4-4359-4c45-8eb5-a237c075716f)
 
 
 ### Interfaces
 El diseño de las interfaces se ha realizado siguiendo la estética del videojuego propuesto, una estética gótico-estilizada. Se han implementado en total nueve interfaces, sumándole la interfaz del juego que cuenta con un “divider” vertical en el centro de la pantalla. Entre ellas, podemos encontrar los siguientes diseños:
 
  ***Pantalla Inicio***
-  ![Interfaz_Inicio]()
+  
+![Interfaz_Inicio](https://github.com/user-attachments/assets/c58e321a-bccd-4c95-8041-ca808a6ee575)
 
  ***Pantalla Menu Principal***
-  ![Interfaz_MenuPrincipal]()
+ 
+![Interfaz_MenuPrincipal](https://github.com/user-attachments/assets/aca7ca34-0a8e-4d82-9c32-66f7a49acccd)
 
  ***Pantalla de Opciones***
-  ![Interfaz_Opciones]()
+  
+![Interfaz_Opciones](https://github.com/user-attachments/assets/e371be34-10d7-46cc-97ae-accc44688ed4)
 
  ***Pantalla de Créditos***
-  ![Interfaz_Creditos]()
+  
+![Interfaz_Creditos](https://github.com/user-attachments/assets/4106c24c-fce4-4b69-9192-5c4660297eb4)
 
  ***Tutorial del exorcista***
-  ![Interfaz_TutExorc]()
+  ![Interfaz_TutExorc](https://github.com/user-attachments/assets/cfe8074d-e2b4-44cb-be9f-a169af12a7cc)
 
  ***Tutorial del demonio***
-  ![Interfaz_TutDem]()
+ 
+![Interfaz_TutDem](https://github.com/user-attachments/assets/fcac275b-d432-467e-ab0d-24222f028dc8)
 
  ***Pantalla de carga***
-  ![Interfaz_Cargando]()
+ ![Interfaz_Cargando](https://github.com/user-attachments/assets/34d0863a-4549-4e6a-995e-b031e7921fc7)
+
 
  ***Pantalla de juego***
-  ![Interfaz_Juego]()
+ 
+![Interfaz_Juego](https://github.com/user-attachments/assets/02855d45-5e08-4687-a9d4-a0da02a98aad)
 
  ***Victoria del exorcista***
-  ![Interfaz_ExorcistaGana]()
+  
+![Interfaz_ExorcistaGana](https://github.com/user-attachments/assets/84461470-695a-4143-a320-7377f3b44c93)
 
  ***Victoria del demonio***
-  ![Interfaz_DemonioGana]()
+ 
+![Interfaz_DemonioGana](https://github.com/user-attachments/assets/50b63ddd-57e5-4de5-acc7-f44694be2c6c)
 
