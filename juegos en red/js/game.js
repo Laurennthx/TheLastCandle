@@ -19,6 +19,7 @@ class GameScene extends Phaser.Scene {
         this.load.audio("LightCandle", 'assets/Music/effects/candle/lightItem.mp3');
         this.load.audio("match", 'assets/Music/effects/candle/match.mp3');
         this.load.audio("switch", 'assets/Music/effects/interruptor/switch.mp3');
+        this.load.audio("crucifix", 'assets/Music/effects/crucifix/chakra7.mp3');
 
 
 
@@ -506,7 +507,7 @@ class GameScene extends Phaser.Scene {
         this.aura.setRadius(75) // Poner el radio a 75 para que sea visible el aura. Para quitarla poner el radio a 0
         this.crucifijoObtenido = true
         this.crucifixText.setVisible(true);
-
+        this.sound.play("crucifix"); // Reproducir sonido al recoger la vela
     }
 
 
