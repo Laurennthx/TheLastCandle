@@ -309,10 +309,12 @@ El diseño de las interfaces se ha realizado siguiendo la estética del videojue
 
 
  ***Pantalla Menu Principal***
+
 La pantalla principal del videojuego que muestra a los dos protagonistas, desde ella se puede acceder a las pantallas de opciones y créditos. Además, se puede volver a la pantalla inicial desde "quit".
 ![Interfaz_MenuPrincipal](https://github.com/user-attachments/assets/2904fc3d-6696-42de-bc9b-90041c52019f)
 
  ***Pantalla de Opciones***
+ 
  En ella, se le permite al jugador activar o desactivar la música del juego. Además, muestra los controles básicos de movimiento de ambos jugadores. Cuenta con la opción de "return" para volver al menú principal.
 
 
@@ -320,38 +322,49 @@ La pantalla principal del videojuego que muestra a los dos protagonistas, desde 
 
 
  ***Pantalla de Créditos***
+ 
  En ella, se muestran los integrantes que han desarrollado el trabajo. Solo cuenta con una opción de "return" para volver al menú principal.
   
 ![Interfaz_Creditos](https://github.com/user-attachments/assets/52ad6bce-a5cd-46b6-8fca-ab01472e7ff4)
 
 
  ***Tutorial del exorcista***
+  
   Se ha creado un breve tutorial visual sobre la misión del exorcista y los controles para llevarla a cabo. Al presionar cualquier tecla se avanza a la pantalla de carga.
 
 ![Interfaz_TutExorc](https://github.com/user-attachments/assets/dcfef833-b6ad-4431-9644-e1396245c9fb)
 
  ***Tutorial del demonio***
+   
    Se ha creado un breve tutorial visual sobre la misión del demonio y los controles para llevarla a cabo. Al presionar cualquier tecla se avanza a la pantalla de carga.
 
 ![Interfaz_TutDem](https://github.com/user-attachments/assets/60181580-74b5-4275-a02d-83743a99b8b7)
 
 
  ***Pantalla de carga***
+  
   Pantalla creada para amenizar la espera mientras se cargan los recursos del juego, no es interactuable.
+
 ![Interfaz_Cargando](https://github.com/user-attachments/assets/e448c0b6-fca4-4ec1-99d5-eed0b85006e4)
 
 
  ***Pantalla de juego***
+
   Una pantalla que muestra un "divider" para separar a ambos jugadores. En ella, se muestran el número de velas que posee el exorcista y el número de rituales que ha completado. También, cuenta con una opción de "return" para volver al menú principal.
+
  ![Interfaz_Juego](https://github.com/user-attachments/assets/92dda414-685a-43ee-890d-81ee932908b7)
 
  ***Victoria del exorcista***
+
   Pantalla para mostrar que el exorcista ha llevado a cabo su misión y ha acabado con el demonio. Desde esta se puede volver al menú principal mediante "Try Again".
+
 ![Interfaz_ExorcistaGana](https://github.com/user-attachments/assets/b0d5b30f-e519-422b-8ff6-e271e2d1319d)
 
 
  ***Victoria del demonio***
+ 
   Pantalla para mostrar que el demonio ha llevado a cabo su misión y ha acabado con el exorcista antes de que complete sus rituales. Desde esta se puede volver al menú principal mediante "Try Again".
+
 ![Interfaz_DemonioGana](https://github.com/user-attachments/assets/ee382b10-0e90-4136-9e0d-98f6350a2e52)
 
 
