@@ -270,6 +270,9 @@ class GameScene extends Phaser.Scene {
         this.ritualText = this.add.text(20, 60, 'Completed Rituals: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
         this.ritualIcon = this.add.image(400, 60, 'candleOn').setScale(0.05).setVisible(false).setScrollFactor(0);
 
+        // Texto inmunidad al recoger el crucifijo
+        this.crucifixText = this.add.text(20, 100, 'Inmunity', { fontSize: '30px', color: '#FF0000' }).setVisible(false).setScrollFactor(0);
+
         // #region MUERTE PERSONAJES
         // MATAR AL DEMONIO
         // Botón para matar al demonio
@@ -502,6 +505,8 @@ class GameScene extends Phaser.Scene {
         this.crucifix.destroy()
         this.aura.setRadius(75) // Poner el radio a 75 para que sea visible el aura. Para quitarla poner el radio a 0
         this.crucifijoObtenido = true
+        this.crucifixText.setVisible(true);
+
     }
 
 
@@ -859,6 +864,7 @@ class GameScene extends Phaser.Scene {
     hitExorcist() {
         if(this.crucifijoObtenido){
             this.crucifijoObtenido = false
+            this.crucifixText.setVisible(false);
             this.aura.setRadius(0)
             this.velocidadReducida = 0.3
             this.time.delayedCall(2000, () => { // Cooldown para reducir la velocidad del demonio si pega al exorcista y no le mata
