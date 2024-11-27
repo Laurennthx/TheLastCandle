@@ -304,13 +304,15 @@ Se han diseñado cuatro objetos interactuables, cuyas funciones se han desarroll
 El diseño de las interfaces se ha realizado siguiendo la estética del videojuego propuesto, una estética gótico-estilizada. Se han implementado en total nueve interfaces, sumándole la interfaz del juego que cuenta con un “divider” vertical en el centro de la pantalla. Entre ellas, podemos encontrar los siguientes diseños:
 
  ***Pantalla Inicio***
+
   Pantalla en la que se comienza al iniciar "The Last Candle". Solo permite una interacción, pulsar cualquier tecla para avanzar a la pantalla principal.
+
 ![Interfaz_Inicio](https://github.com/user-attachments/assets/a6b91f04-948b-4f15-b6a4-94e4cc664736)
 
 
  ***Pantalla Menu Principal***
 
-La pantalla principal del videojuego que muestra a los dos protagonistas, desde ella se puede acceder a las pantallas de opciones y créditos. Además, se puede volver a la pantalla inicial desde "quit".
+La pantalla principal del videojuego que muestra a los dos protagonistas, desde ella se puede acceder a las pantallas de juego, opciones y créditos. Además, se puede volver a la pantalla inicial desde "quit".
 ![Interfaz_MenuPrincipal](https://github.com/user-attachments/assets/2904fc3d-6696-42de-bc9b-90041c52019f)
 
  ***Pantalla de Opciones***
@@ -362,7 +364,7 @@ La pantalla principal del videojuego que muestra a los dos protagonistas, desde 
 
 
  ***Victoria del demonio***
- 
+
   Pantalla para mostrar que el demonio ha llevado a cabo su misión y ha acabado con el exorcista antes de que complete sus rituales. Desde esta se puede volver al menú principal mediante "Try Again".
 
 ![Interfaz_DemonioGana](https://github.com/user-attachments/assets/ee382b10-0e90-4136-9e0d-98f6350a2e52)
