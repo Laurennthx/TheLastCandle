@@ -283,25 +283,9 @@ También existen efectos de sonido durante el juego, cuando el exorcista o el de
 Estas decoraciones aún no han sido implementadas pero se han probado en el juego y se van a realizar cambios en ellas de cara a las siguientes entregas.
 La mansión encantada se encontrará decorada con varias cajas de mudanza, que, a su vez, tendrán una doble función de “escondite” para aquel jugador que tome el control del exorcista. Además, se han comenzado a diseñar los futuros muebles que se ubicarán en las distintas habitaciones, aunque se verán modificados según las necesidades de la estética de esta. Gran parte de dicho mobiliario contará con la doble función de “escondite”.
 
- ![Decoracion_Armario](https://github.com/user-attachments/assets/d16999d6-f751-4dee-bf7c-71ebc9276855)
+ ![Muebles1](https://github.com/user-attachments/assets/d16999d6-f751-4dee-bf7c-71ebc9276855)
 
- ![Decoracion_Chimenea](https://github.com/user-attachments/assets/8ceb2466-c7d1-4411-864a-47f8a4d8effe)
-
- ![Decoracion_Libreria](https://github.com/user-attachments/assets/c921bf32-79c1-4249-9bd7-8862ae1fc857)
-
- ![Decoracion_Sillon](https://github.com/user-attachments/assets/a3706519-eec8-4cd3-8431-0ce735e20df0)
-
- ![Decoracion_Silla](https://github.com/user-attachments/assets/49e29879-e165-4be7-87c1-5af12ecce8c5)
-
- ![Decoracion_Mesilla](https://github.com/user-attachments/assets/2edc44de-714a-4172-b085-7a6b29b9998b)
-
- ![Decoracion_Cajas1](https://github.com/user-attachments/assets/bce3f972-47c4-4438-a0cd-106385c0dae7)
-
- ![Decoracion_Cajas2](https://github.com/user-attachments/assets/e2b891cf-58a4-48fa-aea9-bbc5eadb0265)
-
- ![Decoracion_Cajas3](https://github.com/user-attachments/assets/3ef6d86d-25a8-46f1-a3ad-0887aef65370)
-
- ![Decoracion_Cajas4](https://github.com/user-attachments/assets/9adef397-4113-4f3f-9c06-5022a8644bac)
+ ![Muebles2](https://github.com/user-attachments/assets/8ceb2466-c7d1-4411-864a-47f8a4d8effe)
 
 
 ### Objetos
