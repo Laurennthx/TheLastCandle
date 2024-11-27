@@ -362,7 +362,7 @@ class GameScene extends Phaser.Scene {
 
         // Radios del gradiente
         this.vScaleSmall = 0.2
-        this.vScaleBig = 0.5
+        this.vScaleBig = 1.2
 
         let visionInicialDemon
         let visionInicialExorcist
@@ -498,13 +498,16 @@ class GameScene extends Phaser.Scene {
         let y = randomRoom.y + Phaser.Math.Between(-randomRoom.height / 2, randomRoom.height / 2 - alturaCrucifix);
 
         this.crucifix.setPosition(x, y)
+        this.aura.setPosition((x + anchuraCrucifix / 2) * this.escalaBg, (y + alturaCrucifix / 2) * this.escalaBg)
+        console.log(this.aura.x, this.aura.y)
+        this.aura.setRadius(60).setIntensity(10)
 
         console.log("Crucifijo generado")
     }
 
     cogerCrucifijo(){
         this.crucifix.destroy()
-        this.aura.setRadius(75) // Poner el radio a 75 para que sea visible el aura. Para quitarla poner el radio a 0
+        this.aura.setRadius(75).setIntensity(6) // Poner el radio a 75 para que sea visible el aura. Para quitarla poner el radio a 0
         this.crucifijoObtenido = true
         this.crucifixText.setVisible(true);
         this.sound.play("crucifix"); // Reproducir sonido al recoger la vela
@@ -903,6 +906,6 @@ class GameScene extends Phaser.Scene {
         this.visionAreaEx.setPosition(this.exorcist.x, this.exorcist.y)
         this.visionAreaDe.setPosition(this.demon.x, this.demon.y)
 
-        this.aura.setPosition(this.exorcist.x, this.exorcist.y)
+        if(this.crucifijoObtenido) this.aura.setPosition(this.exorcist.x, this.exorcist.y)
     }
 }
