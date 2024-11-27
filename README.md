@@ -231,7 +231,13 @@ Los interruptores tendrán un cooldown de unos segundos para volver a pulsarlos 
 
 
 ### Iluminación
+En la mecánica de las luces y los interruptores se han utilizado las luces de Phaser 3 junto con imágenes con transparencias. Para simular el campo de visión de los jugadores con visión reducida, se diseñó una imagen PNG con un gradiente circular que comienza transparente en el centro y se oscurece hacia el exterior. Este gradiente genera un efecto viñeta en las cámaras de los jugadores. Aunque Phaser 3 incluye un efecto viñeta que puede aplicarse a las cámaras, no fue posible usarlo en este caso debido a que las cámaras no tienen dimensiones cuadradas, lo que resultaba en una viñeta no circular.
 
+Cuando la visión de los jugadores es buena debido al estado de la luz de la mansión, la imagen PNG se escala hacia un tamaño mayor, ampliando su campo de visión. Por el contrario, si la visión disminuye, la imagen se reduce, reduciendo el campo visual.
+
+Respecto a los indicadores de los interruptores se usaron las luces integradas en Phaser 3. Se pusieron luces en cada interruptor que se iluminan cuando estos dejan de estar en cooldown, ayudando a los jugadores con visión reducida a localizarlos e interactuar con ellos. Estas luces indicadoras son visibles únicamente cuando la visión de los jugadores está reducida y los interruptores no están en cooldown, siendo las del exorcista de color azul y las del demonio naranjas.
+
+Por último, se empleó otra luz de Phaser 3 para simular el aura que rodea al exorcista cuando recoge el crucifijo. Esta luz sigue la posición del personaje mientras conserva los efectos del crucifijo.
 
 ### Música y sonidos
 Se ha implementado la opción de elegir entre activar o desactivar una música de fondo, elegido por sus características, propias de los juegos de terror, que aporta una sensación inmersiva al jugador.
