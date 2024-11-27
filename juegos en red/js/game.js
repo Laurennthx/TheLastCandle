@@ -100,15 +100,13 @@ class GameScene extends Phaser.Scene {
             });
         returnButton.setScale(0.28, 0.28);
 
-
-
         // MOVIMIENTO
         this.lastKeyExorcist
         this.lastKeyDemon
         this.keysPressedDe = [[[-1, 0], false], [[0, -1], false], [[0, 1], false], [[1, 0], false]]
         this.keysPressedEx = [[[-1, 0], false], [[0, -1], false], [[0, 1], false], [[1, 0], false]]
-        this.speedDe = 200
-        this.speedEx = 200
+        this.speedDe = 150
+        this.speedEx = 150
         this.velocidadReducida = 1
 
         const posInterruptores =
@@ -133,34 +131,31 @@ class GameScene extends Phaser.Scene {
         const collider6 = this.createCollider(5648, 880, 124, 736)
         const collider7 = this.createCollider(4016, 2980, 128, 444)
         const collider8 = this.createCollider(5648, 2980, 128, 444)
-        const collider9 = this.createCollider(1740, 3288, 615, 138)
+        const collider9 = this.createCollider(1745, 3288, 610, 138)
         const collider10 = this.createCollider(3234, 3288, 2898, 138)
         const collider11 = this.createCollider(7023, 3288, 1506, 138)
         const collider12 = this.createCollider(98, 1778, 140, 8902)
         const collider13 = this.createCollider(7762, 3316, 148, 9750)
-        const collider14 = this.createCollider(982, 5072, 5898, 182)
-        const collider15 = this.createCollider(1732, 4927, 150, 329)
+        const collider14 = this.createCollider(982, 5072, 5893, 182)
+        const collider15 = this.createCollider(1732, 4927, 150, 325)
         const collider16 = this.createCollider(6700, 5074, 178, 3808)
-        const collider17 = this.createCollider(5802, 8680, 1078, 202)
+        const collider17 = this.createCollider(5802, 8680, 1075, 202)
         const collider18 = this.createCollider(2619, 8680, 2136, 202)
         const collider19 = this.createCollider(92, 8680, 1352, 202)
         const collider20 = this.createCollider(92, 6608, 3880, 158)
-        const collider21 = this.createCollider(3839, 6608, 142, 300)
-        const collider22 = this.createCollider(3839, 8392, 142, 484)
-
-        const collider24 = this.createCollider(2945, 10496, 739, 223)
-        const collider25 = this.createCollider(3534, 10494, 158, 528)
-        const collider28 = this.createCollider(3557, 12294, 132, 2899)
+        const collider21 = this.createCollider(3839, 6612, 142, 295)
+        const collider22 = this.createCollider(3839, 8398, 142, 484)
+        const collider24 = this.createCollider(2945, 10494, 739, 230)
+        const collider25 = this.createCollider(3534, 10498, 158, 528)
+        const collider28 = this.createCollider(3534, 12294, 158, 2899)
         const collider29 = this.createCollider(3546, 15005, 6150, 199)
         const collider30 = this.createCollider(9569, 12632, 145, 2562)
         const collider31 = this.createCollider(7307, 12617, 2406, 218)
         const collider32 = this.createCollider(7758, 14429, 151, 776)
         const collider33 = this.createCollider(5051, 12609, 1351, 234)
         const collider34 = this.createCollider(1290, 12608, 2876, 168)
-        const collider35 = this.createCollider(1274, 10489, 170, 2286)
+        const collider35 = this.createCollider(1274, 10498, 170, 2286)
         const collider36 = this.createCollider(100, 10489, 1776, 193)
-
-
 
         // COLLIDERS
         this.grupoRituales = this.physics.add.group()
