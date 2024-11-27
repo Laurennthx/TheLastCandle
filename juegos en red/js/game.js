@@ -270,34 +270,46 @@ class GameScene extends Phaser.Scene {
         this.ritualText = this.add.text(20, 60, 'Completed Rituals: 0', { fontSize: '30px', color: '#fff' }).setScrollFactor(0);
         this.ritualIcon = this.add.image(400, 60, 'candleOn').setScale(0.05).setVisible(false).setScrollFactor(0);
 
+        // #region MUERTE PERSONAJES
         // MATAR AL DEMONIO
+        // Botón para matar al demonio
         this.killDemon = this.add.image(480, 900, "textBoxExorcist")
-            .setInteractive()
-            .on('pointerdown', () => {
-                this.sound.play("select");
-                this.scene.stop("gameScene");
-                this.scene.start("ExorcistWinsScene");
-            }).on('pointerover', () => {
-                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
-            });      
+        .setInteractive()
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });
         this.killDemon.setScale(0.4, 0.4);
-        this.killDemon.setVisible(false);
+        this.killDemon.setVisible(false); // Inicialmente oculto, visible solo cuando sea necesario
+
+        // Verificar en update si se pulsa E
+        this.input.keyboard.on('keydown-E', () => {
+        if (this.killDemon.visible) { // Solo si el botón es visible
+            this.sound.play("select");
+            this.scene.stop("gameScene");
+            this.scene.start("ExorcistWinsScene");
+        }
+        });
 
         // MATAR AL EXORCISTA
+        // Botón para matar al exorcista
         this.killExorcist = this.add.image(1480, 900, "textBoxDemon")
-            .setInteractive()
-            .on('pointerdown', () => {
-                this.sound.play("select");
-                this.scene.stop("gameScene");
-                this.scene.start("EndScene");
-                this.ritualCount = 0;
-                this.candleCount = 0;
-
-            }).on('pointerover', () => {
-                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
-            });      
+        .setInteractive()
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });
         this.killExorcist.setScale(0.4, 0.4);
-        this.killExorcist.setVisible(false);
+        this.killExorcist.setVisible(false); // Inicialmente oculto
+
+        // Verificar en update si se pulsa ENTER
+        this.input.keyboard.on('keydown-ENTER', () => {
+        if (this.killExorcist.visible) { // Solo si el botón es visible
+            this.sound.play("select");
+            this.scene.stop("gameScene");
+            this.scene.start("EndScene");
+            this.ritualCount = 0; // Reinicia el contador de rituales
+            this.candleCount = 0; // Reinicia el contador de velas
+        }
+        });
 
 
         // Configurar teclas - pulsar E para recoger vela - SOLO EXORCISTA
