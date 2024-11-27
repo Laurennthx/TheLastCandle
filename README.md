@@ -296,24 +296,8 @@ La mansión encantada se encontrará decorada con varias cajas de mudanza, que, 
 
 ### Objetos
 Se han diseñado cuatro objetos interactuables, cuyas funciones se han desarrollado en los apartados previos. En concreto son las velas, los interruptores, las estrellas de los rituales y el crucifijo. Varios de ellos cuentan con dos versiones distintas según la variación que ofrecen.
- ***Crucifijo***
-  ![Objeto_crucifijo](https://github.com/user-attachments/assets/8fbad88a-cb04-4ef7-8908-c0953eac9d60)
-
-
- ***Velas***
-  ![Objeto_VelaApagada](https://github.com/user-attachments/assets/3f72bfa6-d558-461d-a698-6ba512e24f7f)
-
-  ![Objeto_VelaEncendida](https://github.com/user-attachments/assets/4045f8ac-5f75-4338-b3a9-01044a0cd7b1)
-
-
- ***Interruptores***
-  ![Objeto_InterruptorOff](https://github.com/user-attachments/assets/db8f161a-5f95-4875-83f1-e04f4d4540b5)
-
-  ![Objeto_InterruptorOn](https://github.com/user-attachments/assets/1a1286d1-ec14-45b7-82c7-10125a733c75)
-
-
- ***Rituales***
-  ![Objeto_ritual](https://github.com/user-attachments/assets/ea2267b4-4359-4c45-8eb5-a237c075716f)
+ 
+  ![Objetos](https://github.com/user-attachments/assets/ea2267b4-4359-4c45-8eb5-a237c075716f)
 
 
 ### Interfaces
