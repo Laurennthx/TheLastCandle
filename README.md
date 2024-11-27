@@ -253,19 +253,25 @@ También existen efectos de sonido durante el juego, cuando el exorcista o el de
 
 
 ### Diseño de personajes
-#### Bocetos
+#### Exorcista
 
-#### Diseño final
- ![Exorcista2](https://github.com/user-attachments/assets/a84f4737-fd8f-43fa-87fb-8d3b5a38f51d)
+##### Bocetos y Diseño final
 
- ![Demonio](https://github.com/user-attachments/assets/04781b05-ffea-423d-bdf5-cba1c071c75f)
+![Exorcista](https://github.com/user-attachments/assets/1c360f1f-4c11-4192-a20d-1b8b8d068db4)
 
 
-#### Animaciones
+##### Animaciones
   ![spriteSheetExorcista](https://github.com/user-attachments/assets/bf88764d-1065-412f-9f1b-a3a95003dea7)
 
-  ![spriteSheetDemonio](https://github.com/user-attachments/assets/b18ebda9-8815-4777-a837-68dafa4af592)
 
+#### Demonio
+
+##### Bocetos y Diseño final
+
+![Demonio](https://github.com/user-attachments/assets/71d0d6d9-9481-44f1-a2a5-042ecc2fc554)
+
+##### Animaciones
+  ![spriteSheetDemonio](https://github.com/user-attachments/assets/b18ebda9-8815-4777-a837-68dafa4af592)
 
 
 ### Diseño del mapa
