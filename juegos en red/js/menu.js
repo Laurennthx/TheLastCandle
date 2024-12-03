@@ -26,7 +26,7 @@ class MenuScene extends Phaser.Scene {
         .on('pointerdown', () => {
             this.sound.play("select");
             this.scene.stop("MenuScene");
-            this.scene.start("TutorialScene");   
+            this.scene.start("ChoosingCharacterScene");   
         }).on('pointerover', () => {
             this.sound.play("hover"); // Reproduce sonido al pasar el cursor
         });  
