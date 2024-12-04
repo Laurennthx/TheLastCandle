@@ -214,7 +214,9 @@ El juego estará diseñado para ejecutarse en el navegador, a través de una red
 ### Modelo de negocio
 Se ha decidido que el juego cuente con un modelo de negocio mixto. Se implementarán anuncios dentro del mismo, en algunos casos haciendo que el jugador obtenga beneficios al verlos, propio de un modelo de negocio “adware”. Además, se utilizará el modelo de negocio “freemium”, ya que se ofrecerá contenido adicional para la personalización de los personajes y/o accesorios. Por último, se encontrará disponible la opción de donación para aquellos que decidan apoyar el desarrollo del videojuego, implementando así un modelo de negocio “donationware”.
 
-## Implementación y arte "Fase 2"
+# Fase 2
+
+## Implementación y arte
 Se han realizado ciertos cambios, entre ellos, el intercambio de teclas para interactuar con los objetos, sustituyendo al “espacio” por la tecla “E”. Se ha incluido en el apartado correspondiente la licencia con la que se encuentra realizado el trabajo. A su vez, en lugar de tener que colocar cinco velas, el exorcista tendrá que colocar tres velas, una en cada ritual, para así ganar al demonio.
 
 
@@ -239,10 +241,10 @@ Respecto a los indicadores de los interruptores se usaron las luces integradas e
 
 Por último, se empleó otra luz de Phaser 3 para simular el aura que rodea al exorcista cuando recoge el crucifijo. Esta luz sigue la posición del personaje mientras conserva los efectos del crucifijo.
 
-### Música y sonidos
+### Música y efectos
 Se ha implementado la opción de elegir entre activar o desactivar una música de fondo, elegido por sus características, propias de los juegos de terror, que aporta una sensación inmersiva al jugador.
 A su vez, se han implementado efectos de sonido al interactuar con los botones de la interfaz, tanto en la interacción de pulsarlos como al mantener el ratón por encima. 
-También existen efectos de sonido durante el juego, cuando el exorcista o el demonio interactúan con los interruptores se produce un “click”, indicando que se ha activado o desactivado dicho interruptor. 
+También existen efectos de sonido durante el juego, cuando el exorcista interactua con las velas, rituales y crucifijo, así como cuando ambos interactuan con los interuptores.
 
 ### Diseño del logotipo
 

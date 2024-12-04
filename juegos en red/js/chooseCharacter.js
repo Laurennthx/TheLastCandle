@@ -5,12 +5,13 @@ class ChoosingCharacterScene extends Phaser.Scene {
     
     preload() {
         this.load.audio("select", 'assets/select.mp3');
-        this.load.audio("background", 'assets/8bit-music.mp3');
     
-        this.load.image("chooseCharacterBG", "assets/UI/chooseCharacter.png");
-        this.load.image("chooseDemon", "assets/UI/chooseDemon.png");
-        this.load.image("chooseExorcist", "assets/UI/chooseExorcist.png");
-        this.load.image("chooseRandom", "assets/UI/chooseRandom.png");
+        this.load.image("chooseCharacterBG", "assets/UI/chooseCharacter.jpg");
+        this.load.image("chooseDemon", "assets/UI/demonB.png");
+        this.load.image("chooseExorcist", "assets/UI/exorcistB.png");
+        this.load.image("chooseRandom", "assets/UI/randomB.png");
+        this.load.image("randomText", "assets/UI/randomText.png");
+
         
         this.load.image("continue", "assets/UI/continue.png");
         this.load.image("return", "assets/UI/return.png");
@@ -18,11 +19,50 @@ class ChoosingCharacterScene extends Phaser.Scene {
     
     create() {
         // Imagen de fondo
-        const chooseCharacterMenu = this.add.image(0, 0, "chooseCharacterBG").setOrigin(0, 0);
-        chooseCharacterMenu.setDisplaySize(1920, 1080);
+        const background = this.add.image(0, 0, "chooseCharacterBG").setOrigin(0, 0);
+        background.setDisplaySize(1920, 1080);
 
-        // Boton back
-        const back_button = this.add.image(800, 955, "return")
+        // Boton Demonio
+        const demonB = this.add.image(550, 600, "chooseDemon")
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.sound.play("select");
+            //this.scene.stop("ChoosingCharacterScene");
+            //this.scene.start("TutorialScene");   
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        demonB.setScale(0.7,0.7);
+
+        // Boton exorcista
+        const exorcistB = this.add.image(550, 800, "chooseExorcist")
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.sound.play("select");
+            //this.scene.stop("ChoosingCharacterScene");
+            //this.scene.start("TutorialScene");   
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        exorcistB.setScale(0.7,0.7);
+
+        // Boton random
+        const randomB = this.add.image(1300, 650, "chooseRandom")
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.sound.play("select");
+            //this.scene.stop("ChoosingCharacterScene");
+            //his.scene.start("TutorialScene");   
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        randomB.setScale(0.7,0.7);
+
+        const text = this.add.image(1300, 800, "randomText")
+        text.setScale(0.7,0.7);
+
+        // Boton return
+        const returnB = this.add.image(990, 1000, "return")
         .setInteractive()
         .on('pointerdown', () => {
             this.sound.play("select");
@@ -31,19 +71,10 @@ class ChoosingCharacterScene extends Phaser.Scene {
         }).on('pointerover', () => {
             this.sound.play("hover"); // Reproduce sonido al pasar el cursor
         });  
-        back_button.setScale(0.4,0.4);
+        returnB.setScale(0.4,0.4);
 
-        // Boton continue
-        const continue_button = this.add.image(1150, 962, "continue")
-        .setInteractive()
-        .on('pointerdown', () => {
-            this.sound.play("select");
-            this.scene.stop("ChoosingCharacterScene");
-            this.scene.start("TutorialScene");   
-        }).on('pointerover', () => {
-            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
-        });  
-        continue_button.setScale(0.75,0.75);
+
+
     }
     
     update() {
