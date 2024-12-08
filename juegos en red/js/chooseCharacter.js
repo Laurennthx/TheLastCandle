@@ -27,8 +27,8 @@ class ChoosingCharacterScene extends Phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => {
             this.sound.play("select");
-            //this.scene.stop("ChoosingCharacterScene");
-            //this.scene.start("TutorialScene");   
+            this.scene.stop("ChoosingCharacterScene");
+            this.scene.start("DemonSkin");   
         }).on('pointerover', () => {
             this.sound.play("hover"); // Reproduce sonido al pasar el cursor
         });  
@@ -39,8 +39,8 @@ class ChoosingCharacterScene extends Phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => {
             this.sound.play("select");
-            //this.scene.stop("ChoosingCharacterScene");
-            //this.scene.start("TutorialScene");   
+            this.scene.stop("ChoosingCharacterScene");
+            this.scene.start("ExorcistSkin");   
         }).on('pointerover', () => {
             this.sound.play("hover"); // Reproduce sonido al pasar el cursor
         });  
