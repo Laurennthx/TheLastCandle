@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.86.0/phaser.min.js"></script> 
+    <script src="js/welcome.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/intro.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/gameCopy.js"></script>
+    <script src="js/gameCopyCopy.js"></script>
+    <script src="js/endgame.js"></script>
+    <script src="js/credits.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/gamePruebas.js"></script>
+    <script src="js/loading.js"></script>
+    <script src="js/exorcistWins.js"></script>
+    <script src="js/tutorial.js"></script>
+    <script src="js/chooseCharacter.js"></script>
+    <script src="js/gameMode.js"></script>
+    <script src="js/demonSkin"></script>
+    <script src="js/exorcistSkin.js"></script>
+
+
+
+
+
+
+</head>
+<body>
+    <script>
+        // Game configuration
+        const config = {
+            type: Phaser.AUTO,
+            width: 1920,
+            height: 1080,
+            parent: 'game-canvas',
+            backgroundColor: '#000000',
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    debug: false,
+                    gravity: { y: 0 }
+                }
+            },
+            scene: [WelcomeScene, MenuScene, IntroGame, GameScene, GameSceneCopy, GameSceneCopyCopy, EndScene, CreditsScene, OptionsScene, GamePruebas, LoadingScene, ExorcistWinsScene, TutorialScene, ChoosingCharacterScene, GameModeScene, DemonSkin, ExorcistSkin]
+        };
+
+        // Create the game instance
+        const game = new Phaser.Game(config);
+        game.scene.start('WelcomeScene');
+
+    </script>
+</body>
+</html>
