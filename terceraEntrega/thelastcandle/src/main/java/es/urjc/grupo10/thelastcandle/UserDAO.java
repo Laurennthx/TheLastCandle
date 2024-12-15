@@ -59,7 +59,6 @@ public class UserDAO {
         } catch (Exception e) {
             return new ArrayList<>();
         }
-
     }
 
     public Optional<User> getUser(String username) {

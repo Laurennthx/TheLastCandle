@@ -1,7 +1,6 @@
 package es.urjc.grupo10.thelastcandle;
 
 import java.util.Optional;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,14 +24,14 @@ public class UsersController {
     @Autowired
     private ApiStatusService apiStatusService;  // Esto no sé si está bien
 
-    private ReentrantReadWriteLock lock; // La forma facil seria con synchronized(this.userDAO){dentro el codigo que queramos que sea atomico}
+    //private ReentrantReadWriteLock lock; // La forma facil seria con synchronized(this.userDAO){dentro el codigo que queramos que sea atomico}
 
     public UsersController(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
     // Todo esto teniendo las clases de User y UserDTO creadas en el proyecto
-    @GetMapping("/(username)")
+    @GetMapping("/{username}")
     public ResponseEntity<UserDTO> getUser(@PathVariable String username) {
 
         this.apiStatusService.hasSeen(username);// hay que ponerlo en los demas metodos cuando se utilice el usuario
@@ -44,7 +43,7 @@ public class UsersController {
         }
     }
 
-    @DeleteMapping("/(username)")
+    @DeleteMapping("/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable String username) {
         boolean removed = this.userDAO.deleteUser(username);
         if (removed) {
@@ -55,7 +54,7 @@ public class UsersController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> postMethodName(@RequestBody User user) {
+    public ResponseEntity<?> postUsername(@RequestBody User user) {
         if (user.getUsername() == null || user.getPassword() == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -69,7 +68,7 @@ public class UsersController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/(username)/password")
+    @PutMapping("/{username}/password")
     public ResponseEntity<?> updatepassword(@PathVariable String username, @RequestBody PasswordUpdateRequest passwordUpdate){
         if (passwordUpdate.password() == null || passwordUpdate.password().isEmpty()) { // Comprobar que no sea nula o vacía
             return ResponseEntity.badRequest().build();

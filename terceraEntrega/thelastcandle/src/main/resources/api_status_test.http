@@ -1,0 +1,22 @@
+# Obtener detalles de un usuario
+#GET http://localhost:8080/api/users/andre
+
+# Crear un nuevo usuario
+POST http://localhost:8080/api/users/
+Content-Type: application/json
+
+{
+  "name": "andre2",
+  "password": "contraseñaAndre"
+}
+
+# # Actualizar la contraseña de un usuario
+# PUT http://localhost:8080/api/users/tu_usuario/password
+# Content-Type: application/json
+
+# {
+#   "password": "nueva_contraseña"
+# }
+
+# # Eliminar un usuario
+# DELETE http://localhost:8080/api/users/tu_usuario

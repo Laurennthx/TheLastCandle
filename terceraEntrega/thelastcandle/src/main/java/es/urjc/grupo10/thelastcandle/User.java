@@ -6,7 +6,7 @@ public class User implements Serializable {
     // To ensure serialization
     private static final long serialVersionUID = 1L;
 
-    String name;
+    String username;
     String password;
     int victories;
 
@@ -14,17 +14,17 @@ public class User implements Serializable {
     }
 
     public User(String name, String password) {
-        this.name = name;
+        this.username = name;
         this.password = password;
         victories = 0;
     }
 
     public String getUsername() {
-        return name;
+        return username;
     }
 
     public void setName(String newName) {
-        name = newName;
+        username = newName;
     }
 
     public String getPassword() {
@@ -45,6 +45,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "USER : Name: " + name + ", Password:" + password;
+        return "USER : Name: " + username + ", Password:" + password;
     }
 }
