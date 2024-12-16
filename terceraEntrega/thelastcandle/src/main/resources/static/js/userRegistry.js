@@ -31,10 +31,11 @@ class UserScene extends Phaser.Scene {
         .on('pointerdown', () => {
             const username = usernameFieldUp.getData('value');
             const password = passwordFieldUp.getData('value');
+            this.sound.play("select"); 
             console.log("Sign Up:", username, password);
-            this.sound.play("select");
-            this.scene.stop("UserScene");
-            this.scene.start("MenuScene");   
+            this.handleSignUp(username, password);
+
+            
         }).on('pointerover', () => {
             this.sound.play("hover"); // Reproduce sonido al pasar el cursor
         });  
@@ -46,10 +47,10 @@ class UserScene extends Phaser.Scene {
         .on('pointerdown', () => {
             const username = usernameFieldIn.getData('value');
             const password = passwordFieldIn.getData('value');
+            this.sound.play("select"); 
             console.log("Sign In:", username, password);
-            this.sound.play("select");
-            this.scene.stop("UserScene");
-            this.scene.start("MenuScene");   
+            this.handleSignIn(username, password);
+              
         }).on('pointerover', () => {
             this.sound.play("hover"); // Reproduce sonido al pasar el cursor
         });  
@@ -110,6 +111,66 @@ class UserScene extends Phaser.Scene {
                 this.currentField.setText(isPassword ? '*'.repeat(newValue.length) : newValue);
             }
         }
+    }
+
+    handleSignUp(username, password) {
+        if (!username || !password) {
+            console.error("Por favor, complete todos los campos.");
+            return;
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/api/users/",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ 
+                username: username, 
+                password: password 
+            }),
+            success: () => {
+                console.log("Usuario registrado con éxito.");
+                this.scene.stop("UserScene");
+                this.scene.start("MenuScene");
+            },
+            error: (xhr) => {
+                if (xhr.status === 409) {
+                    console.error("El usuario ya existe.");
+                } else {
+                    console.error("Error al registrar el usuario:", xhr.responseText);
+                }
+            }
+        });
+    }
+
+    handleSignIn(username, password) {
+        if (!username || !password) {
+            console.error("Por favor, complete todos los campos.");
+            return;
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/api/authenticate",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ 
+                username: username, 
+                password: password 
+            }),
+            success: (response) => {
+                console.log("Inicio de sesión exitoso.");
+                this.scene.stop("UserScene");
+                this.scene.start("MenuScene");
+            },
+            error: (xhr) => {
+                if (xhr.status === 401) {
+                    console.error("Credenciales incorrectas.");
+                } else if (xhr.status === 404) {
+                    console.error("Usuario no encontrado.");
+                } else {
+                    console.error("Error al iniciar sesión:", xhr.responseText);
+                }
+            }
+        });
     }
 
     update(){}
