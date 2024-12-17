@@ -1,3 +1,5 @@
+// menu.js chat
+
 class MenuScene extends Phaser.Scene {
     constructor(){
         super({key: 'MenuScene'});
@@ -11,10 +13,18 @@ class MenuScene extends Phaser.Scene {
         this.load.image("bCredits", 'assets/UI/credits.png');
         this.load.image("bQuit", 'assets/UI/quit.png');
         this.load.image("CreditsBG", 'assets/UI/creditos.jpg');
+
+        this.load.image("chatB", 'assets/UI/chat/chatB.png');
+        this.load.image("chatBG", 'assets/UI/chat/chatBG.png');
+        this.load.image("chatFade", 'assets/UI/chat/chatFade.png');
+        this.load.image("onlineBG", 'assets/UI/chat/online.png');
     }
 
 
     create(){
+
+        // Estado inicial del chat desactivado
+        this.isChatActive = false;
 
         // inmagen de fondo
         const backgroundMenu = this.add.image(0,0, "menuBG").setOrigin(0,0);
@@ -67,7 +77,47 @@ class MenuScene extends Phaser.Scene {
             this.sound.play("hover"); // Reproduce sonido al pasar el cursor
         });  
         quit_button.setScale(0.5,0.5);
+
+
+    
+
+        // # region chat
+
+        // Elementos del chat
+        const chatFade = this.add.image(960, 540, "chatFade").setVisible(false).setScale(1);
+        const BGChat = this.add.image(1480, 540, "chatBG").setVisible(false).setScale(0.6);
+        const onlineBG = this.add.image(890, 340, "onlineBG").setVisible(false).setScale(0.6);
+
+        // Botón del chat
+        const chatB = this.add.image(1830, 60, "chatB")
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.sound.play("select");
+                this.toggleChatMenu(chatB, [chatFade, BGChat, onlineBG]);
+            })
+            .on('pointerover', () => {
+                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+            });
+        chatB.setScale(0.3);
     }
+
+    // Método para alternar la visibilidad de la UI del chat
+    toggleChatMenu(chatB, elements) {
+        // Verifica si el primer elemento está visible
+        const isVisible = elements[0].visible;
+
+        // Alterna la visibilidad de cada elemento
+        elements.forEach(element => {
+            element.setVisible(!isVisible);
+        });
+
+        // Alterna el estado del chat
+        this.isChatActive = !isVisible;
+
+        // Opcional: Imprimir en consola si el chat está activo o no
+        console.log(this.isChatActive ? "Chat activado" : "Chat desactivado");
+    }
+
 
     update(){}
 
