@@ -30,7 +30,11 @@ class LoadingScene extends Phaser.Scene {
 
         // map
         this.load.image('background', 'assets/House/fondo3pentagonos.png')
-
+        this.load.image('background1', 'assets/House/fondo3pentagonosPeque1.png')
+        this.load.image('background2', 'assets/House/fondo3pentagonosPeque2.png')
+        this.load.image('background3', 'assets/House/fondo3pentagonosPeque3.png')
+        this.load.image('background4', 'assets/House/fondo3pentagonosPeque4.png')
+        
 
         // crucifix
         this.load.image('crucifix', 'assets/Objects/crucifix.png')
