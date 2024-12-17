@@ -27,10 +27,23 @@ class GameScene extends Phaser.Scene {
             frameHeight: 1853  // Altura de cada fotograma
         });
 
+        // menu de pausa
+        this.load.image("menuPausaBG", "assets/UI/MenuPausa/menuPausa.png");
+        this.load.image("fade", "assets/UI/MenuPausa/fade.png");
+        this.load.image("menuB", "assets/UI/MenuPausa/menuB.png");
+        this.load.image("newGameB", "assets/UI/MenuPausa/newGame.png");
+        this.load.image("offBPausa", "assets/UI/MenuPausa/OffB.png");
+        this.load.image("onBPausa", "assets/UI/MenuPausa/OnB.png");
+        this.load.image("resumeB", "assets/UI/MenuPausa/resumeB.png");
+        this.load.image("pauseB", "assets/UI/MenuPausa/pauseB.png");
+
     }
 
     // #region CREATE
     create() {
+
+        this.isPaused = false; // Estado inicial del juego no pausado
+
         // MUNDO
         const zoomCamara = 4
         const height = this.scale.height
@@ -38,7 +51,7 @@ class GameScene extends Phaser.Scene {
 
         // BOTÓN RETURN TO MENU
         // boton back
-        const returnButton = this.add.image(1810, 40, "return")
+        /* const returnButton = this.add.image(1810, 40, "return")
             .setInteractive()
             .on('pointerdown', () => {
                 this.sound.play("select");
@@ -51,6 +64,7 @@ class GameScene extends Phaser.Scene {
                 this.sound.play("hover"); // Reproduce sonido al pasar el cursor
             });
         returnButton.setScale(0.28, 0.28);
+        */
 
         // MOVIMIENTO
         this.lastKeyExorcist
@@ -397,7 +411,7 @@ class GameScene extends Phaser.Scene {
 
         // IGNORAR SPRITES:
         // Las cámaras de la pantalla dividida ignoran el marco
-        this.cameras.main.ignore([this.visionAreaDe, divider, this.killDemon, this.killExorcist])
+        this.cameras.main.ignore([this.visionAreaDe, divider, this.killDemon, this.killExorcist ])
         scndCamera.ignore([this.visionAreaEx, divider, this.killDemon, this.killExorcist])
 
         // Indicar qué luces son visibles para cada personaje
@@ -419,9 +433,125 @@ class GameScene extends Phaser.Scene {
             callbackScope: this   // Contexto (scope) de la función, generalmente `this` para acceder a la escena
         });
 
+        // #region MENU DE PAUSA
+        // Fondo del menú de pausa
+        // Fondo del menú de pausa
+
+        // Efecto de fade
+        //this.add.image(400, 300, "fade").setAlpha(1); // Transparencia ajustada con setAlpha
+
+
+        const menuPausaBG = this.add.image(960, 540, "menuPausaBG"); // Coordenadas y clave de la imagen
+        menuPausaBG.setScale(0.85);
+        menuPausaBG.setVisible(false);
+        
+        // Botón de pausa (visible en el HUD del juego)
+        let pauseButton = this.add.image(1830, 60, "pauseB").setInteractive();
+        pauseButton.on("pointerdown", () => {
+            this.sound.play("select");
+            console.log("Juego en pausa");
+            // Lógica para mostrar el menú de pausa
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor 
+        });
+        pauseButton.setScale(0.2);
+
+        // Botón de menú principal
+        let menuButton = this.add.image(680, 520, "menuB").setInteractive();
+        menuButton .on('pointerdown', () => {
+            this.sound.play("select");
+            this.scene.stop("GameScene");
+            this.scene.start("MenuScene"); 
+            this.ritualCount = 0;
+            this.candleCount = 0;  
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor  
+        });
+        menuButton.setScale(0.4);
+        menuButton.setVisible(false);
+
+        // Botón de nuevo juego
+        let newGameButton = this.add.image(680, 620, "newGameB").setInteractive();
+        newGameButton .on('pointerdown', () => {
+            this.sound.play("select");
+            this.scene.stop("GameScene");
+            this.scene.start("GameModeScene"); 
+            this.ritualCount = 0;
+            this.candleCount = 0;  
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        newGameButton.setScale(0.4);
+        newGameButton.setVisible(false);
+
+
+        // Botón de reanudar juego
+        let resumeButton = this.add.image(680, 720, "resumeB").setInteractive();
+        resumeButton.on("pointerdown", () => {
+            console.log("Reanudar juego");
+            // Lógica para cerrar el menú de pausa y continuar
+            this.togglePauseMenu(pauseButton, pauseMenuElements);
+
+        });
+        resumeButton.setScale(0.42);
+        resumeButton.setVisible(false);
+
+
+        // Botón de sonido Off
+        let offButton = this.add.image(1150, 520, "offBPausa").setInteractive();
+        offButton.on('pointerdown', () => {
+            this.sound.play("select");
+            this.bgMusic.stop();  
+        })
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        offButton.setScale(0.4);
+        offButton.setVisible(false);
+
+
+        // Botón de sonido On
+        let onButton = this.add.image(1150, 620, "onBPausa").setInteractive();
+        onButton.on('pointerdown', () => {
+            this.sound.play("select");
+            this.bgMusic.play();  
+        })
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        onButton.setScale(0.4);
+        onButton.setVisible(false);
+
+
+        // Array con los elementos del menú de pausa
+        const pauseMenuElements = [menuPausaBG, menuButton, newGameButton, resumeButton, offButton, onButton];
+
+        // Evento del botón de pausa
+        pauseButton.on("pointerdown", () => {
+            this.togglePauseMenu(pauseButton, pauseMenuElements);
+        });
+
+        scndCamera.ignore([this.visionAreaEx, divider, this.killDemon, this.killExorcist, ...pauseMenuElements])
+        this.cameras.main.ignore([this.visionAreaDe, divider, this.killDemon, this.killExorcist, ...pauseMenuElements ])
 
     }
 
+    // Método para alternar la visibilidad del menú de pausa
+    togglePauseMenu(pauseButton, elements) {
+        // Verifica si el primer elemento está visible
+        const isVisible = elements[0].visible;
+
+        // Alterna la visibilidad de cada elemento
+        elements.forEach(element => {
+            element.setVisible(!isVisible);
+        });
+
+        // Opcional: Imprimir en consola si se activó o desactivó el menú
+        console.log(isVisible ? "Menú oculto" : "Menú mostrado");
+
+        this.isPaused = !isVisible;
+
+    }
 
     // MÉTODO CREACIÓN DE COLLIDERS
     createCollider(x, y, width, height) {
@@ -683,22 +813,30 @@ class GameScene extends Phaser.Scene {
     setupPaddleControllersDemon() {
         // Key down
         this.input.keyboard.on('keydown-LEFT', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.demon.flipX = true; // Voltear el sprite horizontalmente
             this.keysPressedDe[0][1] = true
             this.lastKeyDemon = 0
         });
         this.input.keyboard.on('keydown-UP', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.keysPressedDe[1][1] = true
             this.lastKeyDemon = 1
         });
         this.input.keyboard.on('keydown-DOWN', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.keysPressedDe[2][1] = true
             this.lastKeyDemon = 2
         });
         this.input.keyboard.on('keydown-RIGHT', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.demon.flipX = false; // Voltear el sprite horizontalmente
             this.keysPressedDe[3][1] = true
@@ -707,6 +845,8 @@ class GameScene extends Phaser.Scene {
 
         // Key up
         this.input.keyboard.on('keyup-LEFT', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedDe[0][1] = false
             if (this.keysPressedDe[3][1] == true) {
                 this.demon.flipX = false; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
@@ -716,18 +856,24 @@ class GameScene extends Phaser.Scene {
             }
         });
         this.input.keyboard.on('keyup-UP', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedDe[1][1] = false
             if (this.characterIsStill(this.demon)) {
                 this.demon.anims.stop('demonWalk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-DOWN', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedDe[2][1] = false
             if (this.characterIsStill(this.demon)) {
                 this.demon.anims.stop('demonWalk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-RIGHT', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedDe[3][1] = false
             if (this.keysPressedDe[0][1] == true) {
                 this.demon.flipX = true; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
@@ -741,22 +887,30 @@ class GameScene extends Phaser.Scene {
     setupPaddleControllersExorcist() {
         // Key down
         this.input.keyboard.on('keydown-A', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.exorcist.anims.play('walk', true); // Reproducir animación
             this.exorcist.flipX = true; // Voltear el sprite horizontalmente
             this.keysPressedEx[0][1] = true
             this.lastKeyExorcist = 0
         });
         this.input.keyboard.on('keydown-W', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.exorcist.anims.play('walk', true); // Reproducir animación
             this.keysPressedEx[1][1] = true
             this.lastKeyExorcist = 1
         });
         this.input.keyboard.on('keydown-S', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.exorcist.anims.play('walk', true); // Reproducir animación
             this.keysPressedEx[2][1] = true
             this.lastKeyExorcist = 2
         });
         this.input.keyboard.on('keydown-D', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.exorcist.anims.play('walk', true); // Reproducir animación
             this.exorcist.flipX = false; // Restaurar orientación original
             this.keysPressedEx[3][1] = true
@@ -765,6 +919,8 @@ class GameScene extends Phaser.Scene {
 
         // Key up
         this.input.keyboard.on('keyup-A', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedEx[0][1] = false
             if (this.keysPressedEx[3][1] == true) {
                 this.exorcist.flipX = false; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
@@ -774,18 +930,24 @@ class GameScene extends Phaser.Scene {
             }
         });
         this.input.keyboard.on('keyup-W', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedEx[1][1] = false
             if (this.characterIsStill(this.exorcist)) {
                 this.exorcist.anims.stop('walk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-S', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedEx[2][1] = false
             if (this.characterIsStill(this.exorcist)) {
                 this.exorcist.anims.stop('walk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-D', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedEx[3][1] = false
             if (this.keysPressedEx[0][1] == true) {
                 this.exorcist.flipX = true; // Si al soltar la D, se estaba moviendo hacia la A, se voltea el sprite
