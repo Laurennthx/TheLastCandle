@@ -22,20 +22,39 @@
     <script src="js/demonSkin"></script>
     <script src="js/exorcistSkin.js"></script>
 
+    <style>
+        /* Set full height for the HTML and body to ensure the game container can take the full viewport height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
 
+        /* Ensures the Phaser game canvas (inside the parent container) is centered */
+        #game-canvas {
+            display: block; /* Remove any inline space and allow it to be centered */
+            margin: auto;
+            border: 5px solid rgb(37, 40, 53); /* Add a white border of 5px */
+        }
+    </style>
 
 
 
 
 </head>
 <body>
+    <div id="game-canvas"></div>
     <script>
         // Game configuration
         const config = {
             type: Phaser.AUTO,
             width: 1920,
             height: 1080,
-            parent: 'game-canvas',
+
+            parent: 'game-canvas',  <!-- Este es el cambio que hice: el canvas se coloca dentro del div con id="game-canvas" -->
             backgroundColor: '#000000',
             physics: {
                 default: 'arcade',
