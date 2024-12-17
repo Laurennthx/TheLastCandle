@@ -27,10 +27,23 @@ class GameScene extends Phaser.Scene {
             frameHeight: 1853  // Altura de cada fotograma
         });
 
+        // menu de pausa
+        this.load.image("menuPausaBG", "assets/UI/MenuPausa/menuPausa.png");
+        this.load.image("fade", "assets/UI/MenuPausa/fade.png");
+        this.load.image("menuB", "assets/UI/MenuPausa/menuB.png");
+        this.load.image("newGameB", "assets/UI/MenuPausa/newGame.png");
+        this.load.image("offBPausa", "assets/UI/MenuPausa/OffB.png");
+        this.load.image("onBPausa", "assets/UI/MenuPausa/OnB.png");
+        this.load.image("resumeB", "assets/UI/MenuPausa/resumeB.png");
+        this.load.image("pauseB", "assets/UI/MenuPausa/pauseB.png");
+
     }
 
     // #region CREATE
     create() {
+
+        this.isPaused = false; // Estado inicial del juego no pausado
+
         // MUNDO
         const zoomCamara = 4
         const height = this.scale.height
@@ -38,7 +51,7 @@ class GameScene extends Phaser.Scene {
 
         // BOTÓN RETURN TO MENU
         // boton back
-        const returnButton = this.add.image(1810, 40, "return")
+        /* const returnButton = this.add.image(1810, 40, "return")
             .setInteractive()
             .on('pointerdown', () => {
                 this.sound.play("select");
@@ -51,6 +64,7 @@ class GameScene extends Phaser.Scene {
                 this.sound.play("hover"); // Reproduce sonido al pasar el cursor
             });
         returnButton.setScale(0.28, 0.28);
+        */
 
         // MOVIMIENTO
         this.lastKeyExorcist
@@ -151,19 +165,11 @@ class GameScene extends Phaser.Scene {
         this.corridor2 = this.add.rectangle(6884 + 868 / 2, 5080 + 4538 / 2, 868, 4538);
         this.hall2 = this.add.rectangle(3700 + 4046 / 2, 13520 + 1500 / 2, 4046, 1500);
 
-        this.roomsContainer.add([this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom1, this.bathroom2, this.kitchen, this.diningRoom,
-        this.storageRoom, this.livingRoom, this.hall, this.corridor1, this.corridor2, this.hall2]);
-        
-        // Obtener la textura de la imagen
-        const textura = this.textures.get('background');
-        // Acceder a las dimensiones de la textura para escalar todo en base a las coordenadas de la imagen grande original
-        const alturaBg = textura.getSourceImage().height;
-
-        this.escalaBg = this.scale.height / alturaBg
+        this.roomsContainer.add([this.bedroom1, this.bedroom2, this.bedroom3, this.bathroom1, this.bathroom2, this.kitchen, this.diningRoom, 
+            this.storageRoom, this.livingRoom, this.hall, this.corridor1, this.corridor2, this.hall2]);
+        this.escalaBg = this.scale.height / background.height
         this.roomsContainer.setScale(this.escalaBg);
 
-        
-        
         // Poner los interruptores
         this.interruptoresOn = this.physics.add.group(); // Grupo para los interruptores
         this.interruptoresOff = this.physics.add.group(); // Grupo para los interruptores
@@ -171,11 +177,9 @@ class GameScene extends Phaser.Scene {
 
         this.bgContainer.add([background, this.crucifix, ...this.walls.getChildren(), ...this.interruptoresOn.getChildren(), ...this.interruptoresOff.getChildren(), ...this.grupoRituales.getChildren()])
         this.bgContainer.setScale(this.escalaBg)
-        background.setScale(alturaBg / background.height)
-        
 
         // Establecer los límites del mundo según el tamaño del mapa
-        //this.physics.world.setBounds(0, 0, anchuraBg * this.escalaBg, height);
+        this.physics.world.setBounds(0, 0, background.width * this.escalaBg, height);
         // #endregion
 
         // #region GENERACION VELAS
@@ -239,41 +243,41 @@ class GameScene extends Phaser.Scene {
         // MATAR AL DEMONIO
         // Botón para matar al demonio
         this.killDemon = this.add.image(480, 900, "textBoxExorcist")
-            .setInteractive()
-            .on('pointerover', () => {
-                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
-            });
+        .setInteractive()
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });
         this.killDemon.setScale(0.4, 0.4);
         this.killDemon.setVisible(false); // Inicialmente oculto, visible solo cuando sea necesario
 
         // Verificar en update si se pulsa E
         this.input.keyboard.on('keydown-E', () => {
-            if (this.killDemon.visible) { // Solo si el botón es visible
-                this.sound.play("select");
-                this.scene.stop("gameScene");
-                this.scene.start("ExorcistWinsScene");
-            }
+        if (this.killDemon.visible) { // Solo si el botón es visible
+            this.sound.play("select");
+            this.scene.stop("gameScene");
+            this.scene.start("ExorcistWinsScene");
+        }
         });
 
         // MATAR AL EXORCISTA
         // Botón para matar al exorcista
         this.killExorcist = this.add.image(1480, 900, "textBoxDemon")
-            .setInteractive()
-            .on('pointerover', () => {
-                this.sound.play("hover"); // Reproduce sonido al pasar el cursor
-            });
+        .setInteractive()
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });
         this.killExorcist.setScale(0.4, 0.4);
         this.killExorcist.setVisible(false); // Inicialmente oculto
 
         // Verificar en update si se pulsa ENTER
         this.input.keyboard.on('keydown-ENTER', () => {
-            if (this.killExorcist.visible) { // Solo si el botón es visible
-                this.sound.play("select");
-                this.scene.stop("gameScene");
-                this.scene.start("EndScene");
-                this.ritualCount = 0; // Reinicia el contador de rituales
-                this.candleCount = 0; // Reinicia el contador de velas
-            }
+        if (this.killExorcist.visible) { // Solo si el botón es visible
+            this.sound.play("select");
+            this.scene.stop("gameScene");
+            this.scene.start("EndScene");
+            this.ritualCount = 0; // Reinicia el contador de rituales
+            this.candleCount = 0; // Reinicia el contador de velas
+        }
         });
 
 
@@ -328,11 +332,11 @@ class GameScene extends Phaser.Scene {
         let visionInicialDemon
         let visionInicialExorcist
 
-        if (this.lucesEncendidas) {
+        if(this.lucesEncendidas){
             visionInicialDemon = this.vScaleSmall
             visionInicialExorcist = this.vScaleBig
         }
-        else {
+        else{
             visionInicialDemon = this.vScaleBig
             visionInicialExorcist = this.vScaleSmall
         }
@@ -358,24 +362,24 @@ class GameScene extends Phaser.Scene {
             luz.setRadius(0)
         })
 
-        if (this.lucesEncendidas) {
+        if(this.lucesEncendidas){
             this.interruptoresOff.children.iterate(function (child) {
                 child.alpha = 0;
             });
         }
-        else {
+        else{
             this.interruptoresOn.children.iterate(function (child) {
                 child.alpha = 0;
             });
         }
 
         this.time.delayedCall(5000, () => { // 5 segundos iniciales en el que las luces están encendidas para un jugador
-            if (this.lucesEncendidas) {
+            if(this.lucesEncendidas){
                 this.lucesDe.forEach(luz => {
                     luz.setRadius(this.rLight)
                 })
             }
-            else {
+            else{
                 this.lucesEx.forEach(luz => {
                     luz.setRadius(this.rLight)
                 })
@@ -401,9 +405,13 @@ class GameScene extends Phaser.Scene {
         // Tercera cámara que sólo renderiza el borde
         this.marcoCamera = this.cameras.add(0, 0, this.scale.width, this.scale.height)
 
+        // limitar la camara principal y la secundaria al tamaño del mapa
+        //this.cameras.main.setBounds(0, 0, this.background.width, this.background.height);
+        //scndCamera.setBounds(0, 0, this.background.width, this.background.height);
+
         // IGNORAR SPRITES:
         // Las cámaras de la pantalla dividida ignoran el marco
-        this.cameras.main.ignore([this.visionAreaDe, divider, this.killDemon, this.killExorcist])
+        this.cameras.main.ignore([this.visionAreaDe, divider, this.killDemon, this.killExorcist ])
         scndCamera.ignore([this.visionAreaEx, divider, this.killDemon, this.killExorcist])
 
         // Indicar qué luces son visibles para cada personaje
@@ -414,7 +422,7 @@ class GameScene extends Phaser.Scene {
             this.cameras.main.ignore(luzDe)
         })
         // La tercera cámara debe ignorar todos los sprites XD
-        this.marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles, this.visionAreaEx, this.visionAreaDe, background])
+        this.marcoCamera.ignore([this.charactersContainer, this.bgContainer, this.candles, this.visionAreaEx, this.visionAreaDe])
 
         // #endregion
 
@@ -425,9 +433,130 @@ class GameScene extends Phaser.Scene {
             callbackScope: this   // Contexto (scope) de la función, generalmente `this` para acceder a la escena
         });
 
+        // #region MENU DE PAUSA
+        // Fondo del menú de pausa
+        // Fondo del menú de pausa
+
+        // Efecto de fade
+        //this.add.image(400, 300, "fade").setAlpha(1); // Transparencia ajustada con setAlpha
+
+
+        const menuPausaBG = this.add.image(960, 540, "menuPausaBG"); // Coordenadas y clave de la imagen
+        menuPausaBG.setScale(0.85);
+        menuPausaBG.setVisible(false);
+        
+        // Botón de pausa (visible en el HUD del juego)
+        let pauseButton = this.add.image(1830, 60, "pauseB").setInteractive();
+        pauseButton.on("pointerdown", () => {
+            this.sound.play("select");
+            console.log("Juego en pausa");
+            // Lógica para mostrar el menú de pausa
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor 
+        });
+        pauseButton.setScale(0.2);
+
+        // Botón de menú principal
+        let menuButton = this.add.image(680, 520, "menuB").setInteractive();
+        menuButton .on('pointerdown', () => {
+            this.sound.play("select");
+            this.scene.stop("GameScene");
+            this.scene.start("MenuScene"); 
+            this.ritualCount = 0;
+            this.candleCount = 0;  
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor  
+        });
+        menuButton.setScale(0.4);
+        menuButton.setVisible(false);
+
+        // Botón de nuevo juego
+        let newGameButton = this.add.image(680, 620, "newGameB").setInteractive();
+        newGameButton .on('pointerdown', () => {
+            this.sound.play("select");
+            this.scene.stop("GameScene");
+            this.scene.start("GameModeScene"); 
+            this.ritualCount = 0;
+            this.candleCount = 0;  
+        }).on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        newGameButton.setScale(0.4);
+        newGameButton.setVisible(false);
+
+
+        // Botón de reanudar juego
+        let resumeButton = this.add.image(680, 720, "resumeB").setInteractive();
+        resumeButton.on("pointerdown", () => {
+            console.log("Reanudar juego");
+            // Lógica para cerrar el menú de pausa y continuar
+            this.togglePauseMenu(pauseButton, pauseMenuElements);
+
+        });
+        resumeButton.setScale(0.42);
+        resumeButton.setVisible(false);
+
+
+        // Botón de sonido Off
+        let offButton = this.add.image(1150, 620, "offBPausa").setInteractive();
+        offButton.on('pointerdown', () => {
+            this.sound.play("select");
+            this.bgMusic.stop();  
+        })
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        offButton.setScale(0.4);
+        offButton.setVisible(false);
+
+
+        // Botón de sonido On
+        let onButton = this.add.image(1150, 520, "onBPausa").setInteractive();
+        onButton.on('pointerdown', () => {
+            this.sound.play("select");
+            if (!this.bgMusic || !this.bgMusic.isPlaying) {
+                this.bgMusic = this.sound.add('introMusic');
+                this.bgMusic.loop = true;
+                this.bgMusic.play();
+            }
+            this.bgMusic.play();  
+        })
+        .on('pointerover', () => {
+            this.sound.play("hover"); // Reproduce sonido al pasar el cursor
+        });  
+        onButton.setScale(0.4);
+        onButton.setVisible(false);
+
+
+        // Array con los elementos del menú de pausa
+        const pauseMenuElements = [menuPausaBG, menuButton, newGameButton, resumeButton, offButton, onButton];
+
+        // Evento del botón de pausa
+        pauseButton.on("pointerdown", () => {
+            this.togglePauseMenu(pauseButton, pauseMenuElements);
+        });
+
+        scndCamera.ignore([this.visionAreaEx, divider, this.killDemon, this.killExorcist, ...pauseMenuElements])
+        this.cameras.main.ignore([this.visionAreaDe, divider, this.killDemon, this.killExorcist, ...pauseMenuElements ])
 
     }
 
+    // Método para alternar la visibilidad del menú de pausa
+    togglePauseMenu(pauseButton, elements) {
+        // Verifica si el primer elemento está visible
+        const isVisible = elements[0].visible;
+
+        // Alterna la visibilidad de cada elemento
+        elements.forEach(element => {
+            element.setVisible(!isVisible);
+        });
+
+        // Opcional: Imprimir en consola si se activó o desactivó el menú
+        console.log(isVisible ? "Menú oculto" : "Menú mostrado");
+
+        this.isPaused = !isVisible;
+
+    }
 
     // MÉTODO CREACIÓN DE COLLIDERS
     createCollider(x, y, width, height) {
@@ -440,7 +569,7 @@ class GameScene extends Phaser.Scene {
 
 
     // #region METODOS CRUCIFIJO
-    generateCrucifix() {
+    generateCrucifix(){
         const texturaCrucifix = this.textures.get('crucifix');
         let escalaCrucifijo = 0.5
         this.crucifix.setScale(escalaCrucifijo)
@@ -462,7 +591,7 @@ class GameScene extends Phaser.Scene {
         console.log("Crucifijo generado")
     }
 
-    cogerCrucifijo() {
+    cogerCrucifijo(){
         this.crucifix.destroy()
         this.aura.setRadius(75).setIntensity(6) // Poner el radio a 75 para que sea visible el aura. Para quitarla poner el radio a 0
         this.crucifijoObtenido = true
@@ -495,7 +624,7 @@ class GameScene extends Phaser.Scene {
             let minDistanceTemp = minDistance
             let nIteracions = 0
             while (!validPosition) {
-                if (nIteracions++ == rooms.length) minDistanceTemp = 0
+                if(nIteracions++ == rooms.length) minDistanceTemp = 0
                 // Escoger una habitación al azar
                 const randomRoom = Phaser.Utils.Array.GetRandom(rooms);
                 let nIntentos = 10  // Va a hacer 10 intentos de encontrar una posición válida en esa habitación
@@ -689,22 +818,30 @@ class GameScene extends Phaser.Scene {
     setupPaddleControllersDemon() {
         // Key down
         this.input.keyboard.on('keydown-LEFT', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.demon.flipX = true; // Voltear el sprite horizontalmente
             this.keysPressedDe[0][1] = true
             this.lastKeyDemon = 0
         });
         this.input.keyboard.on('keydown-UP', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.keysPressedDe[1][1] = true
             this.lastKeyDemon = 1
         });
         this.input.keyboard.on('keydown-DOWN', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.keysPressedDe[2][1] = true
             this.lastKeyDemon = 2
         });
         this.input.keyboard.on('keydown-RIGHT', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.demon.anims.play('demonWalk', true); // Reproducir animación
             this.demon.flipX = false; // Voltear el sprite horizontalmente
             this.keysPressedDe[3][1] = true
@@ -713,6 +850,8 @@ class GameScene extends Phaser.Scene {
 
         // Key up
         this.input.keyboard.on('keyup-LEFT', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedDe[0][1] = false
             if (this.keysPressedDe[3][1] == true) {
                 this.demon.flipX = false; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
@@ -722,18 +861,24 @@ class GameScene extends Phaser.Scene {
             }
         });
         this.input.keyboard.on('keyup-UP', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedDe[1][1] = false
             if (this.characterIsStill(this.demon)) {
                 this.demon.anims.stop('demonWalk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-DOWN', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedDe[2][1] = false
             if (this.characterIsStill(this.demon)) {
                 this.demon.anims.stop('demonWalk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-RIGHT', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedDe[3][1] = false
             if (this.keysPressedDe[0][1] == true) {
                 this.demon.flipX = true; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
@@ -747,22 +892,30 @@ class GameScene extends Phaser.Scene {
     setupPaddleControllersExorcist() {
         // Key down
         this.input.keyboard.on('keydown-A', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.exorcist.anims.play('walk', true); // Reproducir animación
             this.exorcist.flipX = true; // Voltear el sprite horizontalmente
             this.keysPressedEx[0][1] = true
             this.lastKeyExorcist = 0
         });
         this.input.keyboard.on('keydown-W', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.exorcist.anims.play('walk', true); // Reproducir animación
             this.keysPressedEx[1][1] = true
             this.lastKeyExorcist = 1
         });
         this.input.keyboard.on('keydown-S', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.exorcist.anims.play('walk', true); // Reproducir animación
             this.keysPressedEx[2][1] = true
             this.lastKeyExorcist = 2
         });
         this.input.keyboard.on('keydown-D', () => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.exorcist.anims.play('walk', true); // Reproducir animación
             this.exorcist.flipX = false; // Restaurar orientación original
             this.keysPressedEx[3][1] = true
@@ -771,6 +924,8 @@ class GameScene extends Phaser.Scene {
 
         // Key up
         this.input.keyboard.on('keyup-A', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedEx[0][1] = false
             if (this.keysPressedEx[3][1] == true) {
                 this.exorcist.flipX = false; // Si al soltar la A, se estaba moviendo hacia la D, se voltea el sprite
@@ -780,18 +935,24 @@ class GameScene extends Phaser.Scene {
             }
         });
         this.input.keyboard.on('keyup-W', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedEx[1][1] = false
             if (this.characterIsStill(this.exorcist)) {
                 this.exorcist.anims.stop('walk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-S', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedEx[2][1] = false
             if (this.characterIsStill(this.exorcist)) {
                 this.exorcist.anims.stop('walk'); // parar animación
             }
         });
         this.input.keyboard.on('keyup-D', (event) => {
+            if (this.isPaused) return; // Bloquea acción si está pausado
+
             this.keysPressedEx[3][1] = false
             if (this.keysPressedEx[0][1] == true) {
                 this.exorcist.flipX = true; // Si al soltar la D, se estaba moviendo hacia la A, se voltea el sprite
@@ -823,7 +984,7 @@ class GameScene extends Phaser.Scene {
 
 
     hitExorcist() {
-        if (this.crucifijoObtenido) {
+        if(this.crucifijoObtenido){
             this.crucifijoObtenido = false
             this.crucifixText.setVisible(false);
             this.aura.setRadius(0)
@@ -832,7 +993,7 @@ class GameScene extends Phaser.Scene {
                 this.velocidadReducida = 1
             })
         }
-        else if (!this.crucifijoObtenido && this.velocidadReducida == 1) {
+        else if(!this.crucifijoObtenido && this.velocidadReducida == 1){
             this.killExorcist.setVisible(true);
         }
     }
@@ -863,6 +1024,6 @@ class GameScene extends Phaser.Scene {
         this.visionAreaEx.setPosition(this.exorcist.x, this.exorcist.y)
         this.visionAreaDe.setPosition(this.demon.x, this.demon.y)
 
-        if (this.crucifijoObtenido) this.aura.setPosition(this.exorcist.x, this.exorcist.y)
+        if(this.crucifijoObtenido) this.aura.setPosition(this.exorcist.x, this.exorcist.y)
     }
 }
