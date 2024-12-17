@@ -6,8 +6,8 @@ POST http://localhost:8080/api/users/
 Content-Type: application/json
 
 {
-  "name": "andre2",
-  "password": "contraseñaAndre"
+  "name": "Laura",
+  "password": "contraseñaLaura"
 }
 
 # # Actualizar la contraseña de un usuario
