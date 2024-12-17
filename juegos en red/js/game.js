@@ -498,7 +498,7 @@ class GameScene extends Phaser.Scene {
 
 
         // Botón de sonido Off
-        let offButton = this.add.image(1150, 520, "offBPausa").setInteractive();
+        let offButton = this.add.image(1150, 620, "offBPausa").setInteractive();
         offButton.on('pointerdown', () => {
             this.sound.play("select");
             this.bgMusic.stop();  
@@ -511,7 +511,7 @@ class GameScene extends Phaser.Scene {
 
 
         // Botón de sonido On
-        let onButton = this.add.image(1150, 620, "onBPausa").setInteractive();
+        let onButton = this.add.image(1150, 520, "onBPausa").setInteractive();
         onButton.on('pointerdown', () => {
             this.sound.play("select");
             this.bgMusic.play();  
