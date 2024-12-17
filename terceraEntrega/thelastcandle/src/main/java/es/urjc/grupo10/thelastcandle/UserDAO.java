@@ -70,7 +70,6 @@ public class UserDAO {
         } catch (IOException ex) {
             return Optional.empty();
         }
-
     }
 
     // Method to update the User in the JSON file

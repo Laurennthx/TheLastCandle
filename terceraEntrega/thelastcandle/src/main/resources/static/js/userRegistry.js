@@ -32,7 +32,7 @@ class UserScene extends Phaser.Scene {
             const username = usernameFieldUp.getData('value');
             const password = passwordFieldUp.getData('value');
             this.sound.play("select"); 
-            console.log("Sign Up:", username, password);
+            console.log("Sign Up:", username, "***");
             this.handleSignUp(username, password);
 
             
@@ -48,7 +48,7 @@ class UserScene extends Phaser.Scene {
             const username = usernameFieldIn.getData('value');
             const password = passwordFieldIn.getData('value');
             this.sound.play("select"); 
-            console.log("Sign In:", username, password);
+            console.log("Sign In:", username, "***");
             this.handleSignIn(username, password);
               
         }).on('pointerover', () => {
@@ -128,7 +128,7 @@ class UserScene extends Phaser.Scene {
                 password: password 
             }),
             success: () => {
-                console.log("Usuario registrado con éxito.");
+                console.log("Usuario registrado con exito.");
                 this.scene.stop("UserScene");
                 this.scene.start("MenuScene");
             },
@@ -147,9 +147,9 @@ class UserScene extends Phaser.Scene {
             console.error("Por favor, complete todos los campos.");
             return;
         }
-
+    
         $.ajax({
-            url: "http://localhost:8080/api/authenticate",
+            url: "http://localhost:8080/api/users/login",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({ 
@@ -157,7 +157,7 @@ class UserScene extends Phaser.Scene {
                 password: password 
             }),
             success: (response) => {
-                console.log("Inicio de sesión exitoso.");
+                console.log(response); // Respuesta del servidor (e.g., "Login successful")
                 this.scene.stop("UserScene");
                 this.scene.start("MenuScene");
             },
