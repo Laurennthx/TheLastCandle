@@ -3,7 +3,7 @@
 class MenuScene extends Phaser.Scene {
     constructor(){
         super({key: 'MenuScene'});
-
+        this.userList = "";
     }
 
     preload(){
@@ -101,6 +101,40 @@ class MenuScene extends Phaser.Scene {
         chatB.setScale(0.3);
     }
 
+    // Método para obtener los usuarios conectados
+    async getConnectedUsers() {
+        try {
+            const response = await fetch('/api/connected-users');  // Llamada a la API
+            if (!response.ok) {
+                throw new Error('Error al obtener usuarios');
+            }
+
+            const data = await response.json();  // Se asume que la respuesta es un JSON
+            console.log("Usuarios conectados:", data);
+
+            // Mostrar los usuarios conectados en el chat (por ejemplo)
+            this.showConnectedUsers(data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Método para mostrar los usuarios conectados
+    showConnectedUsers(users) {
+
+        if (users.length > 0) {
+            const usersText = users.join('\n');  // Unir los usuarios en una cadena
+            this.userList = this.add.text(800, 300, usersText, {
+                fontSize: '32px',
+                fill: '#fff',
+                fontFamily: 'Arial'
+            });
+            this.userList.setOrigin(0.5);
+        }
+        
+    }
+
+
     // Método para alternar la visibilidad de la UI del chat
     toggleChatMenu(chatB, elements) {
         // Verifica si el primer elemento está visible
@@ -113,6 +147,14 @@ class MenuScene extends Phaser.Scene {
 
         // Alterna el estado del chat
         this.isChatActive = !isVisible;
+
+        if (this.isChatActive) {
+            // Si el chat está activado, obtener los usuarios conectados
+            this.getConnectedUsers();
+        } else {
+            // Si el chat se desactiva, ocultar los usuarios conectados
+            this.userList.destroy();
+        }
 
         // Opcional: Imprimir en consola si el chat está activo o no
         console.log(this.isChatActive ? "Chat activado" : "Chat desactivado");

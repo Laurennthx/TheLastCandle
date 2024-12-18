@@ -72,6 +72,8 @@ public class UsersController {
         user.setPassword(encodedPassword);
 
         this.userDAO.updateUser(user);
+        // Registrar al usuario como conectado
+        apiStatusService.hasSeen(user.getUsername());
         return ResponseEntity.noContent().build();
     }
 
@@ -101,6 +103,8 @@ public class UsersController {
             // Verificar la contraseña
             boolean matches = passwordEncoder.matches(user.getPassword(), storedUser.get().getPassword());
             if (matches) {
+                // Registrar al usuario como conectado
+                apiStatusService.hasSeen(user.getUsername());
                 return ResponseEntity.ok("Inicio de sesión correcto");
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");

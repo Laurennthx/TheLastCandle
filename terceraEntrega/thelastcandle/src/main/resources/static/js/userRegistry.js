@@ -25,6 +25,14 @@ class UserScene extends Phaser.Scene {
         const usernameFieldIn= this.createInputField(1390, 730, 'Username');
         const passwordFieldIn = this.createInputField(1390, 830, 'Password', true);
         
+        // Crear un cuadro de texto para mostrar errores
+        this.errorText = this.add.text(960, 500, '', {
+            font: '24px Arial',
+            fill: '#ff0000',
+            fontFamily: 'Arial',
+            wordWrap: { width: 800, useAdvancedWrap: true }
+        }).setOrigin(0.5, 0.5).setAlpha(0); // Inicialmente invisible
+
         // boton sign up
         const signUp_button = this.add.image(530, 950, "bSignUp")
         .setInteractive()
@@ -116,6 +124,7 @@ class UserScene extends Phaser.Scene {
     handleSignUp(username, password) {
         if (!username || !password) {
             console.error("Por favor, complete todos los campos.");
+            this.showError("Por favor, complete todos los campos.",530, 900);
             return;
         }
 
@@ -135,8 +144,10 @@ class UserScene extends Phaser.Scene {
             error: (xhr) => {
                 if (xhr.status === 409) {
                     console.error("El usuario ya existe.");
+                    this.showError("El usuario ya existe.",530, 900);
                 } else {
                     console.error("Error al registrar el usuario:", xhr.responseText);
+                    this.showError("Error al registrar el usuario.",530, 900);
                 }
             }
         });
@@ -145,6 +156,7 @@ class UserScene extends Phaser.Scene {
     handleSignIn(username, password) {
         if (!username || !password) {
             console.error("Por favor, complete todos los campos.");
+            this.showError("Por favor, complete todos los campos.",1390, 900);
             return;
         }
     
@@ -164,13 +176,29 @@ class UserScene extends Phaser.Scene {
             error: (xhr) => {
                 if (xhr.status === 401) {
                     console.error("Credenciales incorrectas.");
+                    this.showError("Credenciales incorrectas.",1390, 900);
                 } else if (xhr.status === 404) {
                     console.error("Usuario no encontrado.");
+                    this.showError("Usuario no encontrado.",1390, 900);
                 } else {
                     console.error("Error al iniciar sesión:", xhr.responseText);
+                    this.showError("Error al iniciar sesión.",1390, 900);
                 }
             }
         });
+    }
+
+   
+   // Método para mostrar los errores en el cuadro de texto y hacer que desaparezca después de unos segundos
+    showError(message,x,y) {
+        this.errorText.setText(message);
+        this.errorText.setPosition(x,y);
+        this.errorText.setAlpha(1); // Mostrar el mensaje
+
+        // Hacer que el mensaje desaparezca después de 3 segundos (3000 milisegundos)
+        this.time.delayedCall(3000, () => {
+            this.errorText.setAlpha(0);  // Desaparecer el mensaje
+        }, [], this);
     }
 
     update(){}
